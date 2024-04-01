@@ -42,9 +42,9 @@ The project aims to develop a centralized online platform for college hostel stu
 
 ### Deployment & Prototype links
 
-- Low-Fidelity prototype on Figma - ([Link])(https://www.figma.com/proto/Fak9uSIrCFyq6SYp9mGt00/Capstone--low-fid?type=design&node-id=2-8&t=S3JwPVk3GZE4WluF-1&scaling=contain&page-id=0%3A1&mode=design)
+- Low-Fidelity prototype on Figma - [Link](https://www.figma.com/proto/Fak9uSIrCFyq6SYp9mGt00/Capstone--low-fid?type=design&node-id=2-8&t=S3JwPVk3GZE4WluF-1&scaling=contain&page-id=0%3A1&mode=design)
 
-- High-Fidelity prototype on Figma - ([Link])(https://www.figma.com/proto/DULXjU3gopcIWoP2etEm1Q/Capstone--high-fid?node-id=3-3&mode=design&t=uA6WIYKfVpTNe7zo-1)
+- High-Fidelity prototype on Figma - [Link](https://www.figma.com/proto/DULXjU3gopcIWoP2etEm1Q/Capstone--high-fid?node-id=3-3&mode=design&t=uA6WIYKfVpTNe7zo-1)
 
 ### User Interface Design
 
