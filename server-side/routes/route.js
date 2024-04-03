@@ -3,7 +3,7 @@ const router = express.Router()
 const { connectToDataBase } = require('../db.js')
 const User = require('../models/schema.js')
 
-connectToDataBase()
+// connectToDataBase()
   
 router.get('/', async (req, res) => {
     try {

@@ -6,6 +6,8 @@ const route = require("./routes/route")
 
 const {connectToDataBase, disconnectToDataBase} = require("./db")
 
+connectToDataBase()
+
 app.use("/", route)
 app.use(express.json())
 
@@ -14,7 +16,6 @@ app.get('/', (req, res) => {
     res.send(`Your DataBase connection status is: ${status} ${req.body}`)
 })
   
-app.listen(port, async () => {
-    await connectToDataBase()
+app.listen(port, () => {
     console.log(`The server is running on port: ${port}`)
 })
