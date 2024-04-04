@@ -31,30 +31,24 @@ router.post('/post', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+const updateUser = async (req, res) => {
     try {
-        const data = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        const data = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!data) {
-            return res.status(400).send("No result found")
+            return res.status(404).send("No result found"); // Use 404 for Not Found
         }
-        res.json(data)
+        res.json(data);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
-    catch (error) {
-        res.status(400).json({error: error.message})
-    }
+};
+
+router.put('/:id', async (req, res) => {
+    await updateUser(req, res);
 })
 
 router.patch('/:id', async (req, res) => {
-    try {
-        const data = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        if (!data) {
-            return res.status(400).send("No result found")
-        }
-        res.json(data)
-    }
-    catch (error) {
-        res.status(400).json({error: error.message})
-    }
+    await updateUser(req, res);
 })
 
 module.exports = router
