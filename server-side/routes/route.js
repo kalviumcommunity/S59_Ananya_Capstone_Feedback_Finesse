@@ -41,7 +41,7 @@ const updateUser = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-};
+}
 
 router.put('/:id', async (req, res) => {
     await updateUser(req, res);
