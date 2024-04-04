@@ -31,4 +31,24 @@ router.post('/post', async (req, res) => {
     }
 })
 
+const updateUser = async (req, res) => {
+    try {
+        const data = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!data) {
+            return res.status(404).send("No result found"); // Use 404 for Not Found
+        }
+        res.json(data);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+router.put('/:id', async (req, res) => {
+    await updateUser(req, res);
+})
+
+router.patch('/:id', async (req, res) => {
+    await updateUser(req, res);
+})
+
 module.exports = router
