@@ -31,4 +31,30 @@ router.post('/post', async (req, res) => {
     }
 })
 
+router.put('/:id', async (req, res) => {
+    try {
+        const data = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        if (!data) {
+            return res.status(400).send("No result found")
+        }
+        res.json(data)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+})
+
+router.patch('/:id', async (req, res) => {
+    try {
+        const data = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        if (!data) {
+            return res.status(400).send("No result found")
+        }
+        res.json(data)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+})
+
 module.exports = router
