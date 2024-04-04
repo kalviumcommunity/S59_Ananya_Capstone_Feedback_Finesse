@@ -7,9 +7,9 @@ const route = require("./routes/route")
 const {connectToDataBase, disconnectToDataBase} = require("./db")
 
 connectToDataBase()
+app.use(express.json()) 
+app.use("/trial", route)
 
-app.use("/", route)
-app.use(express.json())
 
 app.get('/', (req, res) => {
     const status = mongoose.connection.readyState == 1 ? 'Connected 😎😎' : 'Not Connected 😓😓'
