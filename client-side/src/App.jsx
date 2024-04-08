@@ -1,17 +1,20 @@
 import React from "react";
 import "./App.css";
-import PulseLoader from "react-spinners/PulseLoader";
-
-const colour = "#D0312D"
-const size = 20
+import Loader from "./Loader";
+import NavBar from "./components/NavBar";
+import About from "./components/About";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
 
 export default function App() {
   return (
     <>
-      <div className="logo">
-        Feedback Finesse
-        <PulseLoader color={colour} size={size} />
-      </div>
+      {/* <Loader/> */}
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/about" element={<About/>}/>
+      </Routes>
     </>
   );
 }
