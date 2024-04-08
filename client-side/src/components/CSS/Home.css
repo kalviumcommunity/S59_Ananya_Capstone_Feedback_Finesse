@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Numans&display=swap');
+
+section#home {
+    height: 30vh;
+    user-select: none;
+}
+
+section#text {
+    position: absolute;
+    margin: 5vh 0vh 0vh 4vh;
+    text-align: center;
+}
+
+section#text h1 {
+    font-size: 10vh;
+    text-align: center;
+    font-family: 'Lexend';
+    margin: 2vh 3vh 3vh 0vh;
+    width: 50vw;
+}
+
+section#text h4 {
+    font-family: 'Mukta';
+    font-size: 5vh;
+    color: #900000;
+    animation: glow 1s ease-in-out infinite alternate;
+    text-align: center;
+}
+
+section#pic {
+    background-image: url(../../assets/home.png);
+    background-size: cover;
+    height: 100vh;
+}
+
+@keyframes glow {
+    0% {
+      text-shadow: 0 0 70px #900000, 0 0 50px #670101;
+    }
+    100% {
+      text-shadow: 0 0 50px #e97c7c, 0 0 40px #cb8e8e
+    }
+}
+
+section#text button {
+    background-color: #900000;
+    color: white;
+    font-size: 2.7vh;
+    padding: 1.6vh 3vh 1.7vh 3vh;
+    overflow: hidden;
+    border-radius: 0.5vh;
+    z-index: 1;
+    font-family: 'Numans';
+    position: relative;
+    margin: 5vh;
+    box-shadow: 1px 1px 10px #90000084;
+}
+
+section#text button:hover {
+    border: 1px solid #900000;
+    transition-duration: 0.5s;
+    color: #900000;
+}
+
+section#text button:after {
+    content: "";
+    position: absolute;
+    left: 30%;
+    background-color: #ffffff;
+    top: 200%;
+    transform: translateX(-55%);
+    width: 200%;
+    border-radius: 200%;
+    transition-duration: 0.7s;
+    height: 200%;
+    z-index: -1;
+}
+  
+section#text button:hover:after {
+    top: -45%;
+}
+  
