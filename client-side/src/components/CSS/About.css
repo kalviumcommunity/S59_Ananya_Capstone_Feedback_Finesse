@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Numans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+
+section.about {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-family: 'Numans';
+    margin: 10vh;
+    text-align: left;
+    border: 1px solid #900000;
+    padding: 8vh;
+    box-shadow: 4px 4px 10px #90000066;
+    border-radius: 0.5rem;
+}
+
+section.about img {
+    height: 30vw;
+}
+
+section.about h1 {
+    font-size: 7vh;
+    margin: 10vh 0vh 8vh 0vh;
+    font-weight: 900;
+    text-shadow: 1px 1px 5px #900000b6;
+}
+
+section.about h4 {
+    font-size: 3vh;
+    width: 35vw;
+}
+
+section.about2 {
+    margin: 9rem;
+}
+
+section.about2 h2 {
+    font-size: 5rem;
+    font-family: "Tilt Neon";
+    /* text-shadow: 5px 5px 20px #900000; */
+    text-shadow: 5px 4px 2px #90000060;
+}
+
+section.about2 .question {
+    font-size: 3.5vh;
+    margin: 2vh 0vh 2vh 0vh;
+}
+
+section.about2 .answer {
+    font-size: 3vh;
+    line-height: 6vh;
+}
