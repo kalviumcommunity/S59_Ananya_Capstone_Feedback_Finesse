@@ -7,10 +7,13 @@ div#navbar {
     font-family: 'Inter';
     border-bottom: 2px solid #90000093;
     position: sticky;
+    width: 100%;
 }
 
 div#navbar #comp1 img {
+    /* height: 5vw; */
     height: 11vh;
+    width: 21vw;
 }
 
 div#navbar #comp2 {
@@ -20,6 +23,7 @@ div#navbar #comp2 {
 div#navbar #comp2 div {
     padding: 1vh 1.5vh 1vh 2.5vh;
     height: 11vh;
+    /* height: 5vw; */
     display: flex;
     align-items: center;
     cursor: pointer;
