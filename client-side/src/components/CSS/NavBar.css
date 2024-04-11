@@ -31,4 +31,9 @@ div#navbar #comp2 div {
  
 div#new-user:hover {
     border-left: 1px solid #90000075;
+    transition-duration: 0.3s;
+}
+
+div#new-user:not(:hover) {
+    transition-duration: 0.5s;
 }
