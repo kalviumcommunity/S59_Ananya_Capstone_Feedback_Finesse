@@ -58,6 +58,11 @@ section#text button {
     box-shadow: 1px 1px 10px #90000084;
 }
 
+section#text button:active {
+    transform:translateY(10px);
+    transition: 0.2s ease;
+}
+
 section#text button:hover {
     border: 1px solid #900000;
     transition-duration: 0.5s;

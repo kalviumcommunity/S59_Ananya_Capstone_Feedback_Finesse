@@ -17,10 +17,14 @@ function NavBar() {
           <Link to={"/about"}>
             <div>About</div>
           </Link>
+          <Link to={"/signin"}>
           <div>Sign In</div>
+          </Link>
+          <Link to={"/signup"}>
           <div id="new-user" className="bg-darkred text-white hover:bg-white hover:text-darkred">
             New User?
           </div>
+          </Link>
         </div>
       </div>
     </>
