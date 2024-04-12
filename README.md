@@ -63,3 +63,7 @@ The project aims to develop a centralized online platform for college hostel stu
 ## Authors
 
 - Ananya Tewari - [Github](https://github.com/ananyatewai)
+
+## Deployment Link
+
+- SITE PREVIEW - [Link](https://feedbackfinesse.netlify.app/)
