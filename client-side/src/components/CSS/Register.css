@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&display=swap');
+
+section.in-parent {
+    background-image: linear-gradient(white, #e1aeae);
+    height: 88vh;
+    box-sizing: border-box;
+}
+
+section#register {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: 60vh;
+}
+
+section#register img {
+    height: 60vh;
+    /* width: 25vw; */
+}
+
+section#register h2, section#signin h3 {
+    font-family: 'Khand';
+    font-size: 4vh;
+}
