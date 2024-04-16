@@ -9,16 +9,18 @@ section#home {
 
 section#text {
     position: absolute;
-    margin: 5vh 0vh 0vh 4vh;
+    margin: 13vh 0vh 0vh 4vh;
     text-align: center;
+    z-index: 3;
 }
 
 section#text h1 {
     font-size: 10vh;
     text-align: center;
     font-family: 'Lexend';
-    margin: 2vh 3vh 3vh 0vh;
+    margin: 4vh 3vh 3vh 0vh;
     width: 50vw;
+    height: 33vh;
 }
 
 section#text h4 {
@@ -32,17 +34,29 @@ section#text h4 {
 section#pic {
     background-image: url(../../assets/home.png);
     background-size: cover;
+    animation: fadeInAnimation 1.5s ease-in forwards;
     height: 100vh;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes glow {
     0% {
-      text-shadow: 0 0 70px #900000, 0 0 50px #670101;
+      text-shadow: 0 0 100px #FF0000, 0 0 70px #7e1717, 0 0 50px #981515;
     }
     100% {
-      text-shadow: 0 0 50px #e97c7c, 0 0 40px #cb8e8e
+      text-shadow: 0 0 50px #FFCCCC, 0 0 40px #FF9999, 0 0 30px #FF6666;
     }
-}
+  }
 
 section#text button {
     background-color: #900000;
@@ -87,3 +101,17 @@ section#text button:hover:after {
     top: -45%;
 }
   
+@media (max-width: 750px) {
+    section#text h1 {
+        font-size: 8.5vh;
+        width: 100%;
+        height: 50vh;
+        padding: 2vh;
+    }
+    section#text {
+        margin-top: 6vh;
+    }
+    section#text h4 {
+        font-size: 4vh;
+    }
+}
