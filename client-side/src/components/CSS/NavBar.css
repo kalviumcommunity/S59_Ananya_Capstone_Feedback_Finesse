@@ -6,23 +6,29 @@ div#navbar {
     font-size: 2.5vh;
     font-family: 'Inter';
     border-bottom: 2px solid #90000093;
-    position: sticky;
+    /* position: fixed; */
+    /* top: 0; */
     width: 100%;
+    z-index: 3;
 }
 
-div#navbar #comp1 img {
+div#navbar #comp1 {
     /* height: 5vw; */
+    background-image: url('../../assets/logo.png');
+    background-size: cover;
     height: 11vh;
     width: 21vw;
+    margin-bottom: 0.5vh;
 }
 
 div#navbar #comp2 {
     padding: 0;
+    font-size: 2.3vh;
 }
 
 div#navbar #comp2 div {
     padding: 1vh 1.5vh 1vh 2.5vh;
-    height: 11vh;
+    height: 11.5vh;
     /* height: 5vw; */
     display: flex;
     align-items: center;
@@ -36,4 +42,16 @@ div#new-user:hover {
 
 div#new-user:not(:hover) {
     transition-duration: 0.5s;
+}
+
+@media (max-width: 750px) {
+    div#navbar #comp1 {
+        background-image: url("../../assets/logo2.png");
+        margin-bottom: 0%;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    div#navbar #comp2 div {
+        height: 11vh;
+    }
 }

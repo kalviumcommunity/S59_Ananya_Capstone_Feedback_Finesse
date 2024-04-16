@@ -8,7 +8,7 @@ function NavBar() {
     <>
       <div id="navbar" className="flex flex-row justify-between text-darkred">
         <div id="comp1">
-          <img src={logo} alt="logo" />
+          {/* <img src={logo} alt="logo" /> */}
         </div>
         <div id="comp2" className="flex flex-row justify-around">
           <Link to={"/"}>

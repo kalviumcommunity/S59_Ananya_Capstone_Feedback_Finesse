@@ -2,22 +2,144 @@
 
 section.in-parent {
     background-image: linear-gradient(white, #e1aeae);
-    height: 88vh;
+    height: 100vh;
     box-sizing: border-box;
 }
 
 section#register {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     box-sizing: border-box;
-    height: 60vh;
+    /* height: fit-content; */
+    background-color: white;
+    border: 1px solid black;
+    padding: 5vh;
+    margin: 15vh 7vh 7vh 7vh;
 }
 
 section#register img {
-    height: 60vh;
+    height: 80vh;
+    width: 60vh;
 }
 
 section#register h2, section#signin h3 {
     font-family: 'Khand';
-    font-size: 4vh;
+    font-size: 6vh;
+    text-align: center;
+    text-shadow: 3px 2px 5px rgba(0, 0, 0, 0.532);
+}
+
+section#register div#input-fields {
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+}
+
+section#register div#input-fields div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 55vw;
+    font-size: 3.6vh;
+    font-family: 'Khand';
+    font-weight: 500;
+}
+
+section#register div#input-fields div input {
+    background-color: rgba(143, 0, 0, 0.15);
+    font-size: 2.5vh;
+    padding: 1vh 3vh 1vh 3vh;
+    width: 45vw;
+    border-radius: 1.1vh;
+    margin: 2vh 0vh 1vh 0vh;
+}
+
+section#register form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section#register form h4 {
+    color: #900000;
+}
+
+section#register form span  {
+    margin: 1vh 0vh 0vh 0vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 45vw;
+}
+
+section#register hr {
+    width: 18vw;
+    border-width: 1px;
+    height: 0vh;
+    border-color: black;
+}
+
+section#register form button {
+    background-color: #900000;
+    color: white;
+    font-size: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    overflow: hidden;
+    border-radius: 0.5vh;
+    z-index: 1;
+    font-family: 'Numans';
+    position: relative;
+    margin: 5vh;
+    box-shadow: 1px 1px 10px #90000084;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section#register form button img {
+    height: 4vh;
+    width: 4vh;
+    margin: 0vh 3vh 0vh 0vh;
+}
+
+section#register form button:active {
+    transform:translateY(10px);
+    transition: 0.2s ease;
+}
+
+section#register form button:hover {
+    border: 1px solid #900000;
+    transition-duration: 0.5s;
+    color: #900000;
+}
+
+section#register form button:after {
+    content: "";
+    position: absolute;
+    left: 30%;
+    background-color: #ffffff;
+    top: 200%;
+    transform: translateX(-55%);
+    width: 200%;
+    border-radius: 200%;
+    transition-duration: 0.7s;
+    height: 200%;
+    z-index: -1;
+}
+  
+section#register form button:hover:after {
+    top: -45%;
+}
+
+
+@media (max-width: 600px) {
+    section#register {
+        justify-content: center;
+    }
+    section#register img {
+        display: none;
+    }
 }
