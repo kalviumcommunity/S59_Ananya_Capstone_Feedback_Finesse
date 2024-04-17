@@ -4,11 +4,13 @@ const mongoose = require('mongoose')
 const port = 3000
 const route = require("./routes/route")
 const user = require("./routes/user-routes")
+const cors = require('cors')
 
 const {connectToDataBase, disconnectToDataBase} = require("./db")
 
 // connectToDataBase()
 
+app.use(cors())
 app.use(express.json()) 
 app.use("/api", route)
 app.use("/register", user)
