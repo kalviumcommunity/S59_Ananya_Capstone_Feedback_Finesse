@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const port = 3000
 const route = require("./routes/route")
+const user = require("./routes/user-routes")
 
 const {connectToDataBase, disconnectToDataBase} = require("./db")
 
@@ -10,7 +11,7 @@ const {connectToDataBase, disconnectToDataBase} = require("./db")
 
 app.use(express.json()) 
 app.use("/api", route)
-
+app.use("/register", user)
 
 app.get('/', (req, res) => {
     const status = mongoose.connection.readyState == 1 ? 'Connected 😎😎' : 'Not Connected 😓😓'
