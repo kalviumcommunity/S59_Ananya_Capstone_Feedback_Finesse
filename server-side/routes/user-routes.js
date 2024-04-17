@@ -11,7 +11,14 @@ router.get('/', async (req, res) => {
       res.json(user)
   }
   catch (error) {
-      res.json({error: 'An error has been caught - get'})
+    console.error("There was an error while fetching users:", error);
+    if (error.name === "ValidationError") {
+      res.status(400).json({ error: "There was a validation error" });
+    } 
+    
+    else {
+      res.status(500).json({ error: 'Internal server error' });
+    }
   }
 })
 
