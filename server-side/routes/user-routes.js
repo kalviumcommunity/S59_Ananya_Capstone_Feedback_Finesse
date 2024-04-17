@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { connectToDataBase } = require('../db.js');
-const User = require('../schemas/user-schema.js');
+const User = require('../models/user-schema.js');
 
 connectToDataBase();
 
