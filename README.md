@@ -67,3 +67,5 @@ The project aims to develop a centralized online platform for college hostel stu
 ## Deployment Link
 
 - SITE PREVIEW - [Link](https://feedbackfinesse.netlify.app/)
+
+- BACKEND - [Link](https://s59-ananya-capstone-feedback-finesse.onrender.com/)
