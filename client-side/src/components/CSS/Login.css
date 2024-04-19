@@ -4,7 +4,6 @@ section#signin {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    /* height: fit-content; */
     background-color: white;
     border: 1px solid black;
     padding: 5vh;
