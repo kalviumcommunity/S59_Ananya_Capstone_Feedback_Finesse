@@ -66,22 +66,6 @@ section#register form h4 {
     color: #900000;
 }
 
-section#register form span  {
-    margin: 1vh 0vh 0vh 0vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 45vw;
-}
-
-section#register hr {
-    width: 18vw;
-    border-width: 1px;
-    height: 0vh;
-    border-color: black;
-}
-
 section#register form button {
     background-color: #900000;
     color: white;
