@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&display=swap');
 
 section.in-parent {
     background-image: linear-gradient(white, #e1aeae);
@@ -54,6 +55,8 @@ section#register div#input-fields div input {
     width: 45vw;
     border-radius: 1.1vh;
     margin: 2vh 0vh 1vh 0vh;
+    border: none;
+    outline: none;
 }
 
 section#register form {
@@ -118,8 +121,19 @@ section#register form button:hover:after {
     top: -45%;
 }
 
+section#register h6 {
+    font-size: 2vh;
+    background-color: rgba(255, 255, 255, 0.615);
+    color: rgb(255, 0, 0);
+    font-family: 'Assistant';
+}
 
-@media (max-width: 600px) {
+input.input-error {
+    border: 1px solid red;
+    box-shadow: 0px 0px 5px red;
+}
+
+@media (max-width: 800px) {
     section#register {
         justify-content: center;
     }
