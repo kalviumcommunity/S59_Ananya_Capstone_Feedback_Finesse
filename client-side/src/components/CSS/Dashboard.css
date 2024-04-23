@@ -9,7 +9,7 @@
     width: 5vw;
     background-color: #840000d2;
     padding: 1vh 3vh 0vh 3vh;
-    transition: all 0.5 ease;
+    transition: all 0.5s ease;
 }
 
 .sidebar ul li{
