@@ -7,15 +7,17 @@ function NavBar() {
   return (
     <>
       <div id="navbar" className="flex flex-row justify-between text-darkred">
+          <Link to={"/"}> 
         <div id="comp1">
           {/* <img src={logo} alt="logo" /> */}
         </div>
-        <div id="comp2" className="flex flex-row justify-around">
-          <Link to={"/"}>
-            <div>Home</div>
           </Link>
+        <div id="comp2" className="flex flex-row justify-around">
           <Link to={"/about"}>
             <div>About</div>
+          </Link>
+          <Link to={"/dashboard"}>
+            <div>Dashboard</div>
           </Link>
           <Link to={"/signin"}>
           <div>Sign In</div>

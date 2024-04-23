@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import "./CSS/Register.css";
+import "../CSS/Register.css";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import social from "../assets/social.png"
-import signup from "../assets/login.jpg"
+import signup from "../../assets/login.jpg"
 
 function Register() {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
