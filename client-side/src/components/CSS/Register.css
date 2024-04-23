@@ -84,6 +84,7 @@ section#register form button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 section#register form button img {

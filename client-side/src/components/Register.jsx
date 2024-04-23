@@ -13,7 +13,7 @@ function Register() {
   data.role = "user"
 
   const handleSignup = async () => {
-    // data.preventDefault();
+    // e.preventDefault();
     if (data.name && data.username && data.email && data.password) {
       try {
         const response = await fetch(
@@ -26,13 +26,13 @@ function Register() {
             body: JSON.stringify(data),
           }
         );
-
+        const message = await response.json();
         if (response.ok) {
           toast.success("Congratulations for registering with us !");
         } 
 
         else {
-          toast.error("Already have an account with the entered credential(s)");
+          toast.error(message.message);
           console.error("Registration failed");
         }
       } 
