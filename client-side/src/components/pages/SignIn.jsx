@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./CSS/Login.css";
+import "../CSS/Login.css";
 import ToggleButton from "react-toggle-button";
-import social from "../assets/social.png"
+import social from "../../assets/social.png"
 
 function SignIn() {
   const [isToggled, setIsToggled] = useState(false);

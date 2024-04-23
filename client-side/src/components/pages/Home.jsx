@@ -1,5 +1,5 @@
 import React from "react";
-import "./CSS/Home.css";
+import "../CSS/Home.css";
 import Typewriter from 'typewriter-effect';
 
 export default function Home() {
