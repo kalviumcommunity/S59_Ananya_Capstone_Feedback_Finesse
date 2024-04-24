@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import user from "../assets/satisfaction.png";
-import "./CSS/Dashboard.css";
+import "../CSS/Dashboard.css";
 
 function Dashboard() {
 
@@ -10,8 +9,7 @@ function Dashboard() {
         <div className="sidebar">
           <ul>
           <li>
-                <i className="bx bx-home"></i>
-              
+              <i className="bx bx-home"></i>
               <span className="tooltip">Home</span>
             </li>
             <li>
