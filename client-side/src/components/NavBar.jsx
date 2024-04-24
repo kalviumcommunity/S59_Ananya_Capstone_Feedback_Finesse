@@ -1,9 +1,19 @@
-import React from "react";
+import React, {useEffect, useState, useContext} from "react";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import "./CSS/NavBar.css";
+import {loginContext} from "../App"
 
 function NavBar() {
+  const [username, setUsername] = useState(sessionStorage.getItem("username"));
+  const { login, setLogin } = useContext(loginContext);
+
+  useEffect(() => {
+      const fetchUsername = sessionStorage.getItem("username");
+      setUsername(fetchUsername)
+  }, [login, setLogin]);
+
+
   return (
     <>
       <div id="navbar" className="flex flex-row justify-between text-darkred">
@@ -17,7 +27,7 @@ function NavBar() {
             <div>About</div>
           </Link>
           <Link to={"/dashboard"}>
-            <div>Dashboard</div>
+            <div>{username ? <><i className='bx bxs-user-circle' style={{fontSize: "4vh"}}></i>&nbsp;{username}</> : "Dashboard"}</div>
           </Link>
           <Link to={"/signin"}>
           <div>Sign In</div>

@@ -10,3 +10,23 @@ body {
 hr {
   width: 10vw;
 }
+
+div.countdown-parent {
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  background-color: #900000;
+  color: white;
+  padding: 3vh 2vh 3vh 2vh;
+  text-align: center;
+  box-shadow: 8px 7px #90000087;
+  border-radius: 1vh;
+  font-weight: 700;
+  border: 1px double white;
+  font-family: monospace;
+  font-size: 3vh;
+}

@@ -20,14 +20,14 @@ export default function AccordionDemo() {
 
     <section className="about2">
     <Accordion>
-  <h2>FAQs</h2>
-  <AccordionItem value="item-1">
-    <AccordionTrigger className="question">What is Feedback Finesse?</AccordionTrigger>
-    <hr />
-    <AccordionContent className="answer">
-      Feedback Finesse is an online platform designed specifically for college hostel students to submit grievances and complaints easily. Our goal is to simplify the complaint filing process and improve communication with hostel authorities to enhance the overall hostel experience.
-    </AccordionContent>
-  </AccordionItem>
+    <h2>FAQs</h2>
+      <AccordionItem value="item-1">
+        <AccordionTrigger className="question">What is Feedback Finesse?</AccordionTrigger>
+        <hr />
+        <AccordionContent className="answer">
+          Feedback Finesse is an online platform designed specifically for college hostel students to submit grievances and complaints easily. Our goal is to simplify the complaint filing process and improve communication with hostel authorities to enhance the overall hostel experience.
+        </AccordionContent>
+      </AccordionItem>
   <AccordionItem value="item-2">
     <AccordionTrigger className="question">How do I submit a complaint on Feedback Finesse?</AccordionTrigger>
     <hr />
@@ -84,9 +84,7 @@ export default function AccordionDemo() {
       Absolutely! We welcome your feedback and suggestions to enhance our platform further. Your input helps us continually improve and meet the needs of our users.
     </AccordionContent>
   </AccordionItem>
-  
 </Accordion>
-
     </section>
 
     </>

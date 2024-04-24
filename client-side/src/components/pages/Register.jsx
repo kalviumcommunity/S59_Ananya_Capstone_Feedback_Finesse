@@ -1,15 +1,19 @@
-import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import React, {useState, useContext} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../CSS/Register.css";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import signup from "../../assets/login.jpg"
+import {loginContext} from "../../App"
 
 function Register() {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  const { login, setLogin } = useContext(loginContext);
   const data = getValues()
   data.role = "user"
+  const navigate = useNavigate()
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSignup = async () => {
     // e.preventDefault();
@@ -28,6 +32,14 @@ function Register() {
         const message = await response.json();
         if (response.ok) {
           toast.success("Congratulations for registering with us !");
+          sessionStorage.clear()
+          sessionStorage.setItem('name', data.name)
+          sessionStorage.setItem("username", data.username)
+          sessionStorage.setItem("email", data.email)
+          sessionStorage.setItem("role", data.role)
+          setShowPopup(true)
+          setTimeout(()=> {navigate('/dashboard')}, 3000)
+          setLogin(!login)
         } 
 
         else {
@@ -128,7 +140,12 @@ function Register() {
             Sign up with Google
           </button>
           </form>
-        </section>
+          </section>
+          {showPopup && (
+            <div className="countdown-parent">
+              <div>You will be redirected to the dashboard shortly</div>
+            </div>
+          )}
       </section>
       <ToastContainer/>
     </>

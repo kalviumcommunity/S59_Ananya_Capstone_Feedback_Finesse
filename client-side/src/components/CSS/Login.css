@@ -34,6 +34,7 @@ section#signin form div input {
     width: 45vw;
     border-radius: 1.1vh;
     margin: 2vh 0vh 2vh 0vh;
+    outline: none;
 }
 
 section#signin form button {
