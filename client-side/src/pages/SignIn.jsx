@@ -30,9 +30,10 @@ function SignIn() {
       setShowPopup(false);
       navigate("/dashboard/home");
       setLogin(!login);
+      return () => clearInterval(countdownInterval);
     }
   }, [countdown, navigate, login, setLogin]);
-  
+
   // console.log(isToggled)
 
   const handleLogin = async () => {
