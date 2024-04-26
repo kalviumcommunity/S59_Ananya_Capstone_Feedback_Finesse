@@ -26,7 +26,7 @@
     top:50%;
     left: 15.5vh;
     background-color: #900000;
-    box-shadow: 3px 4px #08000087;
+    box-shadow: 5px 5px #ffbcbc;
     border: 1px solid #6b0303;
     border-radius: 1vh;
     padding: 1vh 2.6vh 1vh 2.6vh;
@@ -45,14 +45,20 @@
     font-size: 4vh;
 }
 
-section#main  {
+section.main  {
     display: flex;
     overflow-y: hidden;
     flex-direction: row;
 }
 
-section#main div#contentmain {
+section.main div.contentmain {
     overflow-y: scroll;
     height: 100vh;
+    width: 100%;
     margin: 0vh 6vh 0vh 10vh;
+}
+
+div.profile-container {
+    width: 100vw;
+    align-items: center;
 }

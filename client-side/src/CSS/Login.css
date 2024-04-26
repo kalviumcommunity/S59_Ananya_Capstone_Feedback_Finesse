@@ -37,7 +37,7 @@ section#signin form div input {
     outline: none;
 }
 
-section#signin form button {
+section#signin button {
     background-color: #900000;
     color: white;
     font-size: 2vh;
@@ -54,18 +54,18 @@ section#signin form button {
     align-items: center;
 }
 
-section#signin form button:active {
+section#signin button:active {
     transform:translateY(10px);
     transition: 0.2s ease;
 }
 
-section#signin form button:hover {
+section#signin button:hover {
     border: 1px solid #900000;
     transition-duration: 0.5s;
     color: #900000;
 }
 
-section#signin form button:after {
+section#signin button:after {
     content: "";
     position: absolute;
     left: 30%;
@@ -79,11 +79,11 @@ section#signin form button:after {
     z-index: -1;
 }
   
-section#signin form button:hover:after {
+section#signin button:hover:after {
     top: -45%;
 }
 
-section#signin form button img {
+section#signin button img {
     height: 4vh;
     width: 4vh;
     margin: 0vh 3vh 0vh 0vh;
