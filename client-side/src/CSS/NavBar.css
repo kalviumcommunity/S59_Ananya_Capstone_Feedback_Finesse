@@ -14,7 +14,7 @@ div#navbar {
 
 div#navbar #comp1 {
     /* height: 5vw; */
-    background-image: url('../../assets/logo.png');
+    background-image: url('../assets/logo.png');
     background-size: cover;
     height: 11vh;
     width: 21vw;

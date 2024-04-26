@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import "../CSS/About.css"
-import qa from "../../assets/qa.png"
+import qa from "../assets/qa.png"
 
 export default function AccordionDemo() {
   return (

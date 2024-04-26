@@ -32,7 +32,7 @@ section#text h4 {
 }
 
 section#pic {
-    background-image: url(../../assets/home.png);
+    background-image: url(../assets/home.png);
     background-size: cover;
     animation: fadeInAnimation 1.5s ease-in forwards;
     height: 100vh;

@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from "react";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
-import "./CSS/NavBar.css";
+import "../CSS/NavBar.css";
 import {loginContext} from "../App"
 
 function NavBar() {
@@ -26,7 +26,7 @@ function NavBar() {
           <Link to={"/about"}>
             <div>About</div>
           </Link>
-          <Link to={"/dashboard"}>
+          <Link to={"/dashboard/home"}>
             <div>{username ? <><i className='bx bxs-user-circle' style={{fontSize: "4vh"}}></i>&nbsp;{username}</> : "Dashboard"}</div>
           </Link>
           <Link to={"/signin"}>
