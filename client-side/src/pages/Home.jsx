@@ -1,6 +1,7 @@
 import React from "react";
 import "../CSS/Home.css";
 import Typewriter from 'typewriter-effect';
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -18,7 +19,9 @@ export default function Home() {
         />
         </h1>
         <h4>Your Voice, Our Action</h4>
+        <Link to={'/signup'}>
         <button>JOIN NOW</button>
+        </Link>
       </section>
       <section id="pic">
         {/* <img src={home} alt="" /> */}
