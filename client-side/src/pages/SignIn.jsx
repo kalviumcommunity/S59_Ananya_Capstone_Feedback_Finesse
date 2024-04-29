@@ -30,7 +30,7 @@ function SignIn() {
       setShowPopup(false);
       navigate("/dashboard/home");
       setLogin(!login);
-      return () => clearInterval(countdownInterval);
+      return () => clearInterval(countdown);
     }
   }, [countdown, navigate, login, setLogin]);
 
