@@ -43,4 +43,7 @@ div.profile-container strong {
   transform: translateY(-4px);
 }
 
-    
+.logout:disabled {
+    cursor: not-allowed; 
+    opacity: 0.7; 
+  }

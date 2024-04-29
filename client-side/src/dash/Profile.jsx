@@ -17,6 +17,7 @@ function Profile() {
   const [showPopup, setShowPopup] = useState(false);
   const [countdown, setCountdown] = useState(3);
   const { login, setLogin } = useContext(loginContext);
+  const [isLogoutDisabled, setIsLogoutDisabled] = useState(false);
 
   useEffect(() => {
     const username = sessionStorage.getItem("username");
@@ -24,20 +25,27 @@ function Profile() {
     const email = sessionStorage.getItem("email") 
     const role = sessionStorage.getItem("role") 
     setUserData({ username, name, email, role });
-  }, []);
+
+    if (showPopup) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+
+      setTimeout(() => {
+        setLogin(!login);
+        clearInterval(timer);
+        navigate("/");
+      }, countdown * 1000);
+      return () => clearInterval(timer);
+    }
+
+  }, [showPopup, countdown, login, navigate, setLogin]);
 
   const handleLogout = () => {
     sessionStorage.clear();
     setShowPopup(true);
     toast.success("Logout Successful !")
-    const timer = setInterval(() => {
-      setCountdown((prev) => prev - 1);
-    }, 1000);
-    setTimeout(() => {
-      setLogin(!login)
-      clearInterval(timer);
-      navigate("/");
-    }, countdown * 1000);
+    setIsLogoutDisabled(true);
   };
 
   return (
@@ -64,7 +72,7 @@ function Profile() {
             </div>
             </span>
         </div>
-        <button onClick={handleLogout} className="logout flex items-center">Logout<i className='bx bx-log-out ml-2'></i></button>
+        <button onClick={handleLogout} disabled={isLogoutDisabled}  className="logout flex items-center">Logout<i className='bx bx-log-out ml-2'></i></button>
       </div>
       {showPopup && (
           <div className="countdown-parent">
