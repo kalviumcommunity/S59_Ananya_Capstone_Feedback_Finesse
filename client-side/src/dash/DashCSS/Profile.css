@@ -1,0 +1,46 @@
+div.profile-container {
+    width: 93vw;
+    align-items: center;
+    text-align: left;
+}
+
+div.profile-container h2 {
+    font-size: 8vh;
+    font-family: 'Khand';
+    font-weight: 600;
+    color: #900000;
+    margin: 0vh 0vh 2vh 0vh;
+    text-shadow: 3px 3px 13px #ff000054;
+}
+
+div.profile-container div {
+    font-size: 3.5vh;
+}
+
+div.profile-container strong {
+    font-family: 'Numans';
+    font-variant: small-caps;
+    font-size: 4vh;
+    margin: 5vh 1vh 2vh 0vh;
+}
+
+.logout {
+    cursor: pointer;
+  background-color: #900000;
+  box-shadow: 2px 2px 4px #0000004a;
+  border-radius: 1vh;
+  border: none;
+  font-size: 3vh;
+  color: hsl(0, 0%, 100%);
+  font-weight: 400;
+  padding: 2vh 3vh 2vh 3vh;
+  transition-duration: 0.5s;
+  margin: 5vh 0vh 2vh 0vh;
+}
+
+.logout:hover {
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.422);
+  transform: translateY(-4px);
+}
+
+    
