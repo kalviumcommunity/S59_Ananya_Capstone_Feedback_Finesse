@@ -25,8 +25,16 @@ router.post('/makepost', async (req, res) => {
     } 
   
     catch (error) {
-      console.error('Error during user registration:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      if (error.name === "ValidationError") {
+        console.error("Validation error was detected", error);
+        res.status(400).json({ message: 'Validation error', error: error.message });
+      } 
+      
+      else {
+        console.error("Server error was detected", error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+      
     }
   });
 
