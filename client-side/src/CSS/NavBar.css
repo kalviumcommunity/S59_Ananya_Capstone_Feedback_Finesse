@@ -10,6 +10,7 @@ div#navbar {
     /* top: 0; */
     width: 100%;
     z-index: 3;
+    height: 11.5vh;
 }
 
 div#navbar #comp1 {

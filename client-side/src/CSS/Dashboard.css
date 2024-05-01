@@ -3,10 +3,23 @@
     padding: 0;
 }
 
-.sidebar{
-    color: white;
+body {
+    overflow: visible;
+}
+
+div.dashboard-parent {
+    /* overflow-y: auto; */
+    /* overflow-x: visible; */
+    /* overflow: clip; */
     height: 100vh;
     width: 5vw;
+    position: sticky;
+    top: 0px;
+}
+
+.sidebar{
+    color: white;
+    height: 100%;
     background-color: #840000d2;
     padding: 1vh 3vh 0vh 3vh;
     transition: all 0.5s ease;
@@ -49,11 +62,14 @@ section.main  {
     display: flex;
     overflow-y: hidden;
     flex-direction: row;
+    overflow-y: scroll;
+    height: fit-content;
+    width: 100%;
 }
 
 section.main div.contentmain {
-    overflow-y: scroll;
-    height: 100vh;
+    /* overflow-y: scroll; */
+    /* height: 100vh; */
     width: 100%;
     margin: 0vh 6vh 0vh 10vh;
 }

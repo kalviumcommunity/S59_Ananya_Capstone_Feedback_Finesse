@@ -51,7 +51,7 @@ function Profile() {
   return (
     <>
     <section className="main">   
-      <div>
+      <div className="dashboard-parent">
       <Dashboard />
       </div>
       <div className="content-main flex flex-col justify-center items-center">
