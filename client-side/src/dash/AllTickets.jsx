@@ -86,9 +86,7 @@ function AllTickets() {
           body: JSON.stringify(tosend),
         }
       );
-      const {message} = await response.json();
-      // console.log(data)
-      // const {message} = response.json()
+
       if (response.ok) {
         setComplaintData({
           title: "",
