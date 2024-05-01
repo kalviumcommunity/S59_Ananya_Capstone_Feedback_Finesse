@@ -7,9 +7,9 @@ const schema = new mongoose.Schema({
     content: {
         type: String
     },
-    picture: {
-        type: String
-    },
+    picture: [
+        String
+    ],
     username: {
         type: String
     },

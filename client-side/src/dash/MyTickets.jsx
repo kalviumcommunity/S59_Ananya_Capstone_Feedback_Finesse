@@ -4,7 +4,9 @@ import React from "react";
 function MyTickets() {
   return (
     <>
+    <div className="dashboard-parent">
       <Dashboard />
+    </div>
     </>
   );
 }

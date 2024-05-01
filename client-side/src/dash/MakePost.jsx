@@ -16,7 +16,7 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
     <>
     <div id="makepost">
           <form className="flex flex-col">
-            <h3>Name: {complaintData.username}</h3>
+            <h3 style={{fontFamily: 'Numans', fontWeight: "bold"}}>Name: <span>{complaintData.username}</span></h3>
               <label htmlFor="title-makepost">
             <h4>Give us a title for your complaint</h4>
               </label>
@@ -46,10 +46,14 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
               </select>
   
               <h4>Add relevant pictures</h4>
-              <input onChange={(e) => {setImageUpload(e.target.files[0])}} type="file" src="" alt=""/>
-              <button onClick={uploadImage}>  Click to upload the image</button>
+              <input onChange={(e) => {
+                const filesArray = Array.from(e.target.files)
+                // console.log(filesArray)
+                setImageUpload(filesArray)
+                }} type="file" src="" alt="" accept="image/*" multiple/>
+              <button onClick={uploadImage}>Click to upload the image</button>
               {/* {console.log(imageUpload)} */}
-              <button type="submit" onClick={handleSubmit} className="m-6" disabled={!validateForm()}>Submit</button>
+              <button type="submit" onClick={handleSubmit} className="m-6 publish" disabled={!validateForm()}>Submit</button>
             </form>
           </div>
     </>

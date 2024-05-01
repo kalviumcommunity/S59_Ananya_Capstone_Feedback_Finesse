@@ -19,6 +19,10 @@ router.get('/viewpost', async (req, res) => {
 router.post('/makepost', async (req, res) => {
     const post = req.body;
     try {  
+      const {picture} = req.body
+      if (picture == [] || picture.length == 0) {
+        return res.status(400).json({message: "Please add relevant pictures !"})
+      }
       const newComplaint = new Ticket(post);
       await newComplaint.save();
       res.status(201).json({ message: 'Complaint registered successfully' });
@@ -34,7 +38,7 @@ router.post('/makepost', async (req, res) => {
         console.error("Server error was detected", error);
         res.status(500).json({ message: 'Internal server error' });
       }
-      
+
     }
   });
 

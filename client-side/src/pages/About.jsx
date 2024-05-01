@@ -9,7 +9,7 @@ import qa from "../assets/qa.png"
 
 export default function AccordionDemo() {
   return (
-    <>
+    <div className="overflow-scroll">
     <section className="about">
     <span>
       <h1>Have Questions?</h1>
@@ -87,6 +87,6 @@ export default function AccordionDemo() {
 </Accordion>
     </section>
 
-    </>
+    </div>
   );
 }
