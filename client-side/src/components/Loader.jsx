@@ -1,7 +1,7 @@
 import React from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 
-const colour = "#D0312D";
+const colour = "#900000";
 const size = 20;
 
 export default function Loader() {

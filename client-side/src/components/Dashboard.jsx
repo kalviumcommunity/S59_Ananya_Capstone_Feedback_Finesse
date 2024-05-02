@@ -19,11 +19,13 @@ function Dashboard() {
     setUserData({ username, name, email, role });
   }, []);
 
+  const [active, setActive] = useState(false)
+
   return (
     <>
     {userData.name ? 
     
-        <div className="sidebar">
+        <div className={`sidebar ${active ? "active" : null} transition-all ease-in-out`}>
           <ul>
           <li>
             <Link to={"/dashboard/home"}>
