@@ -71,9 +71,11 @@ function SignIn() {
               setCountdown((prev) => prev - 1);
             }, 1000);
           }
-        } else {
+        } 
+        
+        else {
           console.error("Login failed");
-          toast.error("There was an error !");
+          toast.error("Please check the entered details !");
         }
       } 
       

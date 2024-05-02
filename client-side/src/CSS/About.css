@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Numans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
 
+div.aboutpage {
+    overflow-y: visible;
+}
+
 section.about {
     display: flex;
     flex-direction: row;

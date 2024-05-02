@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handleChange, complaintData}) {
 
     const validateForm = () => {
@@ -44,9 +45,9 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
                 <option value="Chanakya">Chanakya Hostel</option>
                 <option value="Mess">Hostel Mess</option>
               </select>
-  
+
               <h4>Add relevant pictures</h4>
-              <input onChange={(e) => {
+              <input className='shadow-none' onChange={(e) => {
                 const filesArray = Array.from(e.target.files)
                 // console.log(filesArray)
                 setImageUpload(filesArray)
