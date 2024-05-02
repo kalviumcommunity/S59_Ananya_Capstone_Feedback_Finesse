@@ -20,7 +20,7 @@ function AllTickets() {
   });
   const [imageUpload, setImageUpload] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
-  const [showMakePost, setShowMakePost] = useState(null);
+  const [showMakePost, setShowMakePost] = useState(false);
 
   const uploadImage = (e) => {
     e.preventDefault();
@@ -108,13 +108,14 @@ function AllTickets() {
   const [post, setPost] = useState([]);
   const [imageIndex, setImageIndex] = useState(0);
 
-  const handleLeft = (n) => {
-    setImageIndex((prevIndex) => (prevIndex === 0 ? n - 1 : prevIndex - 1));
+  const handleImageChange = (direction, totalImages) => {
+    if (direction === "left") {
+      setImageIndex((prevIndex) => (prevIndex === 0 ? totalImages - 1 : prevIndex - 1));
+    } else if (direction === "right") {
+      setImageIndex((prevIndex) => (prevIndex === totalImages - 1 ? 0 : prevIndex + 1));
+    }
   };
 
-  const handleRight = (n) => {
-    setImageIndex((prevIndex) => (prevIndex === n - 1 ? 0  : prevIndex + 1));
-  };
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
@@ -175,9 +176,9 @@ function AllTickets() {
                     <span>
                     <h5 className="text-center">{imageIndex + 1} of {file.picture.length} images</h5>
                     <div className="flex flex-row space-evenly items-center justify-center">
-                    <ArrowBackIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleLeft(file.picture.length)} />
+                    <ArrowBackIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleImageChange("left", file.picture.length)} />
                     <img src={file.picture[imageIndex]} alt="" />
-                    <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file.picture.length)} />
+                    <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleImageChange("right", file.picture.length)} />
                     </div>
                     </span>
                   </div>
