@@ -108,21 +108,28 @@ function AllTickets() {
   const [post, setPost] = useState([]);
   const [imageIndex, setImageIndex] = useState(0);
 
-  const handleImageChange = (direction, totalImages) => {
-    if (direction === "left") {
-      setImageIndex((prevIndex) => (prevIndex === 0 ? totalImages - 1 : prevIndex - 1));
-    } else if (direction === "right") {
-      setImageIndex((prevIndex) => (prevIndex === totalImages - 1 ? 0 : prevIndex + 1));
-    }
+  const handleLeft = (fileid, totalImages) => {
+    post.map((e) => {
+      if (e.id == fileid) {
+        setImageIndex((prevIndex) => prevIndex === 0 ? totalImages - 1 : prevIndex - 1);
+      }
+    })
   };
 
+  const handleRight = (fileid, totalImages) => {
+    post.map((e) => {
+      if (e._id == fileid) {
+        setImageIndex((prevIndex) => prevIndex === totalImages - 1 ? 0 : prevIndex + 1);
+      }
+    })
+  };
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-        setPost(res);
+        console.log(res)
+        setPost(res)
       })
       .catch((error) => {
         console.log(error);
@@ -176,16 +183,16 @@ function AllTickets() {
                     <span>
                     <h5 className="text-center">{imageIndex + 1} of {file.picture.length} images</h5>
                     <div className="flex flex-row space-evenly items-center justify-center">
-                    <ArrowBackIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleImageChange("left", file.picture.length)} />
+                    <ArrowBackIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleLeft(file._id, file.picture.length)}  />
                     <img src={file.picture[imageIndex]} alt="" />
-                    <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleImageChange("right", file.picture.length)} />
+                    <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file._id, file.picture.length)}  />
                     </div>
                     </span>
                   </div>
                 ))}
               </div>
             </>
-          )}
+          )}   
         </div>
       </section>
       <ToastContainer />

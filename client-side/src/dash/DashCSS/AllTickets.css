@@ -1,5 +1,6 @@
 body {
-    overflow: visible;
+    overflow-y: visible;
+    overflow-x: hidden;
 }
 
 div.main-child {
@@ -116,4 +117,22 @@ div#eachpost {
     height: 80vh;
     width: 80vh;
     cursor: zoom-out;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffc7c7;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #900000;
+    border-radius: 30vh;
+    margin: 1vh;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+  background: #900000;
 }
