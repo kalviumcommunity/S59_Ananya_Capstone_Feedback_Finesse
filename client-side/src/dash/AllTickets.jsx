@@ -10,6 +10,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 function AllTickets() {
+
   const [complaintData, setComplaintData] = useState({
     title: "",
     content: "",
@@ -18,9 +19,25 @@ function AllTickets() {
     universityID: "",
     hostel: "",
   });
+  
   const [imageUpload, setImageUpload] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [showMakePost, setShowMakePost] = useState(false);
+  const [post, setPost] = useState([]);
+  const [imageIndex, setImageIndex] = useState(Array(post.length).fill(0));
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        setPost(res)
+        setImageIndex(Array(res.length).fill(0));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [setPost]);
 
   const uploadImage = (e) => {
     e.preventDefault();
@@ -105,36 +122,27 @@ function AllTickets() {
     }
   };
 
-  const [post, setPost] = useState([]);
-  const [imageIndex, setImageIndex] = useState(0);
-
   const handleLeft = (fileid, totalImages) => {
-    post.map((e) => {
-      if (e.id == fileid) {
-        setImageIndex((prevIndex) => prevIndex === 0 ? totalImages - 1 : prevIndex - 1);
-      }
-    })
-  };
-
-  const handleRight = (fileid, totalImages) => {
-    post.map((e) => {
-      if (e._id == fileid) {
-        setImageIndex((prevIndex) => prevIndex === totalImages - 1 ? 0 : prevIndex + 1);
-      }
-    })
-  };
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res)
-        setPost(res)
-      })
-      .catch((error) => {
-        console.log(error);
+    const postIndex = post.findIndex((e) => e._id === fileid);
+    if (postIndex !== -1) {
+      setImageIndex((prevIndexes) => {
+        const updatedIndexes = [...prevIndexes];
+        updatedIndexes[postIndex] = updatedIndexes[postIndex] === 0 ? totalImages - 1 : updatedIndexes[postIndex] - 1;
+        return updatedIndexes;
       });
-  }, [setPost]);
+    }
+  };
+  
+  const handleRight = (fileid, totalImages) => {
+    const postIndex = post.findIndex((e) => e._id === fileid);
+    if (postIndex !== -1) {
+      setImageIndex((prevIndexes) => {
+        const updatedIndexes = [...prevIndexes];
+        updatedIndexes[postIndex] = updatedIndexes[postIndex] === totalImages - 1 ? 0 : updatedIndexes[postIndex] + 1;
+        return updatedIndexes;
+      });
+    }
+  };
 
   return (
     <>
@@ -172,22 +180,35 @@ function AllTickets() {
               <div className="allpost">
                 {post.map((file, index) => (
                   <div id="eachpost" key={index} className="flex flex-row justify-between">
-                    <span>
-                    <h3>Name: {file.username}</h3>
-                    <h3>University ID: {file.universityID}</h3>
-                    <h3>Title: {file.title}</h3>
-                    <p>Content: <span>{file.content}</span></p>
-                    <p>Hostel: {file.hostel}</p>
+
+                  <span className="flex flex-row justify-between">
+                    
+                    <span className="flex flex-col justify-start">
+                      <h3 className="text-darkred font-bold flex flex-row items-center user"><i className='bx bxs-user mr-2'></i> <span>{file.username}</span></h3>
+                      <h3 className="flex flex-row items-center"><i className='bx bxs-id-card mr-1' style={{color: "#900000"}}></i>University ID: <span className="ml-2">{file.universityID}</span></h3>
+                      <h3 className="flex flex-row items-center"><i className='bx bxs-building-house mr-1' style={{color: "#900000"}}></i>Hostel: <span className="ml-2">{file.hostel}</span></h3>
+                      <h3 className="flex flex-row items-center">Status:<span className="flex flex-row items-center"><i className='ml-2 mr-1 bx bxs-circle' style={{color: file.status == "Submitted" ? " " : "black"}}></i>{file.status}</span></h3>
                     </span>
 
                     <span>
-                    <h5 className="text-center">{imageIndex + 1} of {file.picture.length} images</h5>
-                    <div className="flex flex-row space-evenly items-center justify-center">
-                    <ArrowBackIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleLeft(file._id, file.picture.length)}  />
-                    <img src={file.picture[imageIndex]} alt="" />
-                    <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file._id, file.picture.length)}  />
-                    </div>
+                    {file.picture && file.picture.length > 0 && (
+                      <>
+                      <h5 className="text-center text-sm">{imageIndex[index] + 1} of {file.picture.length} images</h5>
+                      <div className="flex flex-row space-evenly items-center justify-center">
+                        <ArrowBackIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleLeft(file._id, file.picture.length)}  />
+                        <img src={file.picture[imageIndex[index]]} alt="" />
+                        <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file._id, file.picture.length)}  />
+                      </div>
+                      </>
+                    )}
                     </span>
+                  </span>
+
+                  <span>
+                    <h3>Title: <span>{file.title}</span></h3>
+                    <h3>Description: <br /> <span>{file.content}</span></h3>
+                  </span>
+
                   </div>
                 ))}
               </div>

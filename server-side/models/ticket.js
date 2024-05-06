@@ -18,6 +18,10 @@ const schema = new mongoose.Schema({
     },
     hostel: {
         type: String
+    },
+    status: {
+        type: String,
+        default: "Submitted"
     }
 })
 
