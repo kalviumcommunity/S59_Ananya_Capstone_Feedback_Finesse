@@ -8,6 +8,11 @@ import MakePost from "./MakePost";
 import "./DashCSS/AllTickets.css";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import profile from "../assets/profile.png"
+import edit from "../assets/edit.png"
+import del from "../assets/delete.png"
+import emptylike from "../assets/empty-like.png"
+import filllike from "../assets/fill-like.png"
 
 function AllTickets() {
 
@@ -184,32 +189,43 @@ function AllTickets() {
                   <span className="flex flex-row justify-between">
                     
                     <span className="flex flex-col justify-start">
-                      <h3 className="text-darkred font-bold flex flex-row items-center user"><i className='bx bxs-user mr-2'></i> <span>{file.username}</span></h3>
-                      <h3 className="flex flex-row items-center"><i className='bx bxs-id-card mr-1' style={{color: "#900000"}}></i>University ID: <span className="ml-2">{file.universityID}</span></h3>
-                      <h3 className="flex flex-row items-center"><i className='bx bxs-building-house mr-1' style={{color: "#900000"}}></i>Hostel: <span className="ml-2">{file.hostel}</span></h3>
-                      <h3 className="flex flex-row items-center">Status:<span className="flex flex-row items-center"><i className='ml-2 mr-1 bx bxs-circle' style={{color: file.status == "Submitted" ? " " : "black"}}></i>{file.status}</span></h3>
+                      <h3 className="text-darkred font-bold flex flex-row items-center user"><img src={profile} style={{height: "7vh", width: "7vh"}} className="mr-2" alt=""/> <span>{file.username}</span></h3>
+                      <hr style={{backgroundColor: "black", height: "0.2vh", width: "30vw"}} className="mb-4"/>
+                      <h3 className="flex flex-row items-center"><i className='bx bxs-id-card mr-2 text-3xl' style={{color: "#900000"}}></i>University ID: <span className="ml-2">{file.universityID}</span></h3>
+                      <h3 className="flex flex-row items-center"><i className='bx bxs-building-house mr-2 text-3xl' style={{color: "#900000"}}></i>Hostel: <span className="ml-2">{file.hostel}</span></h3>
+                      <h3 id="tracker-progress"  className="flex flex-row items-center">Status:<span className="flex flex-row items-center"><i className='ml-2 mr-1 bx bxs-circle' style={{color: file.status == "Submitted" ? "#900000" : file.status == "In Progress" ? "yellow" : "green"}}></i>{file.status}</span></h3>
+                    <h3>Title: <span>{file.title}</span></h3>
+
                     </span>
 
-                    <span>
+                    <span className="flex flex-col justify-between">
                     {file.picture && file.picture.length > 0 && (
-                      <>
-                      <h5 className="text-center text-sm">{imageIndex[index] + 1} of {file.picture.length} images</h5>
+                      <div>
+                      <h5 className="text-center text-sm mb-2 mt-4">{imageIndex[index] + 1} of {file.picture.length} images</h5>
                       <div className="flex flex-row space-evenly items-center justify-center">
                         <ArrowBackIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleLeft(file._id, file.picture.length)}  />
                         <img src={file.picture[imageIndex[index]]} alt="" />
                         <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file._id, file.picture.length)}  />
                       </div>
-                      </>
+                      </div>
                     )}
                     </span>
                   </span>
 
                   <span>
-                    <h3>Title: <span>{file.title}</span></h3>
                     <h3>Description: <br /> <span>{file.content}</span></h3>
                   </span>
 
+                  <div className="flex flex-row justify-between" id="editiconspost">
+                    <div>
+                      <img src={filllike} alt="" />
+                    </div>
+                    <div className="flex flex-row">
+                    <img src={edit} className="mr-2" alt="" />
+                    <img src={del} className="mr-3" alt="" />
+                    </div>
                   </div>
+                </div>
                 ))}
               </div>
             </>
