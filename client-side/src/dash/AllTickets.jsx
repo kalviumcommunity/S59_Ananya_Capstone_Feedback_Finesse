@@ -189,7 +189,7 @@ function AllTickets() {
                   <span className="flex flex-row justify-between">
                     
                     <span className="flex flex-col justify-start">
-                      <h3 className="text-darkred font-bold flex flex-row items-center user"> <img style={{height: "8vh", width: "8vh"}} src={user} alt="" className="mr-3" /> <span>{file.username}</span></h3>
+                      <h3 className="text-darkred font-bold flex flex-row items-center user"> <img style={{height: "8vh", width: "8vh"}} src={user} alt="user" className="mr-3" /> <span>{file.username}</span></h3>
                       <hr style={{backgroundColor: "black", height: "0.2vh", width: "30vw"}} className="mb-4" />
                       <h3 className="flex flex-row items-center"><i className='bx bxs-id-card mr-1 text-3xl' style={{color: "#900000"}}></i>University ID: <span className="ml-2">{file.universityID}</span></h3>
                       <h3 className="flex flex-row items-center"><i className='bx bxs-building-house mr-1 text-3xl' style={{color: "#900000"}}></i>Hostel: <span className="ml-2">{file.hostel}</span></h3>
@@ -203,7 +203,7 @@ function AllTickets() {
                       <h5 className="text-center text-sm mt-2 mb-2">{imageIndex[index] + 1} of {file.picture.length} images</h5>
                       <div className="flex flex-row space-evenly items-center justify-center">
                         <ArrowBackIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleLeft(file._id, file.picture.length)}  />
-                        <img src={file.picture[imageIndex[index]]} alt="" />
+                        <img src={file.picture[imageIndex[index]]} alt="image" />
                         <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file._id, file.picture.length)}  />
                       </div>
                       </>
@@ -217,11 +217,11 @@ function AllTickets() {
                     {/* <hr style={{width: "100%", height: "0.2vh", backgroundColor: "#999900"}} className="mt-7"/> */}
                   <span className="flex flex-row justify-between" id="last-buttons">
                       <div>
-                        <img src={fulllike} alt="" />
+                        <img src={fulllike} alt="like" />
                       </div>
                       <div className="flex flex-row mr-3">
-                        <img src={edit} alt="" />
-                        <img src={del} alt="" />
+                        <img src={edit} alt="edit" />
+                        <img src={del} alt="delete" />
                       </div>
                     </span>
                     
