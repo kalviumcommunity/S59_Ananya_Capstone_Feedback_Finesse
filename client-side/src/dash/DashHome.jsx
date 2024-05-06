@@ -23,11 +23,13 @@ function DashHome() {
     <>
     <section className="main">
 
+      
     <div className="dashboard-parent">
       <Dashboard />
     </div>
 
-    <div className="main-child">
+    {sessionStorage.getItem("username") ? (
+      <div className="main-child">
       <div id="boxes">
         <div className="dash-box">Total number of posts: {post.length}</div>
         <div className="dash-box">Posts uploaded by you: {post.forEach((e) => {
@@ -38,6 +40,7 @@ function DashHome() {
         </div>
       </div>
     </div>
+      ) : null}
 
 
     </section>

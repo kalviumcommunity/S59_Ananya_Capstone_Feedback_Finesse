@@ -18,6 +18,11 @@ const schema = new mongoose.Schema({
     },
     hostel: {
         type: String
+    },
+    status: {
+        type: String,
+        enum: ["Submitted", "In Progress", "Completed"],
+        default: "Submitted"
     }
 })
 

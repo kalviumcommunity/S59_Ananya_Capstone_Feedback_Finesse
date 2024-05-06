@@ -5,12 +5,12 @@ body {
 
 div.main-child {
     height: fit-content;
-    width: 100%;
+    /* width: 100%; */
 }
 
 div#makepost {
     width: 60vw;
-    margin: 15vh 0vh 10vh 0vh;
+    margin: 10vh 0vh 10vh 0vh;
     height: fit-content;
 }
 
@@ -27,6 +27,7 @@ div#makepost form h3 {
 
 div#makepost form h4 {
     font-size: 3.1vh;
+    margin-top: 1vh;
 }
 
 div#makepost form input, div#makepost form textarea {
@@ -58,6 +59,11 @@ div#makepost form input, div#makepost form textarea {
     transition-duration: 0.5s;
     margin: 5vh 0vh 2vh 0vh;
 }
+
+/* #goback-toview {
+    position: relative;
+    left: 70vh;
+} */
 
 .publish:active {
     transform:translateY(10px);
@@ -91,9 +97,33 @@ div#makepost form input, div#makepost form textarea {
 }
 
 div#eachpost {
-    border: 1px solid black;
-    padding: 2vh 6vh 2vh 6vh;
+    border: 1px solid rgba(0, 0, 0, 0.36);
+    padding: 4vh 6vh 4vh 6vh;
+    border-radius: 2vh;
     margin: 5vh 2vh 5vh 2vh;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.338);
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+}
+
+div#eachpost h3 {
+    font-size: 2.5vh;
+    font-family: 'Numans';
+    margin: 1vh 0vh 1vh 0vh;
+}
+
+div#eachpost h3.user {
+    font-size: 4vh;
+}
+
+div#eachpost h3 span {
+    font-family: 'Assistant';
+}
+
+div#eachpost img {
+    height: 25vh;
+    width: 25vh;
 }
 
 .disablearrow {
@@ -104,23 +134,12 @@ div#eachpost {
     cursor: pointer;
 }
 
-#notenlarged img {
-    height: 20vh;
-    width: 20vh;
-    cursor: zoom-in;
-}
-
-#enlarged {
-    position: absolute;
-    top: 20%;
-    left: 35%;
-    height: 80vh;
-    width: 80vh;
-    cursor: zoom-out;
-}
-
 ::-webkit-scrollbar {
     width: 7px;
+}
+
+body::-webkit-scrollbar {
+    width: 1px;
 }
 
 ::-webkit-scrollbar-track {
@@ -135,4 +154,33 @@ div#eachpost {
   
 ::-webkit-scrollbar-thumb:hover {
   background: #900000;
+}
+
+select {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.338);
+    border-radius: 1vh;
+    padding: 10vh;
+    text-indent: 1vh;
+    margin: 1vh 0vh 1vh 0vh;
+    font-size: 2vh;
+}
+
+select option {
+    text-indent: 1vh;
+    margin: 2vh;
+}
+
+button.upload-image-button {
+    font-size: 2.3vh;
+}
+
+button.upload-image-button:hover {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.581);
+    transition-duration: 0.5s;
+    transform: translateY(-3px);
+}
+
+
+button.upload-image-button:not(:hover) {
+    transition-duration: 0.8s;
 }
