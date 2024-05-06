@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "../CSS/Login.css";
 import { useForm } from "react-hook-form";
 import ToggleButton from "react-toggle-button";
-import social from "../assets/social.png";
 import { toast, ToastContainer } from "react-toastify";
 import { loginContext } from "../App";
 
