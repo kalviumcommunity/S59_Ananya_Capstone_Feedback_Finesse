@@ -97,11 +97,11 @@ div#makepost form input, div#makepost form textarea {
 }
 
 div#eachpost {
-    /* border: 1px solid rgba(0, 0, 0, 0.36); */
+    border: 1px solid rgba(0, 0, 0, 0.36);
     padding: 4vh 6vh 4vh 6vh;
     border-radius: 2vh;
     margin: 5vh 2vh 5vh 2vh;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.296);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.338);
     display: flex;
     flex-direction: column;
     width: 60vw;
@@ -122,8 +122,8 @@ div#eachpost h3 span {
 }
 
 div#eachpost img {
-    height: 25vh;
-    width: 25vh;
+    height: 42vh;
+    width: 42vh;
 }
 
 .disablearrow {
@@ -180,6 +180,13 @@ button.upload-image-button:hover {
     transform: translateY(-3px);
 }
 
+
 button.upload-image-button:not(:hover) {
     transition-duration: 0.8s;
+}
+
+span#last-buttons img {
+    height: 10vh;
+    width: 10vh;
+    margin-top: 1vh;
 }
