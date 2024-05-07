@@ -124,6 +124,7 @@ div#eachpost h3 span {
 div#eachpost img {
     height: 42vh;
     width: 42vh;
+    border-radius: 2vh;
 }
 
 .disablearrow {
@@ -134,25 +135,25 @@ div#eachpost img {
     cursor: pointer;
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
     width: 7px;
 }
-
+/* 
 body::-webkit-scrollbar {
     width: 1px;
-}
+} */
 
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
     background: #ffc7c7;
 }
 
-::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
     background: #900000;
     border-radius: 30vh;
     margin: 1vh;
 }
   
-::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover {
   background: #900000;
 }
 
@@ -185,8 +186,42 @@ button.upload-image-button:not(:hover) {
     transition-duration: 0.8s;
 }
 
-span#last-buttons img {
-    height: 10vh;
-    width: 10vh;
-    margin-top: 1vh;
+span#last-buttons button {
+    background-color: #900000;
+    color: white;
+    padding: 1vh 2vh 1vh 2vh;
+    height: fit-content;
+    font-size: 2.5vh;
+    border-radius: 0.5vh;
+}
+
+span#last-buttons button img {
+    height: 3vh;
+    width: 3vh;
+    border-radius: 0%;
+}
+
+span#last-buttons button:hover {
+    box-shadow: 4px 4px #290505;
+    transition-duration: 0.6s;
+}
+
+span#last-buttons button:not(:hover) {
+    transition-duration: 0.6s;
+}
+
+@keyframes like {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
+span#last-buttons i:active {
+  animation: like 0.1s 1 ease;
 }

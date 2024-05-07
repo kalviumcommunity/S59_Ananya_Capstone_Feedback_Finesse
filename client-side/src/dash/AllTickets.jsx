@@ -8,10 +8,8 @@ import MakePost from "./MakePost";
 import "./DashCSS/AllTickets.css";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import fulllike from "../assets/fulllike.png"
-import emptylike from "../assets/emptylike.png"
-import edit from "../assets/edit.png"
 import del from "../assets/delete.png"
+import edit from "../assets/edit.png"
 import user from "../assets/profile.png"
 
 function AllTickets() {
@@ -30,6 +28,7 @@ function AllTickets() {
   const [showMakePost, setShowMakePost] = useState(false);
   const [post, setPost] = useState([]);
   const [imageIndex, setImageIndex] = useState(Array(post.length).fill(0));
+  const [like, setLike] = useState(false)
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
@@ -212,16 +211,20 @@ function AllTickets() {
                   </span>
 
                   <span>
-                    <h3>Description: <br /> <span>{file.content}</span></h3>
+                    <h3 className="mt-2">Description: <br /> <span>{file.content}</span></h3>
                   </span>
                     {/* <hr style={{width: "100%", height: "0.2vh", backgroundColor: "#999900"}} className="mt-7"/> */}
-                  <span className="flex flex-row justify-between" id="last-buttons">
-                      <div>
-                        <img src={fulllike} alt="" />
+                  <span className="flex flex-row justify-between mt-3" id="last-buttons">
+                      <div onClick={() => setLike(!like)}>
+                        {!like ? (
+                          <i className='bx bx-like text-5xl text-darkred'></i>
+                        ) : (
+                          <i className='bx bxs-like text-5xl text-darkred' ></i>
+                        )}
                       </div>
-                      <div className="flex flex-row mr-3">
-                        <img src={edit} alt="" />
-                        <img src={del} alt="" />
+                      <div className="flex flex-row items-center gap-4 mr-8">
+                        <button className="flex flex-row items-center">Edit <img src={edit} alt="edit" className="ml-1"/> </button>
+                        <button className="flex flex-row items-center">Delete <img src={del} alt="delete" className="ml-1"/></button>
                       </div>
                     </span>
                     

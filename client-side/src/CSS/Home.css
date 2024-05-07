@@ -5,6 +5,7 @@
 section#home {
     height: 30vh;
     user-select: none;
+    margin-top: 10vh;
 }
 
 section#text {

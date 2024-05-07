@@ -23,6 +23,8 @@ div.dashboard-parent {
     background-color: #840000d2;
     padding: 1vh 3vh 0vh 3vh;
     transition: all 0.5s ease;
+    position: fixed;
+    top: 11.5vh;
 }
 
 .sidebar ul li{
@@ -60,11 +62,10 @@ div.dashboard-parent {
 
 section.main  {
     display: flex;
-    overflow-y: hidden;
     flex-direction: row;
-    overflow-y: scroll;
-    height: 100vh;
+    /* overflow-y: scroll; */
     width: 100%;
+    margin-top: 11vh;
 }
 
 section.main div.contentmain {

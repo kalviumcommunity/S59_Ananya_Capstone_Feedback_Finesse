@@ -6,11 +6,12 @@ div#navbar {
     font-size: 2.5vh;
     font-family: 'Inter';
     border-bottom: 2px solid #90000093;
-    /* position: fixed; */
-    /* top: 0; */
+    position: fixed;
+    top: 0;
     width: 100%;
     z-index: 3;
     height: 11.5vh;
+    background-color: white;
 }
 
 div#navbar #comp1 {
