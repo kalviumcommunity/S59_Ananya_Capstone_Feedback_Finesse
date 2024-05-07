@@ -122,8 +122,8 @@ div#eachpost h3 span {
 }
 
 div#eachpost img {
-    height: 40vh;
-    width: 40vh;
+    height: 25vh;
+    width: 25vh;
 }
 
 .disablearrow {
@@ -182,9 +182,4 @@ button.upload-image-button:hover {
 
 button.upload-image-button:not(:hover) {
     transition-duration: 0.8s;
-}
-
-div#editiconspost img {
-    height: 10vh;
-    width: 10vh;
 }
