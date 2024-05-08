@@ -34,7 +34,7 @@ function AllTickets() {
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         setPost(res)
         setImageIndex(Array(res.length).fill(0));
       })

@@ -3,6 +3,7 @@
 
 div.aboutpage {
     overflow-y: visible;
+    margin-top: 20vh;
 }
 
 section.about {

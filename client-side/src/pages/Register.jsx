@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../CSS/Register.css";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import signup from "../assets/login.jpg";
 import { loginContext } from "../App";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import CompleteRegister from "./CompleteRegister";
 
 function Register() {
   const {
@@ -19,6 +22,18 @@ function Register() {
   data.role = "user";
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
+  const [completeRegister, setCompleteRegister] = useState(false)
+  const [googleData, setGoogleData] = useState({})
+  const [countdown, setCountdown] = useState(3);
+
+  useEffect(() => {
+    if (countdown === 0) {
+      setShowPopup(false);
+      navigate("/dashboard/home");
+      setLogin(!login);
+      return () => clearInterval(countdown);
+    }
+  }, [countdown, navigate, login, setLogin]);
 
   const handleSignup = async () => {
     // e.preventDefault();
@@ -43,10 +58,10 @@ function Register() {
           sessionStorage.setItem("email", data.email);
           sessionStorage.setItem("role", data.role);
           setShowPopup(true);
-          setTimeout(() => {
-            navigate("/dashboard/home");
-          }, 3000);
-          setLogin(!login);
+          setCompleteRegister(false)
+          setInterval(() => {
+            setCountdown((prev) => prev - 1);
+          }, 1000);
         } 
         
         else {
@@ -62,6 +77,60 @@ function Register() {
     }
   };
 
+  const googleSubmit = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const googleres = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: {
+            Authorization: `Bearer ${tokenResponse.access_token}`
+          }
+        })
+        // console.log(googleres.data)
+
+        const tosend = {
+          name: googleres.data.name,
+          emailID: googleres.data.email,
+          role: "user"          
+        }
+        setGoogleData(tosend)
+        // console.log(tosend)
+
+        const response = await fetch(
+          `${import.meta.env.VITE_URI}/google/signup`,
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(tosend),
+          }
+        );
+
+        const message = await response.json();
+
+        if (response.ok) {
+          toast.success("Congratulations for registering with us !");
+          setLogin(!login)
+          setCompleteRegister(true)
+        } 
+        
+        else {
+          toast.error(message.message);
+          console.error("Registration failed");
+        }
+
+      }
+      catch (error) {
+        console.log(error)
+      }
+    }
+  });
+
+  const handleGoogleSignup = (e) => {
+    e.preventDefault(); 
+    googleSubmit(); 
+  };
+
   return (
     <>
       <section className="in-parent">
@@ -69,7 +138,7 @@ function Register() {
           <div>
             <img src={signup} alt="register" />
           </div>
-          <form action="" onSubmit={handleSubmit(handleSignup)}>
+          <form action="">
             <h2>Create an Account</h2>
             <div id="input-fields">
               <div>
@@ -154,7 +223,7 @@ function Register() {
               </div>
               <h6>{errors.password?.message}</h6>
             </div>
-            <button type="submit">Register</button>
+            <button type="submit" onClick={handleSubmit(handleSignup)}>Register</button>
             <h4>
               Already a registered user?{" "}
               <Link to={"/signin"}>
@@ -171,7 +240,7 @@ function Register() {
                 <hr className="border border-black h-0" />
               </span>
             </span>
-            <button type="submit">
+            <button type="submit" onClick={handleGoogleSignup}>
               {/* <img src={social} alt="" /> */}
               <i className="bx bxl-google text-2xl pr-2 googleicon"></i>
               Sign up with Google
@@ -180,8 +249,11 @@ function Register() {
         </section>
         {showPopup && (
           <div className="countdown-parent">
-            <div>You will be redirected to the dashboard shortly</div>
+            <div>You will be redirected to the dashboard in {countdown}</div>
           </div>
+        )}
+        {completeRegister && (
+          <CompleteRegister googleData={googleData} setLogin={setLogin} login={login}/>
         )}
       </section>
       <ToastContainer />

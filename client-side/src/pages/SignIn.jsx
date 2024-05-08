@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import ToggleButton from "react-toggle-button";
 import { toast, ToastContainer } from "react-toastify";
 import { loginContext } from "../App";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 function SignIn() {
   const [isToggled, setIsToggled] = useState(false);
@@ -86,9 +88,62 @@ function SignIn() {
     } 
   };
 
+  const googleSubmit = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const googleres = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: {
+            Authorization: `Bearer ${tokenResponse.access_token}`
+          }
+        })
+        // console.log(googleres.data.email)
+        const tosend = {
+          emailID: googleres.data.email
+        }
+
+        const response = await fetch(
+          `${import.meta.env.VITE_URI}/google/signin`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(tosend),
+          }
+        );
+
+        const message = await response.json();
+
+        if (response.ok) {
+          toast.success("You have successfully logged in !");
+          sessionStorage.clear();
+          sessionStorage.setItem("username", message.username);
+          sessionStorage.setItem("name", message.name);
+          sessionStorage.setItem("email", message.email);
+          sessionStorage.setItem("role", message.role);
+          setShowPopup(true);
+          setInterval(() => {
+            setCountdown((prev) => prev - 1);
+          }, 1000);
+        } 
+        
+        else {
+          console.log(message.message)
+          console.error("Login failed");
+          toast.error("Please check the entered details !");
+        }
+      } 
+      
+      catch (error) {
+        console.error("Login failed:", error);
+        toast.error("Any account with the given credential(s) does not exist!");
+      }
+    }
+  });
+
   return (
     <>
-      <section className="in-parent">
+      <section className="in-parent w-full box-border">
         <section id="signin">
           <h3>Login to access your account</h3>
           <form action="" onSubmit={handleSubmit(handleLogin)}>
@@ -171,7 +226,7 @@ function SignIn() {
               <hr className="border border-black h-0" />
             </span>
           </span>
-          <button type="submit">
+          <button type="submit" onClick={() => googleSubmit()}>
             {/* <img src={social} alt="" /> */}
             <i className="bx bxl-google text-2xl pr-2 googleicon"></i>
             Sign in with Google
