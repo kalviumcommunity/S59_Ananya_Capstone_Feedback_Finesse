@@ -5,7 +5,8 @@ const schema = new mongoose.Schema({
         type: String
     },
     emailID: {
-        type: String
+        type: String,
+        required: true
     },
     role: {
         type: String,

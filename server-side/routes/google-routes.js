@@ -48,6 +48,11 @@ router.post('/signin', async (req, res) => {
   const { emailID } = req.body;
   try {
     const checkMail = await GoogleUser.findOne({ emailID })
+
+    if (!checkMail) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
     if (checkMail) {
       const user = await User.findOne({ email: emailID });
       // console.log(user)
@@ -57,9 +62,7 @@ router.post('/signin', async (req, res) => {
       const { username, name, email, role } = user;
       return res.status(200).json({ message: 'Login successful', username, name, email, role });
     } 
-    else {
-      return res.status(400).json({ message: "User not found" })
-    }
+    
   } 
 
   catch (error) {
