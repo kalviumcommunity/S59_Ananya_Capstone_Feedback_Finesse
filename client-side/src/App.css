@@ -8,7 +8,7 @@ hr {
   width: 10vw;
 }
 
-div.countdown-parent {
+div.countdown-parent, section#completeregister {
   position: absolute;
   top: 50%;
   left: 42%;
@@ -26,4 +26,9 @@ div.countdown-parent {
   border: 1px double white;
   font-family: monospace;
   font-size: 3vh;
+  z-index: 20;
+}
+
+section#completeregister input {
+  color: black;
 }

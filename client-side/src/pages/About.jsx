@@ -10,7 +10,6 @@ import qa from "../assets/qa.png"
 export default function AccordionDemo() {
   return (
     <div className="aboutpage">
-
     <section className="about">
     <span>
       <h1>Have Questions?</h1>

@@ -52,7 +52,7 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
                 // console.log(filesArray)
                 setImageUpload(filesArray)
                 }} type="file" src="" alt="" accept="image/*" multiple/>
-              <button onClick={uploadImage} className='bg-gray-500 w-fit p-2 ml-1 rounded-xl text-base upload-image-button text-white'>Click to upload the image <i class='bx bxs-cloud-upload'></i></button>
+              <button onClick={uploadImage} className='bg-gray-500 w-fit p-2 ml-1 rounded-xl text-base upload-image-button text-white'>Click to upload the image <i className='bx bxs-cloud-upload'></i></button>
               {/* {console.log(imageUpload)} */}
               <button type="submit" onClick={handleSubmit} className="m-6 publish" disabled={!validateForm()}>Submit</button>
             </form>
