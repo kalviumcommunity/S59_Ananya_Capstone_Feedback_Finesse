@@ -28,13 +28,14 @@ div#makepost form h3 {
 div#makepost form h4 {
     font-size: 3.1vh;
     margin-top: 1vh;
+    margin: 2vh 0vh 2vh 0vh;
 }
 
 div#makepost form input, div#makepost form textarea {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.338);
     border-radius: 1vh;
     padding: 1vh 2vh 1vh 2vh;
-    margin: 2vh 0vh 2vh 0vh;
+    /* margin: 2vh 0vh 2vh 0vh; */
 }
 
 .publish:disabled {
@@ -154,21 +155,14 @@ body::-webkit-scrollbar-thumb {
 }
   
 body::-webkit-scrollbar-thumb:hover {
-  background: #900000;
+  background: #6a0101;
 }
 
-select {
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.338);
-    border-radius: 1vh;
-    padding: 10vh;
-    text-indent: 1vh;
-    margin: 1vh 0vh 1vh 0vh;
-    font-size: 2vh;
-}
-
-select option {
-    text-indent: 1vh;
-    margin: 2vh;
+#select-box {
+    width: 30vw;
+    /* border: 2px solid black; */
+    /* padding: 4vh; */
+    /* height: 4vh; */
 }
 
 button.upload-image-button {

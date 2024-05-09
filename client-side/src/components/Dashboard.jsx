@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import "../CSS/Dashboard.css"
+import { Tooltip, Button, Zoom } from '@mui/material';
 
 function Dashboard() {
 
@@ -19,46 +20,75 @@ function Dashboard() {
     setUserData({ username, name, email, role });
   }, []);
 
-  const [active, setActive] = useState(false)
-
   return (
     <>
     {userData.name ? 
-    
-        <div className={`sidebar ${active ? "active" : null} transition-all ease-in-out`}>
-          <ul>
-          <li>
-            <Link to={"/dashboard/home"}>
-            <i className="bx bx-home"></i>
-            </Link>
-            <span className="tooltip">Home</span>
-          </li>
-            <li>
-              <Link to={"/dashboard/all"}>
-              <i className="bx bx-street-view"></i>
-              </Link>
-              <span className="tooltip">All complaints</span>
-            </li>
-            <li>
-              <Link to={"/dashboard/user"}>
-              <i className="bx bx-edit"></i>
-              </Link>
-              <span className="tooltip">Your tickets</span>
-            </li>
-            <li>
-              <Link to={"/dashboard/profile"}>
-              <i className="bx bxs-contact"></i>
-              </Link>
-              <span className="tooltip">Profile</span>
-            </li>
+        <div className={`sidebar transition-all ease-in-out`}>
+        <Link to={"/dashboard/home"}>
+          <Tooltip arrow TransitionComponent={Zoom} title="Home" placement="right-start"
+          sx={{
+            padding: "2vh 0vh 2vh 0vh",
+            '&:hover': {
+              backgroundColor: '#570303', 
+            }
+          }}
+          style={{
+            '& .MuiTooltip-tooltip': {
+              backgroundColor: '#f5f5f9',
+              color: 'rgba(0, 0, 0, 0.87)',
+              maxWidth: '220px',
+              fontSize: '12px',
+              border: '1px solid #dadde9',
+            },
+          }}
+          >
+            <Button>
+              <i className="bx bx-home"></i>
+            </Button>
+          </Tooltip>
+          </Link>
 
-            <li>
-              <Link to={"/dashboard/contact"}>
-              <i className="bx bxs-phone"></i>
+          <Link to={"/dashboard/all"}>
+          <Tooltip arrow TransitionComponent={Zoom} title="All Complaints" placement="right-start"
+          sx={{
+            padding: "2vh 0vh 2vh 0vh",
+            '&:hover': {
+              backgroundColor: '#570303', 
+            }
+          }}>
+            <Button>
+              <i className="bx bx-street-view"></i>
+            </Button>
+          </Tooltip>
               </Link>
-              <span className="tooltip">Contact us</span>
-            </li>
-          </ul>
+
+              <Link to={"/dashboard/user"}>
+          <Tooltip arrow TransitionComponent={Zoom} title="Your Tickets" placement="right-start"
+          sx={{
+            padding: "2vh 0vh 2vh 0vh",
+            '&:hover': {
+              backgroundColor: '#570303', 
+            }
+          }}>
+            <Button>
+              <i className="bx bx-edit"></i>
+            </Button>
+          </Tooltip>
+            </Link>
+
+            <Link to={"/dashboard/profile"}>
+          <Tooltip arrow TransitionComponent={Zoom} title="Profile" placement="right-start"
+          sx={{
+            padding: "2vh 0vh 2vh 0vh",
+            '&:hover': {
+              backgroundColor: '#570303', 
+            }
+          }}>
+            <Button>
+              <i className="bx bxs-contact"></i>
+            </Button>
+          </Tooltip>
+              </Link>
         </div>
         : "please log in"}
     </>
