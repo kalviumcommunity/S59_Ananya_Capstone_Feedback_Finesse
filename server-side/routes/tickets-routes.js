@@ -50,7 +50,7 @@ router.patch('/:id', async (req, res) => {
       res.json(blog)
   }
   catch (error) {
-      res.status(400).json({error: "An error has been caught"})
+      res.status(500).json({error: "An error has been caught"})
   }
 })
 
