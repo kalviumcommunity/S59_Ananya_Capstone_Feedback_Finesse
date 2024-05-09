@@ -38,8 +38,34 @@ router.post('/makepost', async (req, res) => {
         console.error("Server error was detected", error);
         res.status(500).json({ message: 'Internal server error' });
       }
-
     }
-  });
+});
+
+router.patch('/:id', async (req, res) => {
+  try {
+      const blog = await Ticket.findByIdAndUpdate(req.params.id, req.body, { new : true })    
+      if (!blog) {
+          return res.status(400).json("No result found")
+      }
+      res.json(blog)
+  }
+  catch (error) {
+      res.status(500).json({error: "An error has been caught"})
+  }
+})
+
+router.delete('/delete/:id', async (req, res) => {
+  try {
+      const blog = await Ticket.findByIdAndDelete(req.params.id)
+      if (!blog) {
+        return res.status(400).send("No result found")
+      }
+      res.send("Item deleted successfully")
+  }
+  catch (error) {
+      res.status(400).json({ error: "An error has been caught - delete" })
+  }
+})
+
 
 module.exports = router;

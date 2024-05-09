@@ -11,6 +11,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import del from "../assets/delete.png"
 import edit from "../assets/edit.png"
 import user from "../assets/profile.png"
+// import ConfirmDelete from "./ConfirmDelete";
 
 function AllTickets() {
 
@@ -28,7 +29,9 @@ function AllTickets() {
   const [showMakePost, setShowMakePost] = useState(false);
   const [post, setPost] = useState([]);
   const [imageIndex, setImageIndex] = useState(Array(post.length).fill(0));
-  const [like, setLike] = useState(false)
+  const [likes, setLikes] = useState({});
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [clickedID, setClickedID] = useState(null)
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
@@ -37,11 +40,23 @@ function AllTickets() {
         // console.log(res)
         setPost(res)
         setImageIndex(Array(res.length).fill(0));
+        const initialLikes = {};
+        res.forEach((post) => {
+          initialLikes[post._id] = false;
+        });
+        setLikes(initialLikes);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [setPost]);
+
+  const toggleLike = (postId) => {
+    setLikes((prevLikes) => ({
+      ...prevLikes,
+      [postId]: !prevLikes[postId]
+    }));
+  };
 
   const uploadImage = (e) => {
     e.preventDefault();
@@ -50,7 +65,7 @@ function AllTickets() {
     }
     var count = 0;
     imageUpload.forEach((file) => {
-      console.log(imageUrls);
+      // console.log(imageUrls);
       const imageRef = ref(storage, `images/${file.name + v4()}`);
       uploadBytes(imageRef, file)
         .then((e) => {
@@ -116,9 +131,13 @@ function AllTickets() {
         setImageUpload([]);
         setImageUrls([]);
         toast.success("Your post is now live !");
-      } else if (response.status === 400) {
+      } 
+      
+      else if (response.status === 400) {
         toast.error("Please upload relevant pictures to your problem");
-      } else {
+      } 
+      
+      else {
         toast.error("There was a server error");
       }
     } catch (error) {
@@ -146,6 +165,11 @@ function AllTickets() {
         return updatedIndexes;
       });
     }
+  };
+
+  const handledeletePost = (id) => {
+    setClickedID(id)
+    setConfirmDelete(true);
   };
 
   return (
@@ -182,7 +206,7 @@ function AllTickets() {
           ) : (
             <>
               <div className="allpost">
-                {post.map((file, index) => (
+                {post.slice().reverse().map((file, index) => (
                   <div id="eachpost" key={index} className="flex flex-row justify-between">
 
                   <span className="flex flex-row justify-between">
@@ -205,6 +229,8 @@ function AllTickets() {
                         <img src={file.picture[imageIndex[index]]} alt="" />
                         <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file._id, file.picture.length)}  />
                       </div>
+                    {/* {confirmDelete ? <ConfirmDelete clickedID={clickedID} setConfirmDelete={setConfirmDelete} setClickedID={setClickedID} /> : null} */}
+                      {/* <ConfirmDelete/> */}
                       </>
                     )}
                     </span>
@@ -215,16 +241,16 @@ function AllTickets() {
                   </span>
                     {/* <hr style={{width: "100%", height: "0.2vh", backgroundColor: "#999900"}} className="mt-7"/> */}
                   <span className="flex flex-row justify-between mt-3" id="last-buttons">
-                      <div onClick={() => setLike(!like)}>
-                        {!like ? (
-                          <i className='bx bx-like text-5xl text-darkred'></i>
-                        ) : (
-                          <i className='bx bxs-like text-5xl text-darkred' ></i>
-                        )}
-                      </div>
+                  <div onClick={() => toggleLike(file._id)}>
+                    {!likes[file._id] ? (
+                      <i className='bx bx-like text-5xl text-darkred'></i>
+                    ) : (
+                      <i className='bx bxs-like text-5xl text-darkred'></i>
+                    )}
+                  </div>
                       <div className="flex flex-row items-center gap-4 mr-8">
-                        <button className="flex flex-row items-center">Edit <img src={edit} alt="edit" className="ml-1"/> </button>
-                        <button className="flex flex-row items-center">Delete <img src={del} alt="delete" className="ml-1"/></button>
+                        <button className="flex flex-row items-center" >Edit <img src={edit} alt="edit" className="ml-1"/> </button>
+                        <button className="flex flex-row items-center" onClick={() => handledeletePost(file._id)}>Delete <img src={del} alt="delete" className="ml-1"/></button>
                       </div>
                     </span>
                     
