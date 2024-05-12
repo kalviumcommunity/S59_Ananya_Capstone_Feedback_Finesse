@@ -21,6 +21,10 @@
     text-shadow: 1px 1px 10px black;
 }
 
+#update {
+    background-color: white     ;
+}
+
 .confirm p {
     font-family: 'Dosis';
     font-size: 4vh;

@@ -1,18 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handleChange, complaintData}) {
 
-    const validateForm = () => {
-        const { title, content, universityID, hostel, picture, username } = complaintData;
-        if (!title || !content || !universityID || hostel === "NA" || !hostel || !picture || !imageUpload || !username) {
-          // console.log(imageUpload), picture
-          return false;
-        }
-        return true;
-      }
+  const validateForm = () => {
+    const { title, content, universityID, hostel, picture, username } = complaintData;
+    if (!title || !content || !universityID || !hostel || !picture || !imageUpload || !username) {
+    // console.log(imageUpload), picture
+      return false;
+    }
+    return true;
+  }
+  // console.log(complaintData.hostel)
 
+  const [hostelInputValue, setHostelInputValue] = useState('');
 
   return (
     <>
@@ -37,13 +39,18 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
   
               <h4 className='mb-2'>Choose the relevant place</h4>
 
+              {console.log(hostelInputValue)}
               <Autocomplete
                 disablePortal
                 id="select-box"
                 options={hostelnames}
-                onChange={(curr) => {
-                  handleChange({ target: { name: "hostel", value: curr?.label || "" } });
+                // value={hostelInputValue}
+                inputValue={hostelInputValue}
+                onInputChange={(event, newInputValue) => {
+                  setHostelInputValue(newInputValue);
+                  handleChange({ target: { name: "hostel", value: newInputValue } });
                 }}
+                
                 sx={{
                   "& .MuiAutocomplete-inputRoot": {
                     borderRadius: "1vh",
@@ -56,7 +63,8 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
                 }}
                 renderInput={(params) => <TextField {...params} label="Select from here" />}
               />
-
+              {/* {console.log(handleChange)} */}
+                
               <h4 className='mt-6'>Add relevant pictures</h4>
               <input className='shadow-none w-fit' style={{boxShadow: "none"}} onChange={(e) => {
                 const filesArray = Array.from(e.target.files)
@@ -74,13 +82,13 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
 }
 
 const hostelnames = [
-  { label: 'New Girls Hostel', value: "NGH"  },
-  { label: 'Gargi Hostel', value: "Gargi" },
-  { label: 'Teresa Hostel', value: "Teresa"},
-  { label: 'Aryabhatta Hostel', value: "Aryabhatta" },
-  { label: 'Bose Hostel', value: "Bose" },
-  { label: "Chanakya Hostel", value: "Chanakya" },
-  { label: 'Hostel Mess', value: "Hostel Mess" }
+  'New Girls Hostel',
+  'Gargi Hostel',
+  'Teresa Hostel',
+  'Aryabhatta Hostel',
+  'Bose Hostel',
+  "Chanakya Hostel",
+  'Hostel Mess' 
 ];
 
 export default MakePost

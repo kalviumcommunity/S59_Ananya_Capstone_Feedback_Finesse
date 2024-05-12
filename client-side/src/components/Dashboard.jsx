@@ -1,10 +1,33 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import "../CSS/Dashboard.css"
-import { Tooltip, Button, Zoom } from '@mui/material';
+import { Tooltip, Button, Zoom, tooltipClasses, styled } from '@mui/material';
+
+const CustomTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} sx={{
+    padding: "2vh 0vh 2vh 0vh",
+    '&:hover': {
+      backgroundColor: '#570303', 
+    }
+  }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    // backgroundColor: theme.palette.common.black,
+    color: 'white',
+    // boxShadow: "2px 3px 5px #570303",
+    fontSize: "2.1vh",
+    marginLeft: "10vh",
+    padding: "1vh 2vh 1vh 2vh",
+    marginTop: "1vh",
+    backgroundColor: "#960f08"
+  },
+  [`& .${tooltipClasses.arrow}`]: {
+    color: '#570303',
+    fontSize: "3vh",
+  },
+}));
 
 function Dashboard() {
-
   const [userData, setUserData] = useState({
     username: "",
     name: "",
@@ -25,69 +48,35 @@ function Dashboard() {
     {userData.name ? 
         <div className={`sidebar transition-all ease-in-out`}>
         <Link to={"/dashboard/home"}>
-          <Tooltip arrow TransitionComponent={Zoom} title="Home" placement="right-start"
-          sx={{
-            padding: "2vh 0vh 2vh 0vh",
-            '&:hover': {
-              backgroundColor: '#570303', 
-            }
-          }}
-          style={{
-            '& .MuiTooltip-tooltip': {
-              backgroundColor: '#f5f5f9',
-              color: 'rgba(0, 0, 0, 0.87)',
-              maxWidth: '220px',
-              fontSize: '12px',
-              border: '1px solid #dadde9',
-            },
-          }}
-          >
+          <CustomTooltip arrow TransitionComponent={Zoom} title="Home" placement="right-start">
             <Button>
               <i className="bx bx-home"></i>
             </Button>
-          </Tooltip>
+          </CustomTooltip>
           </Link>
 
           <Link to={"/dashboard/all"}>
-          <Tooltip arrow TransitionComponent={Zoom} title="All Complaints" placement="right-start"
-          sx={{
-            padding: "2vh 0vh 2vh 0vh",
-            '&:hover': {
-              backgroundColor: '#570303', 
-            }
-          }}>
+          <CustomTooltip arrow TransitionComponent={Zoom} title="All Complaints" placement="right-start">
             <Button>
               <i className="bx bx-street-view"></i>
             </Button>
-          </Tooltip>
+          </CustomTooltip>
               </Link>
 
               <Link to={"/dashboard/user"}>
-          <Tooltip arrow TransitionComponent={Zoom} title="Your Tickets" placement="right-start"
-          sx={{
-            padding: "2vh 0vh 2vh 0vh",
-            '&:hover': {
-              backgroundColor: '#570303', 
-            }
-          }}>
+          <CustomTooltip arrow TransitionComponent={Zoom} title="Your Tickets" placement="right-start">
             <Button>
               <i className="bx bx-edit"></i>
             </Button>
-          </Tooltip>
+          </CustomTooltip>
             </Link>
 
             <Link to={"/dashboard/profile"}>
-          <Tooltip arrow TransitionComponent={Zoom} title="Profile" placement="right-start"
-          sx={{
-            padding: "2vh 0vh 2vh 0vh",
-            '&:hover': {
-              backgroundColor: '#570303', 
-            }
-          }}>
+          <CustomTooltip arrow TransitionComponent={Zoom} title="Profile" placement="right-start">
             <Button>
               <i className="bx bxs-contact"></i>
             </Button>
-          </Tooltip>
+          </CustomTooltip>
               </Link>
         </div>
         : "please log in"}
