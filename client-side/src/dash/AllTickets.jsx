@@ -11,7 +11,8 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import del from "../assets/delete.png"
 import edit from "../assets/edit.png"
 import user from "../assets/profile.png"
-// import ConfirmDelete from "./ConfirmDelete";
+import ConfirmDelete from "./ConfirmDelete";
+import ConfirmUpdate from "./ConfirmUpdate";
 
 function AllTickets() {
 
@@ -30,8 +31,13 @@ function AllTickets() {
   const [post, setPost] = useState([]);
   const [imageIndex, setImageIndex] = useState(Array(post.length).fill(0));
   const [likes, setLikes] = useState({});
+
   const [confirmDelete, setConfirmDelete] = useState(false)
-  const [clickedID, setClickedID] = useState(null)
+  const [deletePost, setDeletePost] = useState(null)
+
+  const [updatePost, setUpdatePost] = useState(false)
+  const [updateID, setUpdateID] = useState(null)
+  const [toSend, setToSend] = useState(null)
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
@@ -49,7 +55,7 @@ function AllTickets() {
       .catch((error) => {
         console.log(error);
       });
-  }, [setPost]);
+  }, [setPost, setImageUrls, setLikes, setUpdatePost, setShowMakePost, showMakePost]);
 
   const toggleLike = (postId) => {
     setLikes((prevLikes) => ({
@@ -65,7 +71,6 @@ function AllTickets() {
     }
     var count = 0;
     imageUpload.forEach((file) => {
-      // console.log(imageUrls);
       const imageRef = ref(storage, `images/${file.name + v4()}`);
       uploadBytes(imageRef, file)
         .then((e) => {
@@ -168,9 +173,28 @@ function AllTickets() {
   };
 
   const handledeletePost = (id) => {
-    setClickedID(id)
+    setDeletePost(id)
     setConfirmDelete(true);
   };
+
+  const handleeditpost = (id) => {
+    setUpdateID(id)
+    setUpdatePost(true)
+    post.forEach((e) => {
+      if (e._id == id) {
+        setToSend(e)
+      }
+    })
+  }
+  
+  useEffect(() => {
+    if (updateID && updatePost) {
+      const updatedToSend = post.find((e) => e._id === updateID);
+      if (updatedToSend) {
+        setToSend(updatedToSend);
+      }
+    }
+  }, [updateID, updatePost, setUpdateID, setUpdatePost]);
 
   return (
     <>
@@ -206,14 +230,14 @@ function AllTickets() {
           ) : (
             <>
               <div className="allpost">
-                {post.slice().reverse().map((file, index) => (
+                {Array.isArray(post) && post.map((file, index) => (
                   <div id="eachpost" key={index} className="flex flex-row justify-between">
 
                   <span className="flex flex-row justify-between">
                     
                     <span className="flex flex-col justify-start">
                       <h3 className="text-darkred font-bold flex flex-row items-center user"> <img style={{height: "8vh", width: "8vh"}} src={user} alt="" className="mr-3" /> <span>{file.username}</span></h3>
-                      <hr style={{backgroundColor: "black", height: "0.2vh", width: "30vw"}} className="mb-4" />
+                      <hr style={{backgroundColor: "black", height: "0.2vh", width: "fit-content"}} className="mb-4" />
                       <h3 className="flex flex-row items-center"><i className='bx bxs-id-card mr-1 text-3xl' style={{color: "#900000"}}></i>University ID: <span className="ml-2">{file.universityID}</span></h3>
                       <h3 className="flex flex-row items-center"><i className='bx bxs-building-house mr-1 text-3xl' style={{color: "#900000"}}></i>Hostel: <span className="ml-2">{file.hostel}</span></h3>
                       <h3 className="flex flex-row items-center">Status:<span className="flex flex-row items-center"><i className='ml-2 mr-1 bx bxs-circle' style={{color: file.status == "Submitted" ? "#900000" : file.status == "In Progress" ? "yellow" : "green"}}></i>{file.status}</span></h3>
@@ -229,8 +253,10 @@ function AllTickets() {
                         <img src={file.picture[imageIndex[index]]} alt="" />
                         <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file._id, file.picture.length)}  />
                       </div>
-                    {/* {confirmDelete ? <ConfirmDelete clickedID={clickedID} setConfirmDelete={setConfirmDelete} setClickedID={setClickedID} /> : null} */}
-                      {/* <ConfirmDelete/> */}
+                    {confirmDelete ? <ConfirmDelete deletePost={deletePost} setConfirmDelete={setConfirmDelete} setDeletePost={setDeletePost} /> : null}
+
+                    {updatePost ? <ConfirmUpdate updateID={updateID} setUpdateID={setUpdateID} setUpdatePost={setUpdatePost} toSend={toSend} complaintData={complaintData} setComplaintData={setComplaintData} setPost={setPost} /> : null}
+                    
                       </>
                     )}
                     </span>
@@ -249,8 +275,12 @@ function AllTickets() {
                     )}
                   </div>
                       <div className="flex flex-row items-center gap-4 mr-8">
-                        <button className="flex flex-row items-center" >Edit <img src={edit} alt="edit" className="ml-1"/> </button>
+                        {sessionStorage.getItem("role") == "admin" || file.username == sessionStorage.getItem("username") ? 
+                        <>
+                        <button className="flex flex-row items-center" onClick={() => handleeditpost(file._id)} >Edit <img src={edit} alt="edit" className="ml-1"/> </button>
                         <button className="flex flex-row items-center" onClick={() => handledeletePost(file._id)}>Delete <img src={del} alt="delete" className="ml-1"/></button>
+                        </>
+                      : null}
                       </div>
                     </span>
                     
