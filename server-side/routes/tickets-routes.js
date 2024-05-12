@@ -45,7 +45,7 @@ router.patch('/update/:id', async (req, res) => {
   try {
     const blog = await Ticket.findByIdAndUpdate(req.params.id, req.body, { new : true })    
     if (!blog) {
-      return res.status(400).json("No result found")
+      return res.status(404).json("No result found"); 
     }
     res.json(blog)
   }
@@ -58,7 +58,7 @@ router.delete('/delete/:id', async (req, res) => {
   try {
     const blog = await Ticket.findByIdAndDelete(req.params.id)
     if (!blog) {
-      return res.status(400).send("No result found")
+      return res.status(404).json("No result found"); 
     }
     res.send("Item deleted successfully")
   }

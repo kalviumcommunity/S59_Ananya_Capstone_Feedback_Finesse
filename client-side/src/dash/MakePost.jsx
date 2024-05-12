@@ -7,12 +7,10 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
   const validateForm = () => {
     const { title, content, universityID, hostel, picture, username } = complaintData;
     if (!title || !content || !universityID || !hostel || !picture || !imageUpload || !username) {
-    // console.log(imageUpload), picture
       return false;
     }
     return true;
   }
-  // console.log(complaintData.hostel)
 
   const [hostelInputValue, setHostelInputValue] = useState('');
 
@@ -63,7 +61,6 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
                 }}
                 renderInput={(params) => <TextField {...params} label="Select from here" />}
               />
-              {/* {console.log(handleChange)} */}
                 
               <h4 className='mt-6'>Add relevant pictures</h4>
               <input className='shadow-none w-fit' style={{boxShadow: "none"}} onChange={(e) => {

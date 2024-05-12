@@ -71,7 +71,6 @@ function AllTickets() {
     }
     var count = 0;
     imageUpload.forEach((file) => {
-      // console.log(imageUrls);
       const imageRef = ref(storage, `images/${file.name + v4()}`);
       uploadBytes(imageRef, file)
         .then((e) => {
@@ -195,7 +194,6 @@ function AllTickets() {
         setToSend(updatedToSend);
       }
     }
-    // console.log(toSend)
   }, [updateID, updatePost, setUpdateID, setUpdatePost]);
 
   return (
@@ -256,7 +254,6 @@ function AllTickets() {
                         <ArrowForwardIosIcon className={file.picture.length > 1 ? "workingarrow" : "disablearrow"} onClick={() => handleRight(file._id, file.picture.length)}  />
                       </div>
                     {confirmDelete ? <ConfirmDelete deletePost={deletePost} setConfirmDelete={setConfirmDelete} setDeletePost={setDeletePost} /> : null}
-                      {/* <ConfirmDelete/> */}
 
                     {updatePost ? <ConfirmUpdate updateID={updateID} setUpdateID={setUpdateID} setUpdatePost={setUpdatePost} toSend={toSend} complaintData={complaintData} setComplaintData={setComplaintData} setPost={setPost} /> : null}
                     
