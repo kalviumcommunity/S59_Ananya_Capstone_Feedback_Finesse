@@ -87,36 +87,43 @@ function ConfirmUpdate({
 
   return (
     <>
-      <div id="parent-update">
-        <div id="update">
-          <h5>Title</h5>
-          <input type="text" name="title" onChange={(e) => handleChange(e)} value={title} />
+      <div className="parent-update">
+        <div className="update">
+          
+          <TextField className="input" id="outlined-basic" label="Title" variant="standard" name="title" onChange={handleChange} value={title} />
 
-          <h5>Description</h5>
-          <textarea
+          <TextField
             name="content"
-            id=""
+            className="input"
+            id="outlined-basic" label="Description" variant="standard"
             onChange={(e) => handleChange(e)}
             value={content}
-          ></textarea>
+          ></TextField>
 
-          <h5>University ID</h5>
-          <input type="text" name="universityID" onChange={(e) => handleChange(e)} value={universityID} />
+            <TextField
+            name="universityID"
+            className="input"
+            id="outlined-basic" label="University ID" variant="standard"
+            onChange={(e) => handleChange(e)}
+            value={universityID}
+          ></TextField>
 
         <Autocomplete
           disablePortal
           id="select-box"
+          className="mb-3 mt-2 input"
           name="hostel"
           options={hostelnames}
           defaultValue={hostelInputValue}
+          // variant="standard"
           sx={{
             "& .MuiAutocomplete-inputRoot": {
               borderRadius: "1vh",
-              border: "none",
+              border: "none"
             },
             "& .MuiInputBase-input": {
               padding: "8vh 1vh 2vh 1vh",
-              border: "none",
+              border: "none"
             },
           }}
           inputValue={hostelInputValue}
@@ -124,11 +131,12 @@ function ConfirmUpdate({
             setHostelInputValue(newInputValue);
             handleChange({ target: { name: "hostel", value: newInputValue } });
           }}
-          // onInputChange={(e) => handleChange(e)}
-          renderInput={(params) => <TextField {...params} label="Select from here" />}
+          renderInput={(params) => <TextField {...params} label="Select your hostel from here" />}
         />
-          <button onClick={confirmupdatepost}>Confirm</button>
-          <button onClick={cancelupdatepost}>Cancel</button>
+        <span className="flex flex-row justify-center">
+          <button className="confirm-but" onClick={confirmupdatepost}>Confirm</button>
+          <button className="cancel-but" onClick={cancelupdatepost}>Cancel</button>
+        </span>
         </div>
       </div>
     </>

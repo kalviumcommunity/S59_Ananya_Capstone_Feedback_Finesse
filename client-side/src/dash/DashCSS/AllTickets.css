@@ -196,8 +196,9 @@ span#last-buttons button img {
 }
 
 span#last-buttons button:hover {
-    box-shadow: 4px 4px #290505;
+    box-shadow: 4px 4px #9000004c;
     transition-duration: 0.6s;
+    transform: translate3d(-3px, -3px, 4px);
 }
 
 span#last-buttons button:not(:hover) {
