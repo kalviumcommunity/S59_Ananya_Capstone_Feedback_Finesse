@@ -51,6 +51,7 @@ function Register() {
         );
         const message = await response.json();
         if (response.ok) {
+          setCompleteRegister(false)
           toast.success("Congratulations for registering with us !");
           sessionStorage.clear();
           sessionStorage.setItem("name", data.name);
@@ -58,7 +59,6 @@ function Register() {
           sessionStorage.setItem("email", data.email);
           sessionStorage.setItem("role", data.role);
           setShowPopup(true);
-          setCompleteRegister(false)
           setInterval(() => {
             setCountdown((prev) => prev - 1);
           }, 1000);

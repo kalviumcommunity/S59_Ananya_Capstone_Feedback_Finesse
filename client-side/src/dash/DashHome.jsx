@@ -21,14 +21,24 @@ function DashHome() {
 
   return (
     <>
-    <section className="main">
+    {!sessionStorage.getItem("username") ? 
+    <>
+    <section className="message-main flex justify-center items-center w-full">
+      <div className="message-login">
+        <span><i className='bx bxs-quote-left text-darkred align-center'></i></span>
+        <span>Hey there, <br /></span>
+        <span>Thank you for showing interest in Feedback Finesse <br />
+        You're only one step away from joining the family. Click the button below to avail all advantages that come with being a member 
+        </span>
+        <button><span>Click here</span></button>
+      </div>
+    </section>
+    </> :
 
-      
-    <div className="dashboard-parent">
-      <Dashboard />
-    </div>
-
-    {sessionStorage.getItem("username") ? (
+    <section className="main">      
+      <div className="dashboard-parent">
+        <Dashboard />
+      </div>
       <div className="main-child">
       <div id="boxes">
         <div className="dash-box">Total number of posts: {post.length}</div>
@@ -40,10 +50,8 @@ function DashHome() {
         </div>
       </div>
     </div>
-      ) : null}
-
-
     </section>
+    }
     </>
   );
 }

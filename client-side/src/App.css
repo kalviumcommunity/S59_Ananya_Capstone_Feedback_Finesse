@@ -8,27 +8,28 @@ hr {
   width: 10vw;
 }
 
-div.countdown-parent, section#completeregister {
-  position: absolute;
-  top: 50%;
-  left: 42%;
+div.countdown-parent {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20vw;
-  background-color: #900000;
+  background-color: #0000002c;
   color: white;
-  padding: 3vh 2vh 3vh 2vh;
-  text-align: center;
-  box-shadow: 8px 7px #90000087;
-  border-radius: 1vh;
-  font-weight: 700;
-  border: 1px double white;
-  font-family: monospace;
   font-size: 3vh;
-  z-index: 20;
+  backdrop-filter: blur(3px);
+  z-index: 50;
 }
 
-section#completeregister input {
-  color: black;
+div.countdown-parent div {
+  background-color: #900000;
+  padding: 2vh 3vh 2vh 3vh;
+  border-radius: 1vh;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.279);
+  border: 1px double white;
+  width: 19vw;
+  text-align: center;
 }

@@ -1,13 +1,72 @@
 div#boxes {
-    display: flex;
-    
+  display: flex;   
 }
 
 div.dash-box {
-    padding: 3vh;
-    height: 40vh;
-    width: 40vh;
-    margin: 5vh;
-    border-radius: 2vh;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px;
+  padding: 3vh;
+  height: 40vh;
+  width: 40vh;
+  margin: 5vh;
+  border-radius: 2vh;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px;
+}
+
+section.message-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+  margin-top: 11vh;
+}
+
+div.message-login {
+  border: 1px solid black;
+  font-family: 'Dosis';
+  font-size: 3vh;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh 4vh 2vh 4vh;
+}
+
+div.message-login i {
+  font-size: 7vh;
+}
+
+div.message-login button {
+  border-radius: 1vh;
+  background-color: #900000;
+  color: white;
+  text-align: center;
+  font-size: 2.6vh;
+  padding: 1vh 2vh 1vh 2vh;
+  transition: ease 0.5s;
+  cursor: pointer;
+  width: 10vw;
+}
+   
+div.message-login button span {
+  position: relative;
+  display: inline-block;
+  transition: 0.5s;
+}
+   
+div.message-login button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -3vh;
+  transition: 0.5s;
+}
+   
+div.message-login button:hover span {
+  padding-right: 3vh;
+}
+   
+div.message-login button:hover span:after {
+  opacity: 1;
+  right: 0;
 }

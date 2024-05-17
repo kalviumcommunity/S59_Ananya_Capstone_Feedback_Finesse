@@ -79,7 +79,7 @@ function Dashboard() {
           </CustomTooltip>
               </Link>
         </div>
-        : "please log in"}
+        : null}
     </>
   )
 }

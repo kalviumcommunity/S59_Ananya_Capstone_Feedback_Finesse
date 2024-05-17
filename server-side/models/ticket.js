@@ -23,6 +23,9 @@ const schema = new mongoose.Schema({
         type: String,
         enum: ["Submitted", "In Progress", "Completed"],
         default: "Submitted"
+    },
+    adminNote: {
+        type: String,
     }
 })
 
