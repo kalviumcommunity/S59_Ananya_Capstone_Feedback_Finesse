@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../CSS/CompleteRegister.css"
 
 function CompleteRegister({googleData, setLogin, login}) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, trigger } = useForm();
     const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
     const [countdown, setCountdown] = useState(3);
@@ -48,7 +48,8 @@ function CompleteRegister({googleData, setLogin, login}) {
             const message = await response.json();
             
             if (response.ok) {
-              toast.success("Congratulations for registering with us !");
+              // toast.success("Congratulations for registering with us !");
+              toast.info("Almost done ! Complete the registration process now")
               sessionStorage.clear();
               sessionStorage.setItem("name", googleData.name);
               sessionStorage.setItem("username", data.username);
@@ -96,6 +97,7 @@ function CompleteRegister({googleData, setLogin, login}) {
                 },
               })}
               className={errors.username ? "input-error" : ""}
+              onBlur={() => trigger("username")}
             />
             <h6>{errors.username?.message}</h6>
           </div>
@@ -120,6 +122,7 @@ function CompleteRegister({googleData, setLogin, login}) {
                 },
               })}
               className={errors.password ? "input-error" : ""}
+              onBlur={() => trigger("password")}
             />
             <h6>{errors.password?.message}</h6>
           </div>
