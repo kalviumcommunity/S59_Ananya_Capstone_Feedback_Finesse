@@ -1,0 +1,87 @@
+section#completeregister {
+    display: flex;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.162);
+    z-index: 20;
+    backdrop-filter: blur(2px);
+}
+
+section#completeregister form {
+    background-color: white;
+    padding: 3vh;
+}
+
+section#completeregister form input {
+    background-color: rgba(143, 0, 0, 0.15);
+    font-size: 2.5vh;
+    padding: 1vh 3vh 1vh 3vh;
+    width: 25vw;
+    border-radius: 1.1vh;
+    /* margin: 2vh 0vh 1vh 0vh; */
+    border: none;
+    outline: none;
+}
+
+section#completeregister form h2 {
+    font-family: 'Khand';
+    font-weight: 900;
+    font-size: 3vh;
+}
+
+section#completeregister form h5 {
+    font-family: 'Dosis';
+    font-family: 600;
+    font-size: 2.6vh;
+    text-shadow: 1px 0px 5px rgba(0, 0, 0, 0.353);
+    margin: 1vh 0vh 1vh 0vh;
+}
+
+section#completeregister form h6 {
+    font-family: "Assistant";
+    font-size: 2vh;
+    background-color: rgba(255, 255, 255, 0.615);
+    color: rgb(255, 0, 0);
+    margin: 0.4vh 0vh 1.6vh 0vh;
+}
+
+section#completeregister form button {
+  border-radius: 1vh;
+  background-color: #900000;
+  color: white;
+  text-align: center;
+  font-size: 2vh;
+  padding: 1vh 2vh 1vh 2vh;
+  transition: ease 0.5s;
+  cursor: pointer;
+  width: 100%;
+}
+   
+section#completeregister form button span {
+  position: relative;
+  display: inline-block;
+  transition: 0.5s;
+}
+   
+section#completeregister form button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -3vh;
+  transition: 0.5s;
+}
+   
+section#completeregister form button:hover span {
+  padding-right: 3vh;
+}
+   
+section#completeregister form button:hover span:after {
+  opacity: 1;
+  right: 0;
+}

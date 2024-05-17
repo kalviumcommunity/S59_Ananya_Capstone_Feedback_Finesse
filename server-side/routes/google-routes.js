@@ -71,4 +71,25 @@ router.post('/signin', async (req, res) => {
   }
 });
 
+router.delete('/cleanup', async (req, res) => {
+  try {
+    const Gusers = await GoogleUser.find();
+
+    const deleting = Gusers.map(async (googleUser) => {
+      const user = await User.findOne({ email: googleUser.emailID });
+      if (!user) {
+        return GoogleUser.deleteOne({ emailID: googleUser.emailID });
+      }
+    });
+
+    await Promise.all(deleting);
+
+    res.status(200).json({ message: 'Cleanup done' });
+  } 
+  
+  catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 module.exports = router;
