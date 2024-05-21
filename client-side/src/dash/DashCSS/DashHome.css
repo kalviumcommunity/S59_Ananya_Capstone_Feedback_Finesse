@@ -25,14 +25,16 @@ div.message-login {
   border: 1px solid black;
   font-family: 'Dosis';
   font-size: 3vh;
-  width: 50vw;
+  width: 30vw;
   display: flex;
   flex-direction: column;
   padding: 2vh 4vh 2vh 4vh;
+  /* align-items: center; */
+  /* text-align: center; */
 }
 
 div.message-login i {
-  font-size: 7vh;
+  font-size: 8vh;
 }
 
 div.message-login button {

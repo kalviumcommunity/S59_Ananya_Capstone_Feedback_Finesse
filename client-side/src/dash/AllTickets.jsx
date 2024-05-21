@@ -39,6 +39,12 @@ function AllTickets() {
   const [updateID, setUpdateID] = useState(null)
   const [toSend, setToSend] = useState(null)
 
+  const statusSteps = ["Submitted", "In Progress", "Resolved"];
+
+  const getStatusStep = (status) => {
+    return statusSteps.indexOf(status);
+  };
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
       .then((res) => res.json())
@@ -240,7 +246,6 @@ function AllTickets() {
                       <hr style={{backgroundColor: "black", height: "0.2vh", width: "fit-content"}} className="mb-4" />
                       <h3 className="flex flex-row items-center"><i className='bx bxs-id-card mr-1 text-3xl' style={{color: "#900000"}}></i>University ID: <span className="ml-2">{file.universityID}</span></h3>
                       <h3 className="flex flex-row items-center"><i className='bx bxs-building-house mr-1 text-3xl' style={{color: "#900000"}}></i>Hostel: <span className="ml-2">{file.hostel}</span></h3>
-                      <h3 className="flex flex-row items-center">Status:<span className="flex flex-row items-center"><i className='ml-2 mr-1 bx bxs-circle' style={{color: file.status == "Submitted" ? "#900000" : file.status == "In Progress" ? "yellow" : "green"}}></i>{file.status}</span></h3>
                       <h3>Title: <span>{file.title}</span></h3>
                     </span>
 
@@ -256,16 +261,25 @@ function AllTickets() {
                     {confirmDelete ? <ConfirmDelete deletePost={deletePost} setConfirmDelete={setConfirmDelete} setDeletePost={setDeletePost} /> : null}
 
                     {updatePost ? <ConfirmUpdate updateID={updateID} setUpdateID={setUpdateID} setUpdatePost={setUpdatePost} toSend={toSend} complaintData={complaintData} setComplaintData={setComplaintData} setPost={setPost} /> : null}
-                    
+                    <div className="progress-tracker">
+                      {statusSteps.map((step, stepIndex) => (
+                        <div key={step} className={`progress-step ${stepIndex <= getStatusStep(file.status) ? 'active' : ''}`}>
+                          <div className="progress-icon">{stepIndex + 1}</div>
+                          <p>{step}</p>
+                        </div>
+                      ))}
+                    </div>
                       </>
                     )}
+
                     </span>
                   </span>
 
                   <span>
                     <h3 className="mt-2">Description: <br /> <span>{file.content}</span></h3>
                   </span>
-                    {/* <hr style={{width: "100%", height: "0.2vh", backgroundColor: "#999900"}} className="mt-7"/> */}
+                    <hr style={{width: "100%", height: "0.2vh", backgroundColor: "#999900"}} className="mt-8 mb-1"/>
+
                   <span className="flex flex-row justify-between mt-3" id="last-buttons">
                   <div onClick={() => toggleLike(file._id)}>
                     {!likes[file._id] ? (

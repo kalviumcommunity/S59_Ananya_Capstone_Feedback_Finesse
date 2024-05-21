@@ -21,7 +21,7 @@ const schema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["Submitted", "In Progress", "Completed"],
+        enum: ["Submitted", "In Progress", "Resolved"],
         default: "Submitted"
     },
     adminNote: {
