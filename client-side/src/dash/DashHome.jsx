@@ -30,7 +30,7 @@ function DashHome() {
         <span>Thank you for showing interest in Feedback Finesse <br />
         You're only one step away from joining the family. Click the button below to avail all advantages that come with being a member 
         </span>
-        <button><span>Click here</span></button>
+        <button className="mt-4"><span>Click here</span></button>
       </div>
     </section>
     </> :
