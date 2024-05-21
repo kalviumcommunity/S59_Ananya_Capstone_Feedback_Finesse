@@ -56,4 +56,4 @@ function DashHome() {
   );
 }
 
-export default DashHome;
+export default DashHome
