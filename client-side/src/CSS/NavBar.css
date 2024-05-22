@@ -47,13 +47,23 @@ div#new-user:not(:hover) {
 }
 
 @media (max-width: 750px) {
+    div#navbar {
+        font-size: 1vh;
+        height: 9vh;
+    }
+
+    div#navbar div#comp2 {
+        font-size: 1.6vh;
+    }
+
     div#navbar #comp1 {
-        background-image: url("../../assets/logo2.png");
+        background-image: url("../assets/logo2.png");
         margin-bottom: 0%;
         background-size: contain;
         background-repeat: no-repeat;
+        height: 9vh;
     }
     div#navbar #comp2 div {
-        height: 11vh;
+        height: 9vh;
     }
 }

@@ -35,10 +35,12 @@ function DashHome() {
     </section>
     </> :
 
-    <section className="main">      
+    <section className="main flex flex-row">      
+    
       <div className="dashboard-parent">
         <Dashboard />
       </div>
+
       <div className="main-child">
       <div id="boxes">
         <div className="dash-box">Total number of posts: {post.length}</div>
@@ -48,6 +50,15 @@ function DashHome() {
           }
         })} {count}
         </div>
+        <div className="dash-box">Total number of users registered with us: </div>
+        <div className="dash-box">Number of posts made today</div>
+      </div>
+      <div>
+        Add your review here and get featured !
+      </div>
+      <div>
+        Connect with our admins !
+        
       </div>
     </div>
     </section>

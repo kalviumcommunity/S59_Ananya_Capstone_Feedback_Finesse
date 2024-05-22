@@ -6,6 +6,8 @@ body {
 div.main-child {
     height: fit-content;
     /* width: 100%; */
+    position: relative;
+    left: 5vw;
 }
 
 div#makepost {
