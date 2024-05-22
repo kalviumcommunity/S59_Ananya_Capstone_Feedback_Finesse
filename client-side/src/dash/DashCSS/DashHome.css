@@ -1,5 +1,6 @@
 div#boxes {
-  display: flex;   
+  display: flex; 
+  flex-wrap: wrap;  
 }
 
 div.dash-box {
@@ -8,7 +9,8 @@ div.dash-box {
   width: 40vh;
   margin: 5vh;
   border-radius: 2vh;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px;
+  /* box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.115); */
+  box-shadow: 2px 2px 40px rgba(0, 0, 0, 0.153);
 }
 
 section.message-main {
