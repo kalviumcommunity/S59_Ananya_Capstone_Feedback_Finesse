@@ -1,6 +1,8 @@
 import Dashboard from "@/components/Dashboard";
 import React, {useEffect, useState} from "react";
 import "./DashCSS/DashHome.css"
+import World from "@/components/World";
+import { Link } from "react-router-dom";
 
 function DashHome() {
   const [post, setPost] = useState([])
@@ -23,15 +25,18 @@ function DashHome() {
     <>
     {!sessionStorage.getItem("username") ? 
     <>
-    <section className="message-main flex justify-center items-center w-full">
+    <section className="message-main">
       <div className="message-login">
         <span><i className='bx bxs-quote-left text-darkred align-center'></i></span>
         <span>Hey there, <br /></span>
         <span>Thank you for showing interest in Feedback Finesse <br />
-        You're only one step away from joining the family. Click the button below to avail all advantages that come with being a member 
+        You're just a click away from joining our community and being part of our world !
         </span>
+        <Link to={'/signup'}>
         <button className="mt-4"><span>Click here</span></button>
+        </Link>
       </div>
+      <div className="world-parent"> <World /> </div>
     </section>
     </> :
 
