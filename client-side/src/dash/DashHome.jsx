@@ -30,7 +30,7 @@ function DashHome() {
         <span><i className='bx bxs-quote-left text-darkred align-center'></i></span>
         <span>Hey there, <br /></span>
         <span>Thank you for showing interest in Feedback Finesse <br />
-        You're only one click away from joining the family and becoming a part of this world !
+        You're just a click away from joining our community and being part of our world !
         </span>
         <Link to={'/signup'}>
         <button className="mt-4"><span>Click here</span></button>

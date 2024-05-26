@@ -24,7 +24,7 @@ section.message-main {
   align-items: center;
   flex-wrap: wrap;
   align-content: space-evenly;
-  overflow: scroll;
+  overflow: auto;
   gap: 3vh;
 }
 

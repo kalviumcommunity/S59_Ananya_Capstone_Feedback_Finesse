@@ -19,6 +19,7 @@ const World = () => {
     if (globeRef.current) {
       globeRef.current.controls().autoRotate = true;
       globeRef.current.controls().autoRotateSpeed = 0.8; 
+      globeRef.current.controls().autoRotate = true;
     }
 
   }, []);
