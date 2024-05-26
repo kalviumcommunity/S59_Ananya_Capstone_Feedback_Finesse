@@ -23,7 +23,7 @@
     "clsx": "^2.1.0",
     "firebase": "^10.11.1",
     "lucide-react": "^0.365.0",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-globe": "^2.0.1",
     "react-globe.gl": "^2.27.2",
