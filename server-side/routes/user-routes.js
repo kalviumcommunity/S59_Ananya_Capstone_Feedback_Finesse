@@ -4,7 +4,6 @@ const { connectToDataBase } = require('../db.js');
 const User = require('../models/user-schema.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-require('dotenv').config()
 const salt = bcrypt.genSaltSync(8)
 
 connectToDataBase();
@@ -42,7 +41,7 @@ router.post('/signup', async (req, res) => {
 
     const newUser = new User({ name, username, email, password: bcrypt.hashSync(password, salt), role });
     await newUser.save();
-    
+
     jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, {}, (err, token) => {
       if (err) {
         console.error('Error generating token:', err);

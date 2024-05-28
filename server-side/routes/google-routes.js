@@ -4,7 +4,6 @@ const { connectToDataBase } = require('../db.js');
 const GoogleUser = require('../models/google-schema.js');
 const User = require('../models/user-schema.js');
 const jwt = require('jsonwebtoken');
-require('dotenv').config()
 
 connectToDataBase();
 
