@@ -5,14 +5,36 @@ import "../CSS/NavBar.css";
 import {loginContext} from "../App"
 
 function NavBar() {
-  const [username, setUsername] = useState(sessionStorage.getItem("username"));
+  const [username, setUsername] = useState(sessionStorage.getItem("username"))
   const { login, setLogin } = useContext(loginContext);
 
   useEffect(() => {
-      const fetchUsername = sessionStorage.getItem("username");
-      setUsername(fetchUsername)
+    const fetchUsername = sessionStorage.getItem("username")
+    setUsername(fetchUsername)
   }, [login, setLogin]);
 
+  useEffect(() => {
+    const checkForCookies = () => {
+      const cookies = document.cookie.split("; ");
+      const cookieMap = {};
+      cookies.forEach(cookie => {
+        const [name, ...rest] = cookie.split("=");
+        const value = decodeURIComponent(rest.join("=")); 
+        cookieMap[name] = value;
+      });
+
+      // console.log(cookieMap)
+      // console.log(document.cookie)
+      
+      if (cookieMap.token) sessionStorage.setItem("token", cookieMap.token);
+      if (cookieMap.username) sessionStorage.setItem("username", cookieMap.username);
+      if (cookieMap.name) sessionStorage.setItem("name", cookieMap.name);
+      if (cookieMap.email) sessionStorage.setItem("email", cookieMap.email);
+      if (cookieMap.role) sessionStorage.setItem("role", cookieMap.role);
+    };
+  
+    checkForCookies();
+  }, [login, setLogin]);
 
   return (
     <>
@@ -33,7 +55,7 @@ function NavBar() {
           <div>Sign In</div>
           </Link>
           <Link to={"/signup"}>
-          <div id="new-user" className="bg-darkred text-white hover:bg-white hover:text-darkred">
+          <div id="new-user" className="bg-darkred text-white">
             New User?
           </div>
           </Link>

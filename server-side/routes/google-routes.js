@@ -3,13 +3,15 @@ const router = express.Router();
 const { connectToDataBase } = require('../db.js');
 const GoogleUser = require('../models/google-schema.js');
 const User = require('../models/user-schema.js');
+const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 connectToDataBase();
 
 router.get('/', async (req, res) => {
   try {
-      const user = await GoogleUser.find()
-      res.json(user)
+    const user = await GoogleUser.find()
+    res.json(user)
   }
   catch (error) {
     console.error("There was an error while fetching users:", error);
@@ -59,10 +61,21 @@ router.post('/signin', async (req, res) => {
       if (!user) {
         return res.status(401).json({ message: "Account not found !" });
       }
-      const { username, name, email, role } = user;
-      return res.status(200).json({ message: 'Login successful', username, name, email, role });
+      const {username, name, email, role} = user
+      // console.log(name)
+      jwt.sign({ id: user._id }, process.env.SECRET_KEY, {}, (err, token) => {
+        if (err) {
+          console.error('Error generating token:', err);
+          return res.status(500).json('Internal server error - login');
+        }
+        res.cookie('token', token, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        res.cookie('username', username, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        res.cookie("name", name, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        res.cookie("email", email, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        res.cookie("role", role, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        res.status(200).json({ message: 'Login successful', username, token, name, email, role });
+      })
     } 
-    
   } 
 
   catch (error) {
