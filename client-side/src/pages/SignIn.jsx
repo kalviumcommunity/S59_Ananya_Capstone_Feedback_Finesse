@@ -21,6 +21,7 @@ function SignIn() {
   const [showPopup, setShowPopup] = useState(false);
   const { login, setLogin } = useContext(loginContext);
   const [countdown, setCountdown] = useState(3);
+  const [token, setToken] = useState('');
 
   const handleToggle = () => {
     setIsToggled((prev) => !prev);
@@ -35,7 +36,7 @@ function SignIn() {
     }
   }, [countdown, navigate, login, setLogin]);
 
-  // console.log(isToggled)
+  // console.log(isToggled) 
 
   const handleLogin = async () => {
     // e.preventDefault();
@@ -46,9 +47,11 @@ function SignIn() {
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data),
+            credentials: 'include'
           }
         );
 
@@ -60,13 +63,18 @@ function SignIn() {
             toast.error(
               "Please log in with valid credentials for the specified role !"
             );
-          } else {
+          } 
+          
+          else {
             toast.success("You have successfully logged in !");
             sessionStorage.clear();
             sessionStorage.setItem("username", message.username);
             sessionStorage.setItem("name", message.name);
             sessionStorage.setItem("email", message.email);
             sessionStorage.setItem("role", message.role);
+            setToken(message.token)
+            // console.log(message.token)
+
             setShowPopup(true);
             setInterval(() => {
               setCountdown((prev) => prev - 1);
@@ -106,9 +114,11 @@ function SignIn() {
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(tosend),
+            credentials: 'include'
           }
         );
 
@@ -122,6 +132,8 @@ function SignIn() {
           sessionStorage.setItem("email", message.email);
           sessionStorage.setItem("role", message.role);
           setShowPopup(true);
+          setToken(message.token)
+          console.log(message.token)
           setInterval(() => {
             setCountdown((prev) => prev - 1);
           }, 1000);

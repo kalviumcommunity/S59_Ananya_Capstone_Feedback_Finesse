@@ -41,12 +41,26 @@ function Profile() {
 
   }, [showPopup, countdown, login, navigate, setLogin]);
 
-  const handleLogout = () => {
-    sessionStorage.clear();
-    setShowPopup(true);
-    toast.success("Logout Successful !")
-    setIsLogoutDisabled(true);
-  };
+  
+const handleLogout = async () => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_URI}/register/logout`, {
+    credentials: 'include',
+    });
+    if (response.ok) {
+      sessionStorage.clear();
+      setShowPopup(true);
+      toast.success("Logout Successful !")
+      setIsLogoutDisabled(true);
+    } 
+    else {
+      console.error(`Cannnot Logout at this moment.`);
+    }
+  }
+  catch (error) {
+  console.error('Error during logout', error);
+}
+};
 
   return (
     <>

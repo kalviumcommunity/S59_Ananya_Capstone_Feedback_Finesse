@@ -152,7 +152,7 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar-thumb {
     background: #900000;
-    border-radius: 30vh;
+    /* border-radius: 30vh; */
     margin: 1vh;
 }
   

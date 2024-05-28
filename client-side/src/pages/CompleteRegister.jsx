@@ -15,6 +15,7 @@ function CompleteRegister({ googleData, setLogin, login }) {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [countdown, setCountdown] = useState(3);
+  const [token, setToken] = useState('');
   // console.log(googleData)
 
   useEffect(() => {
@@ -41,34 +42,41 @@ function CompleteRegister({ googleData, setLogin, login }) {
         const response = await fetch(
           `${import.meta.env.VITE_URI}/register/signup`,
           {
-            method: "post",
+            method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(tosend),
+            credentials: 'include'
           }
         );
 
         const message = await response.json();
 
         if (response.ok) {
-          // toast.success("Congratulations for registering with us !");
-          toast.info("Almost done ! Complete the registration process now");
+          toast.success("Congratulations for registering with us !");
+          // toast.info("Almost done ! Complete the registration process now");
           sessionStorage.clear();
           sessionStorage.setItem("name", googleData.name);
           sessionStorage.setItem("username", data.username);
           sessionStorage.setItem("email", googleData.emailID);
           sessionStorage.setItem("role", googleData.role);
+          setToken(message.token)
           setShowPopup(true);
           setInterval(() => {
             setCountdown((prev) => prev - 1);
           }, 1000);
           setLogin(!login);
-        } else {
+        } 
+
+        else {
           toast.error(message.message);
           console.error("Registration failed");
         }
-      } catch (error) {
+      } 
+      
+      catch (error) {
         console.error("Registration failed:", error);
         toast.error("There was an error while registering !");
       }

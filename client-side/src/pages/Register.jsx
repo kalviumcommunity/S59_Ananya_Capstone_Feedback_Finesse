@@ -25,6 +25,7 @@ function Register() {
   const [completeRegister, setCompleteRegister] = useState(false)
   const [googleData, setGoogleData] = useState({})
   const [countdown, setCountdown] = useState(3);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
     if (countdown === 0) {
@@ -42,11 +43,13 @@ function Register() {
         const response = await fetch(
           `${import.meta.env.VITE_URI}/register/signup`,
           {
-            method: "post",
+            method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data),
+            credentials: 'include'
           }
         );
         const message = await response.json();
@@ -58,6 +61,7 @@ function Register() {
           sessionStorage.setItem("username", data.username);
           sessionStorage.setItem("email", data.email);
           sessionStorage.setItem("role", data.role);
+          setToken(message.token)
           setShowPopup(true);
           setInterval(() => {
             setCountdown((prev) => prev - 1);
@@ -98,18 +102,21 @@ function Register() {
         const response = await fetch(
           `${import.meta.env.VITE_URI}/google/signup`,
           {
-            method: "post",
+            method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(tosend),
+            credentials: 'include'
           }
         );
 
         const message = await response.json();
 
         if (response.ok) {
-          toast.success("Congratulations for registering with us !");
+          // toast.success("Congratulations for registering with us !");
+          toast.info("Almost done ! Complete the registration process now");
           setLogin(!login)
           setCompleteRegister(true)
         } 
