@@ -30,14 +30,10 @@ div#makepost form input, div#makepost form textarea {
 
 #select-box {
     width: 30vw;
-    /* border: 2px solid black; */
-    /* padding: 4vh; */
-    /* height: 4vh; */
 }
 
 button.upload-image-button {
     font-size: 2.3vh;
-    /* background-color: #900000; */
     width: fit-content;
 }
 
@@ -54,9 +50,9 @@ button.upload-image-button:not(:hover) {
     border: 2px dashed #ccc;
     border-radius: 10px;
     padding: 20px;
-    text-align: 'center';
-    cursor: 'pointer';
-    margin-top: '20px';
+    text-align: center;
+    cursor: pointer;
+    margin-top: 20px;
     transition-duration: 0.2s;
 }
 
