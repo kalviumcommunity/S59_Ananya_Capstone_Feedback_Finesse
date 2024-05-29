@@ -108,29 +108,6 @@ div#eachpost img {
     cursor: pointer;
 }
 
-body::-webkit-scrollbar {
-    width: 7px;
-}
-/* 
-body::-webkit-scrollbar {
-    width: 1px;
-} */
-
-body::-webkit-scrollbar-track {
-    background: #ffc7c7;
-}
-
-body::-webkit-scrollbar-thumb {
-    background: #900000;
-    /* border-radius: 30vh; */
-    margin: 1vh;
-}
-  
-body::-webkit-scrollbar-thumb:hover {
-  background: #6a0101;
-}
-
-
 @keyframes like {
     0% {
       transform: scale(1);

@@ -37,7 +37,7 @@ const World = () => {
         // globeImageUrl={'https://garden.spoonflower.com/c/9915758/p/f/m/c_PrrBpgF6T1KUSzgD4WOAITeQPaXkxYtzMULssGJW2ZoVVLXrQ/Light%20Baby%20Pink%20Solid.jpg'}
         showAtmosphere={false}
         // atmosphereColor='#ffd9d9'
-        height={700} width={700} />
+        height={600} width={600} />
   </div>
   </>
   );

@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import "./DashCSS/MakePost.css"
-import { LinearProgress, Box, linearProgressClasses, styled } from '@mui/material';
+import DescriptionIcon from '@mui/icons-material/Description';
+import DeleteIcon from "@mui/icons-material/Delete"
+import { LinearProgress, Box, linearProgressClasses, styled, IconButton } from '@mui/material';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
+  marginRight: '2vh',
+  marginLeft: '2vh',
   borderRadius: 5,
   overflow: 'hidden',
   position: 'relative',
@@ -105,6 +109,11 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
     setFileNames(filesArray.map(file => file.name));
   };
 
+  const handleRemoveFile = (index) => {
+    setImageUpload(prev => prev.filter((_, i) => i !== index));
+    setFileNames(prev => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <>
     <div id="makepost">
@@ -154,33 +163,46 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
               />
                 
               <h4 className='mt-6'>Add relevant pictures</h4>
-              <div className='flex flex-row items-end'>
+              <div className='flex flex-row justify-evenly items-center flex-wrap'>
                 <div
-                  className={`text-center file-input-container ${dragActive ? 'drag-active' : ''}`}
+                  className={`text-center file-input-container mt-2 ${dragActive ? 'drag-active' : ''}`}
                   onDragEnter={handleDrag}
                   onDragLeave={handleDrag}
                   onDragOver={handleDrag}
                   onDrop={handleDrop}
                   onClick={() => document.getElementById('file-upload').click()}>
-                  <span className='flex flex-row items-center'><i className='bx bx-upload mr-3 text-2xl font-bold'></i>
+                  <span className='flex flex-row items-center'>
+                  <i className='bx bx-upload mr-3 text-3xl font-bold'></i>
                   Drag and drop images here
                   </span>
                     or <br />
-                    <span style={{ color: '#007bff', cursor: 'pointer' }}>Browse</span> from this device
+                  <span style={{ color: '#007bff', cursor: 'pointer' }}>Browse</span> from this device
                   <HiddenFileInput id='file-upload' type="file" onChange={handleFileChange} accept="image/*" multiple />
                 </div>
 
-                <ul className='currently-uploaded'>
-                  {fileNames.map((fileName, index) => (
-                    <li className='each-uploaded' key={index}>{fileName}</li>
-                  ))}
+                <ul className='currently-uploaded flex flex-row flex-wrap mt-2'>
+                  {fileNames.length == 0 ? (<li>No files found</li>) :
+                  fileNames.map((fileName, index) => (
+                    <li className='each-uploaded flex items-center justify-between gap-2' key={index}>
+                      <div>
+                      <DescriptionIcon color='primary' className='mr-1'/>{fileName}
+                      </div>
+                      <div>
+                      <IconButton aria-label="delete" size="small" onClick={() => handleRemoveFile(index)}>
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                        </div>
+                        </li>
+                      ))
+                    }
                 </ul>
-
               </div>
-              <button onClick={uploadImage} className='p-2 ml-1 rounded-xl upload-image-button'>
+
+              <div className='flex justify-center items-center'>
+              <button onClick={uploadImage} className='flex justify-center items-center upload-image-button'>
                 {uploading == null ? 
                 <>
-                Click to upload the image(s) <i className='bx bxs-cloud-upload'></i>
+                Click to upload the image(s) <i className='bx bxs-cloud-upload text-2xl ml-2'></i>
                 </> : uploading == true ?
                 <>
                 <Box sx={{ width: '100%' }}>
@@ -193,6 +215,7 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
                 </GreenTick>
                 </>}
               </button>
+              </div>
               {/* <i class='bx bx-image-add'></i> */}
               <button type="submit" onClick={handleSubmit} className="m-6 publish" disabled={!validateForm()}>Submit</button>
             </form>
