@@ -42,7 +42,7 @@ button.upload-image-button {
     /* padding: 0.5vh 0vh 0.5vh 0vh; */
     height: 5vh;
     margin: 5vh 0vh 2vh 0vh;
-    width: fit-content;
+    /* width: fit-content; */
 }
 
 button.upload-image-button:hover {
