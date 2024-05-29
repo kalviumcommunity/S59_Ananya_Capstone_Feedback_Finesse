@@ -37,10 +37,6 @@ div.countdown-parent div {
 body::-webkit-scrollbar {
   width: 7px;
 }
-/* 
-body::-webkit-scrollbar {
-  width: 1px;
-} */
 
 body::-webkit-scrollbar-track {
   background: #ffc7c7;
