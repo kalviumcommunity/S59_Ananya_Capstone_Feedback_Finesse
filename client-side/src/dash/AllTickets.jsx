@@ -38,6 +38,7 @@ function AllTickets() {
   const [updatePost, setUpdatePost] = useState(false)
   const [updateID, setUpdateID] = useState(null)
   const [toSend, setToSend] = useState(null)
+  const [uploading, setUploading] = useState(null);
 
   const statusSteps = ["Submitted", "In Progress", "Resolved"];
 
@@ -72,18 +73,14 @@ function AllTickets() {
 
   const uploadImage = (e) => {
     e.preventDefault();
+    setUploading(true)
     if (!imageUpload) {
       return;
     }
-    var count = 0;
     imageUpload.forEach((file) => {
       const imageRef = ref(storage, `images/${file.name + v4()}`);
       uploadBytes(imageRef, file)
         .then((e) => {
-          if (count == 0) {
-            toast.info("Your image has been uploaded");
-          }
-          count++;
           getDownloadURL(e.ref).then((url) => {
             setImageUrls((prev) => [...prev, url]);
             setComplaintData((prevData) => ({
@@ -91,10 +88,12 @@ function AllTickets() {
               picture: url,
             }));
           });
+          setUploading(false)
         })
         .catch((err) => {
           toast.error("There was an error while uploading your image");
           console.log(err);
+          setUploading(false)
         });
     });
   };
@@ -232,6 +231,7 @@ function AllTickets() {
               handleSubmit={handleSubmit}
               handleChange={handleChange}
               complaintData={complaintData}
+              uploading={uploading}
             />
           ) : (
             <>
