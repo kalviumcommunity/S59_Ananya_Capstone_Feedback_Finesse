@@ -17,11 +17,13 @@
 .confirm {
     position: fixed;
     text-align: center;
-    /* background-color: rgba(0, 0, 0, 0.488); */
     padding: 2vh;
     backdrop-filter: blur(5px);
-    color: white;
-    text-shadow: 1px 1px 10px black;
+    background-color: white;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.659);
+    z-index: 3;
+    border-radius: 1vh;
+    box-shadow: 0px 0px 5px rgba(255, 148, 148, 0.899);
 }
 
 .update {
@@ -31,7 +33,7 @@
     width: 45vw;
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 0px 5px rgb(255, 148, 148);
+    box-shadow: 0px 0px 5px rgba(255, 148, 148, 0.899);
 }
 
 .update .input {
@@ -41,23 +43,19 @@
     font-size: 2.6vh;
 }
 
-.update .confirm-but {
+.confirm-but {
     background-color: #900000;
     color: white;
     padding: 1vh 2vh 1vh 2vh;
     margin: 1vh 4vh 0vh 0vh;
     border-radius: 0.5vh;
-    border: 1px solid white;
+    transition-duration: 0.6s;
 }
 
-.confirm-but:hover, .cancel-but:hover {
+.cancel-but:hover, .confirm button:hover, .confirm-but:hover {
     box-shadow: 4px 4px #9000004d;
     transition-duration: 0.6s;
     transform: translate3d(-3px, -3px, 4px);
-}
-
-.confirm-but:not(:hover), .cancel-but:not(:hover) {
-    transition-duration: 0.6s;
 }
 
 .cancel-but {
@@ -65,28 +63,13 @@
     border: 1px solid #900000;
     padding: 1vh 2vh 1vh 2vh;
     margin: 1vh 4vh 0vh 0vh;
-    border-radius: 0.5vh;
+    border-radius: 0.3vh;
     color: #900000;
+    transition-duration: 0.6s;
 }
 
 .confirm p {
     font-family: 'Dosis';
     font-size: 4vh;
     margin: 2vh 3vh 4vh 6vh;
-}
-
-.confirm button {
-    margin: 4vh;
-    padding: 1vh 3vh 1vh 3vh;
-    cursor: pointer;
-    background-color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 1vh;
-    color: black;
-    box-shadow: 1px 1px 6px rgb(238, 130, 130);
-}
-
-.confirm button:hover {
-    box-shadow: 0px 0px 10px red;
-    transform: scale(1.03);
 }

@@ -17,7 +17,7 @@ div.main-child {
 
 .publish {
   overflow: hidden;
-  z-index: 1;
+  /* z-index: 1; */
   font-family: 'Numans';
   position: relative;
   cursor: pointer;
@@ -89,7 +89,7 @@ div.main-child {
 div.eachpost {
   width: 70vw;
   border: 1px solid black;
-  margin: 2vh 0vh 2vh 0vh;
+  margin: 4vh 0vh 10vh 0vh;
   padding: 2vh 0vh 1vh 0vh;
   border-radius: 2vh;
 }
@@ -114,17 +114,15 @@ div.firstrow {
 div.firstrow h3 {
   font-size: 3.2vh;
   font-weight: 900;
-  /* text-shadow: 2px 2px black; */
 }
 
 div.secondrow {
   width: fit-content;
   border: 1px solid rgba(0, 0, 0, 0.234);
-  padding: 2vh;
+  padding: 2vh 4vh 2vh 2.3vh;
   margin: 4vh 0vh 1vh 4vh;
-  border-radius: 0.5vh;
+  border-radius: 0.9vh;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.086);
-
 }
 
 div.thirdrow {
@@ -160,4 +158,54 @@ hr.fifthrow {
   width: 100%;
   height: 0.2vh;
   background-color: black;
+}
+
+.status-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+.line {
+  width: 30px;
+  height: 7px;
+  background-color: lightgray;
+}
+
+.line.active:first-of-type {
+  background: linear-gradient(to right, #4caf50, #8bc34a);
+}
+
+.line.active:last-of-type {
+  background: linear-gradient(to right, #8bc34a, #cddc39);
+}
+
+
+.circle.active {
+  background-color: green;
+  box-shadow: 0px 0px 8px rgba(0, 128, 0, 0.7);
+}
+
+.circle:nth-of-type(1).active {
+  background-color: #4caf50;
+}
+
+.circle:nth-of-type(2).active {
+  background-color: #8bc34a;
+}
+
+.circle:nth-of-type(3).active {
+  background-color: #cddc39;
 }

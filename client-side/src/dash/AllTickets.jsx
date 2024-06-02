@@ -249,7 +249,13 @@ function AllTickets() {
             <div className="firstrow flex flex-row items-center justify-between">
               <div><h3 className="text-darkred font-bold flex flex-row items-center user"> <img style={{height: "8vh", width: "8vh", boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.6)", borderRadius: "50%"}} src={user} alt="" className="mr-3" />{file.username}</h3></div>
               <div className="progress-tracker flex flex-row">
-                status of complaint
+                <div className="status-tracker">
+                  <div className={`circle ${getStatusStep(file.status) >= 0 ? "active" : ""}`}>1</div>
+                  <div className={`line ${getStatusStep(file.status) >= 1 ? "active" : ""}`}></div>
+                  <div className={`circle ${getStatusStep(file.status) >= 1 ? "active" : ""}`}>2</div>
+                  <div className={`line ${getStatusStep(file.status) >= 2 ? "active" : ""}`}></div>
+                  <div className={`circle ${getStatusStep(file.status) >= 2 ? "active" : ""}`}>3</div>
+                </div>
               </div>
             </div>
 
