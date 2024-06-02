@@ -82,26 +82,48 @@ router.post('/signin', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
 router.delete('/cleanup', async (req, res) => {
-  try {
-    const Gusers = await GoogleUser.find();
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-    const deleting = Gusers.map(async (googleUser) => {
-      const user = await User.findOne({ email: googleUser.emailID });
-      if (!user) {
-        return GoogleUser.deleteOne({ emailID: googleUser.emailID });
-      }
-    });
+  if (!token) return res.sendStatus(401);
 
-    await Promise.all(deleting);
+  jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
+    
+    if (err) {
+      console.error('Error verifying token:', err);
+      return res.sendStatus(403);
+    }
 
-    res.status(200).json({ message: 'Cleanup done' });
-  } 
+    try {
+      const user = await User.findById(decoded.id);
   
-  catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
-  }
+      if (!user) {
+        return res.sendStatus(401); 
+      }
+
+      if (user.role !== 'admin') {
+        return res.sendStatus(403)
+      }
+
+      const Gusers = await GoogleUser.find();
+
+      const deleting = Gusers.map(async (googleUser) => {
+        const user = await User.findOne({ email: googleUser.emailID });
+        if (!user) {
+          return GoogleUser.deleteOne({ emailID: googleUser.emailID });
+        }
+      });
+
+      await Promise.all(deleting);
+
+      res.status(200).json({ message: 'Cleanup done' });
+    } catch (error) {
+      console.error('Error during cleanup:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
 });
+
 
 module.exports = router;
