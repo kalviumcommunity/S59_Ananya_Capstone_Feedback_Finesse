@@ -107,7 +107,8 @@ ul.currently-uploaded li {
     border-radius: 1vh;
     border: 1px dotted rgb(75, 171, 255);
     margin: 1vh;
-    height: 6vh;
+    /* height: 6vh; */
+    min-height: 6vh;
 }
 
 span#last-buttons button {

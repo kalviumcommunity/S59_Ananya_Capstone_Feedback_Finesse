@@ -34,8 +34,15 @@ function ConfirmUpdate({
     else if (name === 'universityID') setUniversityID(value);
   };
   
-  const cancelupdatepost = () => {
-    toast.info("Your post wasn't updated");
+  const cancelupdatepost = (e) => {
+    if (e.target.classList.contains('parent-update')) {
+      toast.info("Your post wasn't updated");
+      setUpdatePost(false);
+    }
+  };
+
+  const handleCancelClick = (e) => {
+    e.stopPropagation();
     setUpdatePost(false);
   };
 
@@ -87,7 +94,7 @@ function ConfirmUpdate({
 
   return (
     <>
-      <div className="parent-update">
+      <div className="parent-update" onClick={cancelupdatepost}>
         <div className="update">
           
           <TextField className="input" id="outlined-basic" label="Title" variant="standard" name="title" onChange={handleChange} value={title} />
@@ -135,7 +142,7 @@ function ConfirmUpdate({
         />
         <span className="flex flex-row justify-center">
           <button className="confirm-but" onClick={confirmupdatepost}>Confirm</button>
-          <button className="cancel-but" onClick={cancelupdatepost}>Cancel</button>
+          <button className="cancel-but" onClick={handleCancelClick}>Cancel</button>
         </span>
         </div>
       </div>

@@ -181,7 +181,7 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
                 </div>
 
                 <ul className='currently-uploaded flex flex-row flex-wrap mt-2'>
-                  {fileNames.length == 0 ? (<li>No files found</li>) :
+                  {fileNames.length == 0 ? (<>No files found</>) :
                   fileNames.map((fileName, index) => (
                     <li className='each-uploaded flex items-center justify-between gap-2' key={index}>
                       <div>
