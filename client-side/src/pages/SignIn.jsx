@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { loginContext } from "../App";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import Cookies from 'js-cookie'
 
 function SignIn() {
   const [isToggled, setIsToggled] = useState(false);
@@ -74,7 +75,12 @@ function SignIn() {
             sessionStorage.setItem("role", message.role);
             setToken(message.token)
             // console.log(message.token)
-
+            Cookies.set('token', token, { expires: 1 })
+            Cookies.set('name', message.name, { expires: 1 })
+            Cookies.set('username', message.username, { expires: 1 })
+            Cookies.set('email', message.email, { expires: 1 })
+            Cookies.set('role', message.role, { expires: 1 })
+            
             setShowPopup(true);
             setInterval(() => {
               setCountdown((prev) => prev - 1);
@@ -134,6 +140,12 @@ function SignIn() {
           setShowPopup(true);
           setToken(message.token)
           // console.log(message.token)
+          Cookies.set('token', token, { expires: 1 })
+          Cookies.set('name', message.name, { expires: 1 })
+          Cookies.set('username', message.username, { expires: 1 })
+          Cookies.set('email', message.email, { expires: 1 })
+          Cookies.set('role', message.role, { expires: 1 })
+            
           setInterval(() => {
             setCountdown((prev) => prev - 1);
           }, 1000);
