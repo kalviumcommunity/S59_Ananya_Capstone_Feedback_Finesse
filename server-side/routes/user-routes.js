@@ -11,7 +11,7 @@ connectToDataBase();
 const cookieData = {
   httpOnly: false,
   secure: true, 
-  sameSite: process.env.ENVIRONMENT === 'production' ? 'None' : 'Lax' 
+  sameSite: 'Lax' 
 };
 
 router.get('/', async (req, res) => {
