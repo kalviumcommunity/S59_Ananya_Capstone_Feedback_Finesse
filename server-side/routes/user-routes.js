@@ -8,6 +8,12 @@ const salt = bcrypt.genSaltSync(8)
 
 connectToDataBase();
 
+const cookieData = {
+  httpOnly: false,
+  secure: process.env.ENVIRONMENT === 'production', 
+  sameSite: process.env.ENVIRONMENT === 'production' ? 'None' : 'Lax'
+};
+
 router.get('/', async (req, res) => {
   try {
       const user = await User.find()
@@ -42,18 +48,15 @@ router.post('/signup', async (req, res) => {
     const newUser = new User({ name, username, email, password: bcrypt.hashSync(password, salt), role });
     await newUser.save();
 
-    jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, {}, (err, token) => {
-      if (err) {
-        console.error('Error generating token:', err);
-        return res.status(500).json('Internal server error - login');
-      }
-      res.cookie('token', token, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-      res.cookie('username', username, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-      res.cookie("name", name, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-      res.cookie("email", email, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-      res.cookie("role", role, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-      res.status(201).json({ message: 'User registered successfully', token });
-    })
+    const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+
+    res.cookie('token', token, cookieData);
+    res.cookie('username', username, { ...cookieData, httpOnly: false });
+    res.cookie('name', name, { ...cookieData, httpOnly: false });
+    res.cookie('email', email, { ...cookieData, httpOnly: false });
+    res.cookie('role', role, { ...cookieData, httpOnly: false });
+    res.status(201).json({ message: 'User registered successfully', token });
+
   } 
 
   catch (error) {
@@ -75,18 +78,14 @@ router.post('/login', async (req, res) => {
     // console.log(passwordCheck)
 
     if (passwordCheck) {
-      jwt.sign({ id: userExists._id }, process.env.SECRET_KEY, {}, (err, token) => {
-        if (err) {
-          console.error('Error generating token:', err);
-          return res.status(500).json('Internal server error - login');
-        }
-        res.cookie('token', token, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.cookie('username', userExists.username, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.cookie("name", name, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.cookie("email", email, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.cookie("role", role, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.status(200).json({ message: 'Login successful', username, token, name, email, role });
-      })
+      const token = jwt.sign({ id: userExists._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+
+      res.cookie('token', token, cookieData);
+      res.cookie('username', userExists.username, { ...cookieData, httpOnly: false });
+      res.cookie('name', name, { ...cookieData, httpOnly: false });
+      res.cookie('email', email, { ...cookieData, httpOnly: false });
+      res.cookie('role', role, { ...cookieData, httpOnly: false });
+      res.status(200).json({ message: 'Login successful', username, token, name, email, role });
     } 
     
     else {
@@ -101,11 +100,11 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  res.clearCookie('token',{expires:new Date(0), httpOnly: true});
-  res.clearCookie('username', {expires:new Date(0), httpOnly: true});
-  res.clearCookie('name', {expires:new Date(0), httpOnly: true});
-  res.clearCookie('email', {expires:new Date(0), httpOnly: true});
-  res.clearCookie('role', {expires:new Date(0), httpOnly: true});
+  res.clearCookie('token', { ...cookieData, expires: new Date(0) });
+  res.clearCookie('username', { ...cookieData, expires: new Date(0) });
+  res.clearCookie('name', { ...cookieData, expires: new Date(0) });
+  res.clearCookie('email', { ...cookieData, expires: new Date(0) });
+  res.clearCookie('role', { ...cookieData, expires: new Date(0) });
   res.json({ message: 'Logout successful' });
 }); 
 
