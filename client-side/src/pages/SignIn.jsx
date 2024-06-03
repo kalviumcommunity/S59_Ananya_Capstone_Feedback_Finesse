@@ -133,7 +133,7 @@ function SignIn() {
           sessionStorage.setItem("role", message.role);
           setShowPopup(true);
           setToken(message.token)
-          console.log(message.token)
+          // console.log(message.token)
           setInterval(() => {
             setCountdown((prev) => prev - 1);
           }, 1000);
