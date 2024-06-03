@@ -63,6 +63,13 @@ function CompleteRegister({ googleData, setLogin, login }) {
           sessionStorage.setItem("email", googleData.emailID);
           sessionStorage.setItem("role", googleData.role);
           setToken(message.token)
+
+          Cookies.set('token', token, { expires: 1 })
+          Cookies.set('name', googleData.name, { expires: 1 })
+          Cookies.set('username', googleData.username, { expires: 1 })
+          Cookies.set('email', googleData.email, { expires: 1 })
+          Cookies.set('role', googleData.role, { expires: 1 })
+
           setShowPopup(true);
           setInterval(() => {
             setCountdown((prev) => prev - 1);

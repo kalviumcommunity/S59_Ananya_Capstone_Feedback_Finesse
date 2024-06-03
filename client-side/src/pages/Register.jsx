@@ -9,6 +9,7 @@ import { loginContext } from "../App";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import CompleteRegister from "./CompleteRegister";
+import Cookies from "js-cookie"
 
 function Register() {
   const {
@@ -62,6 +63,13 @@ function Register() {
           sessionStorage.setItem("email", data.email);
           sessionStorage.setItem("role", data.role);
           setToken(message.token)
+          
+          Cookies.set('token', token, { expires: 1 })
+          Cookies.set('name', data.name, { expires: 1 })
+          Cookies.set('username', data.username, { expires: 1 })
+          Cookies.set('email', data.email, { expires: 1 })
+          Cookies.set('role', data.role, { expires: 1 })
+
           setShowPopup(true);
           setInterval(() => {
             setCountdown((prev) => prev - 1);

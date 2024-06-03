@@ -4,6 +4,7 @@ import "./DashCSS/Profile.css"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginContext } from "../App";
+import Cookie from "js-cookie"
 
 function Profile() {
   const [userData, setUserData] = useState({
@@ -52,6 +53,12 @@ const handleLogout = async () => {
       setShowPopup(true);
       toast.success("Logout Successful !")
       setIsLogoutDisabled(true);
+      Cookies.remove('token');
+      Cookies.remove('name');
+      Cookies.remove('username');
+      Cookies.remove('email');
+      Cookies.remove('role');
+
     } 
     else {
       console.error(`Cannnot Logout at this moment.`);
