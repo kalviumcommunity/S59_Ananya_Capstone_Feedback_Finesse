@@ -64,7 +64,7 @@ function Register() {
           sessionStorage.setItem("role", data.role);
           setToken(message.token)
           
-          Cookies.set('token', token, { expires: 1 })
+          Cookies.set('token', message.token, { expires: 1 })
           Cookies.set('name', data.name, { expires: 1 })
           Cookies.set('username', data.username, { expires: 1 })
           Cookies.set('email', data.email, { expires: 1 })

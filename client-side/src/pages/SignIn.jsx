@@ -75,7 +75,8 @@ function SignIn() {
             sessionStorage.setItem("role", message.role);
             setToken(message.token)
             // console.log(message.token)
-            Cookies.set('token', token, { expires: 1 })
+            
+            Cookies.set('token', message.token, { expires: 1 })
             Cookies.set('name', message.name, { expires: 1 })
             Cookies.set('username', message.username, { expires: 1 })
             Cookies.set('email', message.email, { expires: 1 })
@@ -140,7 +141,7 @@ function SignIn() {
           setShowPopup(true);
           setToken(message.token)
           // console.log(message.token)
-          Cookies.set('token', token, { expires: 1 })
+          Cookies.set('token', message.token, { expires: 1 })
           Cookies.set('name', message.name, { expires: 1 })
           Cookies.set('username', message.username, { expires: 1 })
           Cookies.set('email', message.email, { expires: 1 })

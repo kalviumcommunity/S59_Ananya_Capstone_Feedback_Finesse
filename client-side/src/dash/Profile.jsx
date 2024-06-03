@@ -4,7 +4,7 @@ import "./DashCSS/Profile.css"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginContext } from "../App";
-import Cookie from "js-cookie"
+import Cookies from "js-cookie"
 
 function Profile() {
   const [userData, setUserData] = useState({
