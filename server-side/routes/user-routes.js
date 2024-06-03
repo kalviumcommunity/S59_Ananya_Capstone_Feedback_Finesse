@@ -10,7 +10,7 @@ connectToDataBase();
 
 const cookieData = {
   httpOnly: false,
-  secure: process.env.ENVIRONMENT === 'production', 
+  secure: true, 
   sameSite: process.env.ENVIRONMENT === 'production' ? 'None' : 'Lax' 
 };
 
