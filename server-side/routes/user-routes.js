@@ -11,7 +11,7 @@ connectToDataBase();
 const cookieData = {
   httpOnly: false,
   secure: true, 
-  sameSite: 'Lax' 
+  sameSite: 'None' 
 };
 
 router.get('/', async (req, res) => {
