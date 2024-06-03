@@ -1,6 +1,6 @@
-[build]
-  command = "CI='' npm run build"
-  publish = "/build"
+[dist]
+  command = "CI='' npm run dist"
+  publish = "/dist"
   base ="/"
 
 [[redirects]]
