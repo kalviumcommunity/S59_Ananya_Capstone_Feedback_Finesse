@@ -51,11 +51,12 @@ const HiddenFileInput = styled('input')({
 
 
 
-function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handleChange, complaintData, uploading}) {
+function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handleChange, complaintData, uploading, setShowMakePost}) {
 
   const validateForm = () => {
+    console.log(complaintData)
     const { title, content, universityID, hostel, picture, username } = complaintData;
-    if (!title || !content || !universityID || !hostel || !picture || !imageUpload || !username) {
+    if (!title || !content || !universityID || !hostel || !picture || !imageUpload.length || !username) {
       return false;
     }
     return true;
@@ -80,7 +81,9 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
     return () => {
       clearInterval(timer);
     };
-  }, []);
+
+
+  }, [progress, setShowMakePost]);
 
   const handleDrag = (e) => {
     e.preventDefault();

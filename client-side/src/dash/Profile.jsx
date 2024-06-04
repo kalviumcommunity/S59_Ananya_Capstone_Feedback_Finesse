@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginContext } from "../App";
 import Cookies from "js-cookie"
+import Loader from "../components/Loader";
 
 function Profile() {
   const [userData, setUserData] = useState({
@@ -19,6 +20,8 @@ function Profile() {
   const [countdown, setCountdown] = useState(3);
   const { login, setLogin } = useContext(loginContext);
   const [isLogoutDisabled, setIsLogoutDisabled] = useState(false);
+
+  const [loader, setLoader] = useState(false)
 
   useEffect(() => {
     const username = sessionStorage.getItem("username");
@@ -44,6 +47,7 @@ function Profile() {
 
   
 const handleLogout = async () => {
+  setLoader(true)
   try {
     const response = await fetch(`${import.meta.env.VITE_URI}/register/logout`, {
     credentials: 'include',
@@ -58,7 +62,7 @@ const handleLogout = async () => {
       Cookies.remove('username');
       Cookies.remove('email');
       Cookies.remove('role');
-
+      setLoader(false)
     } 
     else {
       console.error(`Cannnot Logout at this moment.`);
@@ -76,6 +80,7 @@ const handleLogout = async () => {
       <Dashboard />
       </div>
       <div className="content-main flex flex-col justify-center items-center">
+        { loader ? <Loader /> : null }
         <div className="profile-container flex flex-col">
             <h2 className="flex items-center justify-center">USER PROFILE<i className='bx bxs-user-detail ml-3'></i></h2>
             <span className="text-left">
@@ -96,10 +101,10 @@ const handleLogout = async () => {
         <button onClick={handleLogout} disabled={isLogoutDisabled}  className="logout flex items-center">Logout<i className='bx bx-log-out ml-2'></i></button>
       </div>
       {showPopup && (
-          <div className="countdown-parent">
-            <div>You will be redirected to home in {countdown}</div>
-          </div>
-        )}
+        <div className="countdown-parent">
+          <div>You will be redirected to home in {countdown}</div>
+        </div>
+      )}
       </section>
     </>
   );

@@ -67,11 +67,11 @@ router.post('/signin', async (req, res) => {
           console.error('Error generating token:', err);
           return res.status(500).json('Internal server error - login');
         }
-        res.cookie('token', token, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.cookie('username', username, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.cookie("name", name, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.cookie("email", email, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        res.cookie("role", role, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        // res.cookie('token', token, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        // res.cookie('username', username, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        // res.cookie("name", name, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        // res.cookie("email", email, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
+        // res.cookie("role", role, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
         res.status(200).json({ message: 'Login successful', username, token, name, email, role });
       })
     } 
@@ -82,6 +82,7 @@ router.post('/signin', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 router.delete('/cleanup', async (req, res) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];

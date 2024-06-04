@@ -65,7 +65,9 @@ div.main-child {
 }
 
 .disablearrow {
+  pointer-events: none;
   cursor: not-allowed;
+  opacity: 0.3;
   margin: 0.5vh;
 }
 

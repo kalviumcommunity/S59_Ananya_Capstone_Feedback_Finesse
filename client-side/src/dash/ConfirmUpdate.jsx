@@ -25,6 +25,7 @@ function ConfirmUpdate({
   const [title, setTitle] = useState(toSend.title || "");
   const [content, setContent] = useState(toSend.content || "");
   const [universityID, setUniversityID] = useState(toSend.universityID || "");
+  const [loader, setLoader] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,12 +47,11 @@ function ConfirmUpdate({
     setUpdatePost(false);
   };
 
-  const confirmupdatepost = () => {
+  const confirmupdatepost = async () => {
     if (!title || !content || !universityID || !hostelInputValue) {
       toast.error("Please fill in all fields");
       return;
     }
-
     const updatedData = {
       ...toSend,
       title,
@@ -59,38 +59,44 @@ function ConfirmUpdate({
       universityID,
       hostel: hostelInputValue,
     };
+    setLoader(true);
 
-    fetch(`${import.meta.env.VITE_URI}/complaint/update/${updateID}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedData),
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        else toast.error("There was an unidentified error");
-      })
-      .then((new_val) => {
-        // console.log(new_val);
-        setUpdateID(new_val._id);
-
-        setPost((prevPost) => {
-          const updatedPost = prevPost.map((post) =>
-            post._id === new_val._id ? new_val : post
-          );
-          // console.log("updated post", updatedPost);
-          return updatedPost;
-        });
-
-        toast.success("Your data has been updated");
-        setUpdatePost(false);
-      })
-
-      .catch((err) => {
-        toast.error("There was an error while updating");
+    try {
+      const response = await fetch(`${import.meta.env.VITE_URI}/complaint/update/${updateID}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
       });
+
+      if (!response.ok) {
+        toast.error("There was an unidentified error");
+        return;
+      }
+
+      const new_val = await response.json();
+      setUpdateID(new_val._id);
+      setPost((prevPost) => {
+        const updatedPost = prevPost.map((post) =>
+          post._id === new_val._id ? new_val : post
+        );
+        return updatedPost;
+      });
+
+      toast.success("Your data has been updated");
+      setUpdatePost(false);
+    } 
+    
+    catch (err) {
+      toast.error("There was an error while updating");
+    } 
+    
+    finally {
+      setLoader(false);
+    }
   };
+
 
   return (
     <>
