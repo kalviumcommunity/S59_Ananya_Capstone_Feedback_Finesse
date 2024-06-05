@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./DashCSS/ConfirmDelete.css"
 import { toast } from 'react-toastify';
+import Loader from '../components/Loader';
 
 function ConfirmDelete({deletePost, setConfirmDelete, setDeletePost}) {
+
+  const [loader, setLoader] = useState(false)
 
   const canceldeletePost = (e) => {
     if (e.target.classList.contains('parent-confirm')) {
@@ -19,24 +22,35 @@ function ConfirmDelete({deletePost, setConfirmDelete, setDeletePost}) {
   };
 
   const confirmdeletePost = async () => {
-    await fetch(
-      `${import.meta.env.VITE_URI}/complaint/delete/${deletePost}`,
-      { method: "DELETE" }
-    )
+    setLoader(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_URI}/complaint/delete/${deletePost}`,
+        { method: "DELETE" }
+      );
 
-    .then(() => {
-      toast.info("Your post was deleted");
-      setConfirmDelete(false);
-    }) 
-
-    .catch(() => {
-      toast.error("Server error")
-    })
+      if (response.ok) {
+        setConfirmDelete(false);
+        setDeletePost(null);
+        toast.info("Your post was deleted");
+      } 
+      else {
+        toast.error("Server error");
+      }
+    } 
     
+    catch (error) {
+      toast.error("Server error");
+    } 
+    
+    finally {
+      setLoader(false);
+    }
   };
 
   return (
     <>
+    {loader ? <Loader /> : null}
       <div className="parent-confirm" onClick={canceldeletePost}>
       <div className="confirm">
       <p>Are you sure you want to delete this post ?</p>

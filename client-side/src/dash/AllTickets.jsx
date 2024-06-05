@@ -13,6 +13,7 @@ import edit from "../assets/edit.png"
 import user from "../assets/profile.png"
 import ConfirmDelete from "./ConfirmDelete";
 import ConfirmUpdate from "./ConfirmUpdate";
+import Loader from "../components/Loader";
 
 function AllTickets() {
 
@@ -53,7 +54,10 @@ function AllTickets() {
   const [toSend, setToSend] = useState(null)
   const [uploading, setUploading] = useState(null);
 
+  const [loader, setLoader] = useState(false)
+
   useEffect(() => {
+    setLoader(true)
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
       .then((res) => res.json())
       .then((res) => {
@@ -65,11 +69,12 @@ function AllTickets() {
           initialLikes[post._id] = false;
         });
         setLikes(initialLikes);
+        setLoader(false)
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [setPost, setImageUrls, setLikes, setUpdatePost, setShowMakePost, showMakePost]);
+  }, [setPost, setImageUrls, setLikes, setUpdatePost, setShowMakePost, showMakePost, setDeletePost, deletePost]);
 
   const toggleLike = (postId) => {
     setLikes((prevLikes) => ({
@@ -96,11 +101,14 @@ function AllTickets() {
             }));
           });
           setUploading(false)
+          setTimeout(() => {
+            setUploading(null)
+          }, 5000)
         })
         .catch((err) => {
           toast.error("There was an error while uploading your image");
           console.log(err);
-          setUploading(false)
+          setUploading(null)
         });
     });
   };
@@ -122,6 +130,7 @@ function AllTickets() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true)
     try {
       complaintData.picture = imageUrls;
       const tosend = complaintData;
@@ -141,12 +150,13 @@ function AllTickets() {
           title: "",
           content: "",
           picture: [],
-          username: "",
+          username: sessionStorage.getItem("username"),
           universityID: "",
           hostel: "",
         });
         setImageUpload([]);
         setImageUrls([]);
+        // setLoader(false)
         toast.success("Your post is now live !");
       } 
       
@@ -157,8 +167,17 @@ function AllTickets() {
       else {
         toast.error("There was a server error");
       }
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error("Error creating post:", error);
+    }
+
+    finally {
+      setTimeout(() => {
+        setLoader(false);
+        setShowMakePost(false);
+      }, 3000);
     }
   };
 
@@ -185,6 +204,7 @@ function AllTickets() {
   };
 
   const handledeletePost = (id) => {
+    setLoader(true)
     setDeletePost(id)
     setConfirmDelete(true);
   };
@@ -229,6 +249,7 @@ function AllTickets() {
             "Click to make a post"
           )}
         </button>
+        {loader ? <Loader /> : null}
 
       {showMakePost ? (
         <MakePost
@@ -239,6 +260,7 @@ function AllTickets() {
           handleChange={handleChange}
           complaintData={complaintData}
           uploading={uploading}
+          setShowMakePost={setShowMakePost}
        />
        ) : (
         <>
@@ -338,7 +360,8 @@ function AllTickets() {
           ))}
           </div>
         </>
-          )}   
+          )}    
+          
         </div>
       </section>
       <ToastContainer />

@@ -80,12 +80,15 @@ router.post('/login', async (req, res) => {
     if (passwordCheck) {
       const token = jwt.sign({ id: userExists._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
-      res.cookie('token', token, cookieData);
-      res.cookie('username', userExists.username, { ...cookieData, httpOnly: false });
-      res.cookie('name', name, { ...cookieData, httpOnly: false });
-      res.cookie('email', email, { ...cookieData, httpOnly: false });
-      res.cookie('role', role, { ...cookieData, httpOnly: false });
-      res.status(200).json({ message: 'Login successful', username, token, name, email, role });
+      // res.cookie('token', token, cookieData);
+      // res.cookie('username', userExists.username, { ...cookieData, httpOnly: false });
+      // res.cookie('name', name, { ...cookieData, httpOnly: false });
+      // res.cookie('email', email, { ...cookieData, httpOnly: false });
+      // res.cookie('role', role, { ...cookieData, httpOnly: false });
+      const tosend = {
+        message: 'Login successful', username, token, name, email, role
+      }
+      res.status(200).json(tosend);
     } 
     
     else {
@@ -100,11 +103,11 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  res.clearCookie('token', { ...cookieData, expires: new Date(0) });
-  res.clearCookie('username', { ...cookieData, expires: new Date(0) });
-  res.clearCookie('name', { ...cookieData, expires: new Date(0) });
-  res.clearCookie('email', { ...cookieData, expires: new Date(0) });
-  res.clearCookie('role', { ...cookieData, expires: new Date(0) });
+  // res.clearCookie('token', { ...cookieData, expires: new Date(0) });
+  // res.clearCookie('username', { ...cookieData, expires: new Date(0) });
+  // res.clearCookie('name', { ...cookieData, expires: new Date(0) });
+  // res.clearCookie('email', { ...cookieData, expires: new Date(0) });
+  // res.clearCookie('role', { ...cookieData, expires: new Date(0) });
   res.json({ message: 'Logout successful' });
 }); 
 
