@@ -13,6 +13,10 @@ const schema = new mongoose.Schema({
     username: {
         type: String
     },
+    profile: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     universityID: {
         type: String
     },
