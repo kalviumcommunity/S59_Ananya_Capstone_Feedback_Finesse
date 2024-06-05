@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+h1.one-myticket {
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: #900000;
+    font-size: 2rem;
+    margin: 5vh 0vh 3vh 0vh;
+}
+
+div.two-myticket button {
+    padding: 1vh 2vh 1vh 2vh;
+    outline: none;
+    transition: ease;
+    transition-duration: 0.6s;
+    border: 1px solid #730101;
+}
+
+div.two-myticket button.option-active {
+    background-color: #900000;
+    color: white;
+    border: 1px solid #5e0101;
+}
+
+div.two-myticket button:active {
+    background-color: #90000059;
+    transition-duration: 0.5s;
+}

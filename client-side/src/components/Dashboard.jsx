@@ -23,7 +23,8 @@ const CustomTooltip = styled(({ className, ...props }) => (
   },
   [`& .${tooltipClasses.arrow}`]: {
     color: '#570303',
-    fontSize: "3vh",
+    fontSize: "2.2vh",
+    marginTop: "-6px"
   },
 }));
 
