@@ -10,7 +10,7 @@ div#navbar {
     top: 0;
     width: 100%;
     z-index: 3;
-    height: 11.5vh;
+    height: 11.6vh;
     background-color: white;
 }
 
@@ -18,7 +18,7 @@ div#navbar #comp1 {
     /* height: 5vw; */
     background-image: url('../assets/logo.png');
     background-size: cover;
-    height: 11vh;
+    height: 10.8vh;
     width: 21vw;
     margin-bottom: 0.5vh;
 }

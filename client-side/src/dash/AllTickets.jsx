@@ -14,6 +14,19 @@ import user from "../assets/profile.png"
 import ConfirmDelete from "./ConfirmDelete";
 import ConfirmUpdate from "./ConfirmUpdate";
 import Loader from "../components/Loader";
+import { Fade, Tooltip, styled, tooltipClasses } from "@mui/material";
+import zIndex from "@mui/material/styles/zIndex";
+
+const BootstrapTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} style={{position: "relative", zIndex: 0}} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
 
 function AllTickets() {
 
@@ -272,11 +285,17 @@ function AllTickets() {
               <div><h3 className="text-darkred font-bold flex flex-row items-center user"> <img style={{height: "8vh", width: "8vh", boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.6)", borderRadius: "50%"}} src={user} alt="" className="mr-3" />{file.username}</h3></div>
               <div className="progress-tracker flex flex-row">
                 <div className="status-tracker">
+                  <BootstrapTooltip title="Submitted" arrow TransitionComponent={Fade}>
                   <div className={`circle ${getStatusStep(file.status) >= 0 ? "active" : ""}`}>1</div>
+                  </BootstrapTooltip>
                   <div className={`line ${getStatusStep(file.status) >= 1 ? "active" : ""}`}></div>
+                  <BootstrapTooltip title="In Progress" arrow TransitionComponent={Fade}>
                   <div className={`circle ${getStatusStep(file.status) >= 1 ? "active" : ""}`}>2</div>
+                  </BootstrapTooltip>
                   <div className={`line ${getStatusStep(file.status) >= 2 ? "active" : ""}`}></div>
+                  <BootstrapTooltip title="Resolved" arrow TransitionComponent={Fade}>
                   <div className={`circle ${getStatusStep(file.status) >= 2 ? "active" : ""}`}>3</div>
+                  </BootstrapTooltip>
                 </div>
               </div>
             </div>
