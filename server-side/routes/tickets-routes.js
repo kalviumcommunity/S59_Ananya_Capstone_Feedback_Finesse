@@ -43,7 +43,7 @@ router.post('/makepost', async (req, res) => {
     }
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found with the mentioned name" });
     }
       
     const newComplaint = new Ticket({ ...postDetails, picture, username, profile: user._id });

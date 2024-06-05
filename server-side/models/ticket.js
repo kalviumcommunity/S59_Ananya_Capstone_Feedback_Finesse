@@ -15,7 +15,6 @@ const schema = new mongoose.Schema({
     },
     profile: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         ref: 'User'
     },
     universityID: {
