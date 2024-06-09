@@ -5,7 +5,7 @@ div#makepost {
 }
 
 div#makepost form {
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.222);
     padding: 4vh 3vh 4vh 3vh;
     border-radius: 1vh;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.452);

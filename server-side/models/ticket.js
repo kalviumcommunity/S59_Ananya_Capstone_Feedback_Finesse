@@ -30,6 +30,9 @@ const schema = new mongoose.Schema({
     },
     adminNote: {
         type: String,
+    },
+    date: {
+        type: Date
     }
 })
 
