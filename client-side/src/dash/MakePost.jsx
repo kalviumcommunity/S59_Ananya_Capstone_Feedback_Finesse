@@ -41,15 +41,9 @@ const GreenTick = styled('div')({
   }
 });
 
-// const FileInputContainer = styled('div')({
-
-// });
-
 const HiddenFileInput = styled('input')({
   display: 'none'
 });
-
-
 
 function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handleChange, complaintData, uploading, setShowMakePost}) {
 
