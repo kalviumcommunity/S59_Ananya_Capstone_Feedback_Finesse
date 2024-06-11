@@ -15,7 +15,7 @@ import ConfirmDelete from "./ConfirmDelete";
 import ConfirmUpdate from "./ConfirmUpdate";
 import Loader from "../components/Loader";
 import { Fade, Tooltip, styled, tooltipClasses } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
+import { format, differenceInMinutes, differenceInHours, differenceInDays } from "date-fns";
 
 const BootstrapTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} arrow classes={{ popper: className }} style={{position: "relative", zIndex: 0}} />
@@ -50,6 +50,7 @@ function AllTickets() {
     username: sessionStorage.getItem("username"),
     universityID: "",
     hostel: "",
+    date: ""
   });
   
   const [imageUpload, setImageUpload] = useState([]);
@@ -146,6 +147,7 @@ function AllTickets() {
     setLoader(true)
     try {
       complaintData.picture = imageUrls;
+      complaintData.date = new Date().toISOString();
       const tosend = complaintData;
       const response = await fetch(
         `${import.meta.env.VITE_URI}/complaint/makepost`,
@@ -166,7 +168,9 @@ function AllTickets() {
           username: sessionStorage.getItem("username"),
           universityID: "",
           hostel: "",
+          date: new Date().toISOString()
         });
+        console.log(setComplaintData)
         setImageUpload([]);
         setImageUrls([]);
         // setLoader(false)
@@ -240,6 +244,31 @@ function AllTickets() {
       }
     }
   }, [updateID, updatePost, setUpdateID, setUpdatePost]);
+
+
+  const formatDate = (date) => {
+    if (!date) {
+      return "Date not available";
+    }
+  
+    const postDate = new Date(date);
+    if (isNaN(postDate)) {
+      return "Invalid date";
+    }
+  
+    const now = new Date();
+    const minutesDifference = differenceInMinutes(now, postDate);
+    const hoursDifference = differenceInHours(now, postDate);
+    const daysDifference = differenceInDays(now, postDate);
+  
+    if (minutesDifference < 60) {
+      return `Posted ${minutesDifference} minute(s) ago`;
+    } else if (hoursDifference < 24) {
+      return `Posted ${hoursDifference} hour(s) ago`;
+    } else {
+      return `Posted on ${format(postDate, "dd MMMM")}`;
+    }
+  };
 
   return (
     <>
@@ -351,10 +380,11 @@ function AllTickets() {
                 </div>
               )}
             </div>
+            <p className="dateofpost">{formatDate(file.date)}</p>
 
           {confirmDelete ? <ConfirmDelete deletePost={deletePost} setConfirmDelete={setConfirmDelete} setDeletePost={setDeletePost} /> : null}
           {updatePost ? <ConfirmUpdate updateID={updateID} setUpdateID={setUpdateID} setUpdatePost={setUpdatePost} toSend={toSend} complaintData={complaintData} setComplaintData={setComplaintData} setPost={setPost} /> : null}
-            
+          
             <hr className="fifthrow" />
             <div className="fifthrow">
             <span className="flex flex-row justify-between mt-3" id="last-buttons">

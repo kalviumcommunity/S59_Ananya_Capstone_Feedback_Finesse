@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import "./DashCSS/MyTickets.css"
 import { toast } from "react-toastify"
 import Popup from "./Popup";
+import { format, differenceInMinutes, differenceInHours, differenceInDays } from "date-fns";
+import { Button, Tooltip } from "@mui/material";
 
 function MyTickets() {
 
@@ -75,6 +77,30 @@ function MyTickets() {
     setViewIndvPost(false);
   };
 
+  const formatDate = (date) => {
+    if (!date) {
+      return "Date not available";
+    }
+  
+    const postDate = new Date(date);
+    if (isNaN(postDate)) {
+      return "Invalid date";
+    }
+  
+    const now = new Date();
+    const minutesDifference = differenceInMinutes(now, postDate);
+    const hoursDifference = differenceInHours(now, postDate);
+    const daysDifference = differenceInDays(now, postDate);
+  
+    if (minutesDifference < 60) {
+      return `Posted ${minutesDifference} minute(s) ago`;
+    } else if (hoursDifference < 24) {
+      return `Posted ${hoursDifference} hour(s) ago`;
+    } else {
+      return `Posted on ${format(postDate, "dd MMMM")}`;
+    }
+  };
+
   return (
     <>
       <section className="main">
@@ -91,23 +117,32 @@ function MyTickets() {
             <button className={filterData == "Submitted" ? "option-active" : null} onClick={(e) => handleFilterData(e, "Submitted")}>Submitted</button>
             <button className={filterData == "In Progress" ? "option-active" : null} onClick={(e) => handleFilterData(e, "In Progress")}>In Progress</button>
           </div>
-          {viewIndvPost && (
-        <Popup indvPost={indvPost} onClose={closePopup} />
-        )}
+          {viewIndvPost && (<Popup indvPost={indvPost} onClose={closePopup} /> )}
           <div>
             {filterPost.length > 0 ? filterPost.map((file) => (
-              <div key={file._id} className="my-eachpost flex justify-between gap-10 flex-wrap">
-                <div>
-                  <div>{file.title}</div>
-                  <div onClick={() => getPostData(file._id)}>Click to view entire post</div>
+              <div key={file._id} className="my-eachpost">
+                <div className="flex justify-between gap-10 flex-wrap">
+                <div className="flex flex-col gap-4">
+                  <div><span style={{color: "#6e0101", fontWeight: "700", textDecoration: "underline"}}>Title of the post:</span> {file.title}</div>
+                  <div className="click-to-view-entirepost" onClick={() => getPostData(file._id)}>click to view entire post</div>
                 </div>
-                <div>
-                  <div>Status: {file.status}</div>
-                  <div>Admin's note: {file.adminNote ? file.adminNote : "Our admins are currently reviewing your request"}</div>
+                <div className="flex flex-col gap-6">
+                  <div><span style={{color: "#6e0101", fontWeight: "700"}}>Status:</span> {file.status}</div>
+                  <div><span style={{color: "#6e0101", fontWeight: "700"}}>Admin's note:</span> {file.adminNote ? file.adminNote : "Our admins are currently reviewing your request"}</div>
                 </div>
+                <p className="dateofpost">{formatDate(file.date)}</p>
+                </div>
+
+                {role == "admin" ? <button>Add an admin note</button> : 
+                <Tooltip followCursor title="You don't have permission to do this">
+                <Button className="admindis">Add an admin note</Button>
+                </Tooltip>
+                }
+
+                rate our action !
               </div>
             )) : 
-            <h3>No data found</h3>
+            <h3 className="mt-5 ml-1 font-bold admin-note text-2xl" style={{fontFamily: "Dosis", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.35)"}}>No data found</h3>
             }
           </div>
         </div>
