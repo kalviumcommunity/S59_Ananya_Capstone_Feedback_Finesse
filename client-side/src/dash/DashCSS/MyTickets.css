@@ -38,6 +38,32 @@ div.my-eachpost {
   padding: 2vh;
 }
 
+div.my-eachpost button{
+  background-color: #900000;
+  color: white;
+  padding: 1.5vh;
+  margin-top: 2vh;
+  transition-duration: 0.5s;
+}
+
+div.my-eachpost button.admindis:hover {
+  color: rgb(255, 255, 255);
+  background-color: #7301019b;
+  cursor: not-allowed;
+}
+
+div.click-to-view-entirepost {
+  font-family: 'Dosis';
+  font-variant: small-caps;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+div.click-to-view-entirepost:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .popup-bg-view {
   position: fixed;
   top: 0;
@@ -49,19 +75,43 @@ div.my-eachpost {
   display: flex;
   justify-content: center;
   align-items: center;
+
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
 }
 
 .popup-content {
   background: #fff;
-  overflow: scroll;
-  padding: 20px;
+  overflow-y: scroll;
+  padding: 20px 0px 20px 0px;
   border-radius: 3px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: 80vh;
-  transform: scale(0.8);
-  transition: transform 0.3s ease;
+  width: 70vw;
+  animation: slide-down 0.5s ease-out;
+  margin-top: 10vh;
 }
 
-.popup-overlay .popup-content {
-  transform: scale(1);
+.popup-bg-view ::-webkit-scrollbar {
+  background-color: #73010152;
+  width: 8px;
+}
+
+.popup-bg-view ::-webkit-scrollbar-thumb {
+  background-color: #730101;
+}
+
+div.admin-note {
+  font-weight: 900;
+  font-family: "Numans";
+  font-size: 1.3rem;
 }
