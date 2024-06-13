@@ -90,5 +90,24 @@ router.delete('/delete/:id', async (req, res) => {
   }
 })
 
+router.post('/adminNote', async (req, res) => {
+  try {
+    const { postId, adminNote } = req.body;
+    const post = await Ticket.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    post.adminNote = adminNote;
+    await post.save();
+
+    res.status(200).json({ message: 'Admin note added successfully', post });
+  } 
+  
+  catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 module.exports = router;

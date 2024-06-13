@@ -115,3 +115,18 @@ div.admin-note {
   font-family: "Numans";
   font-size: 1.3rem;
 }
+
+span.submit-admin-note {
+  background-color: #7301014d;
+  font-family: 'Dosis';
+  padding: 0.7vh;
+  box-shadow: 2px 2px #730101cb;
+  border: 1px solid rgba(0, 0, 0, 0.66);
+  cursor: pointer;
+  transition-duration: 0.5s;
+}
+
+span.submit-admin-note:active {
+  transform: translateY(-2px);
+  transition-duration: 0.5s;
+}

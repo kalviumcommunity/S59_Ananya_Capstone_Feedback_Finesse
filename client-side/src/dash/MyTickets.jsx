@@ -5,13 +5,14 @@ import "./DashCSS/MyTickets.css"
 import { toast } from "react-toastify"
 import Popup from "./Popup";
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from "date-fns";
-import { Button, Tooltip, Rating, styled, Box } from "@mui/material";
+import { Button, Tooltip, Rating, styled, Box, TextField } from "@mui/material";
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import PropTypes from 'prop-types'
+import CreateRoundedIcon from '@mui/icons-material/CreateRounded';
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -68,6 +69,17 @@ function MyTickets() {
 
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
+
+  const [showTextField, setShowTextField] = useState(false);
+  const [adminNote, setAdminNote] = useState({});
+
+  const toggleTextField = (postId) => {
+    setShowTextField((prev) => ({ ...prev, [postId]: !prev[postId] }));
+  };
+  
+  const handleAdminNoteChange = (postId, value) => {
+    setAdminNote((prev) => ({ ...prev, [postId]: value }));
+  };
 
   useEffect(() => {
     setLoader(true)
@@ -151,6 +163,40 @@ function MyTickets() {
     }
   };
 
+  const handleAdminNoteSubmit = (e, postId) => {
+    if (adminNote[postId] && adminNote[postId].trim() !== "") {
+      fetch(`${import.meta.env.VITE_URI}/complaint/adminNote`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId, adminNote: adminNote[postId] }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            toast.error(data.error);
+          } else {
+            toast.success("Admin note added successfully");
+            setShowTextField((prev) => ({ ...prev, [postId]: false }));
+            setAdminNote((prev) => ({ ...prev, [postId]: "" }));
+            setPost((prevPosts) => prevPosts.map((post) =>
+              post._id === postId ? { ...post, adminNote: adminNote[postId] } : post
+            ));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Could not add admin note");
+        });
+    } 
+    
+    else {
+      toast.error("Please add a note before submitting");
+    }
+  };
+  
+
   return (
     <>
       <section className="main">
@@ -183,12 +229,25 @@ function MyTickets() {
                 <p className="dateofpost">{formatDate(file.date)}</p>
                 </div>
 
-                {role == "admin" ? <button>Add an admin note</button> : 
+                {role == "admin" ? 
+                  <>
+                  <button onClick={() => toggleTextField(file._id)}>Add an admin note</button>
+                  {showTextField[file._id] && (
+                    <Box sx={{ display: 'flex', alignItems: 'flex-end', flexWrap: "wrap" }}>
+                      <CreateRoundedIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                      <TextField id="input-with-sx" label="Write down" variant="standard" value={adminNote[file._id] || ""}
+                        onChange={(e) => handleAdminNoteChange(file._id, e.target.value)} />
+                      <span onClick={(e) => handleAdminNoteSubmit(e, file._id)} className="ml-3 submit-admin-note">Click if done</span>
+                    </Box>
+                  )}
+                </>
+                : 
                 <Tooltip followCursor title="You don't have permission to do this">
                 <Button className="admindis">Add an admin note</Button>
                 </Tooltip>
                 }
 
+                {role == "user" ?
                 <div className="flex gap-5">
                   <span className="text-black font-mono">Rate our action!</span>
                   <Box sx={{ display: 'flex', alignItems: 'center',gap: 1}}>
@@ -203,8 +262,7 @@ function MyTickets() {
                       highlightSelectedOnly/>
                     {value !== null && (<Box sx={{ ml: 2 }}>{customIcons[hover !== -1 ? hover : value].label}</Box>)}
                   </Box>
-                </div>
-
+                </div> : null }
               </div>
             )) : 
             <h3 className="mt-5 ml-1 font-bold admin-note text-2xl" style={{fontFamily: "Dosis", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.35)"}}>No data found</h3>
