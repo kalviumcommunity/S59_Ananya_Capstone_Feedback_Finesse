@@ -42,7 +42,7 @@ div.my-eachpost button{
   background-color: #900000;
   color: white;
   padding: 1.5vh;
-  margin-top: 2vh;
+  margin: 2vh 0vh 2vh 0vh;
   transition-duration: 0.5s;
 }
 

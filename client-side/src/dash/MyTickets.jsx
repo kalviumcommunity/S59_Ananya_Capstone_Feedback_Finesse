@@ -5,7 +5,54 @@ import "./DashCSS/MyTickets.css"
 import { toast } from "react-toastify"
 import Popup from "./Popup";
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from "date-fns";
-import { Button, Tooltip } from "@mui/material";
+import { Button, Tooltip, Rating, styled, Box } from "@mui/material";
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import PropTypes from 'prop-types'
+
+const StyledRating = styled(Rating)(({ theme }) => ({
+  '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+    color: theme.palette.action.disabled,
+  },
+}));
+
+const customIcons = {
+  0: {
+
+  },
+  1: {
+    icon: <SentimentVeryDissatisfiedIcon color="error" />,
+    label: 'Very Dissatisfied',
+  },
+  2: {
+    icon: <SentimentDissatisfiedIcon color="error" />,
+    label: 'Dissatisfied',
+  },
+  3: {
+    icon: <SentimentSatisfiedIcon color="warning" />,
+    label: 'Neutral',
+  },
+  4: {
+    icon: <SentimentSatisfiedAltIcon color="success" />,
+    label: 'Satisfied',
+  },
+  5: {
+    icon: <SentimentVerySatisfiedIcon color="success" />,
+    label: 'Very Satisfied',
+  },
+};
+
+function IconContainer(props) {
+  const { value, ...other } = props;
+  return <span {...other}>{customIcons[value].icon}</span>;
+}
+
+IconContainer.propTypes = {
+  value: PropTypes.number.isRequired,
+};
 
 function MyTickets() {
 
@@ -18,6 +65,9 @@ function MyTickets() {
 
   const [indvPost, setIndvPost] = useState(null)
   const [viewIndvPost, setViewIndvPost] = useState(false)
+
+  const [value, setValue] = useState(0);
+  const [hover, setHover] = useState(-1);
 
   useEffect(() => {
     setLoader(true)
@@ -139,7 +189,22 @@ function MyTickets() {
                 </Tooltip>
                 }
 
-                rate our action !
+                <div className="flex gap-5">
+                  <span className="text-black font-mono">Rate our action!</span>
+                  <Box sx={{ display: 'flex', alignItems: 'center',gap: 1}}>
+                    <StyledRating
+                      name="highlight-selected-only"
+                      value={value}
+                      precision={1}
+                      IconContainerComponent={IconContainer}
+                      getLabelText={(value) => customIcons[value].label}
+                      onChange={(event, newValue) => {setValue(newValue)}}
+                      onChangeActive={(event, newHover) => {setHover(newHover)}}
+                      highlightSelectedOnly/>
+                    {value !== null && (<Box sx={{ ml: 2 }}>{customIcons[hover !== -1 ? hover : value].label}</Box>)}
+                  </Box>
+                </div>
+
               </div>
             )) : 
             <h3 className="mt-5 ml-1 font-bold admin-note text-2xl" style={{fontFamily: "Dosis", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.35)"}}>No data found</h3>
