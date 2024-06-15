@@ -13,6 +13,15 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import PropTypes from 'prop-types'
 import CreateRoundedIcon from '@mui/icons-material/CreateRounded';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import PublishRoundedIcon from '@mui/icons-material/PublishRounded';
+
+const options = [
+  { value: 'Resolved', label: 'Resolved' },
+  { value: 'Submitted', label: 'Submitted' },
+  { value: 'In Progress', label: 'In Progress' }
+]
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -72,6 +81,12 @@ function MyTickets() {
 
   const [showTextField, setShowTextField] = useState(false);
   const [adminNote, setAdminNote] = useState({});
+  const [statusUpdate, setStatusUpdate] = useState({});
+  const [showDropdown, setShowDropdown] = useState({});
+
+  const toggleDropdown = (postId) => {
+    setShowDropdown((prev) => ({ ...prev, [postId]: !prev[postId] }));
+  };  
 
   const toggleTextField = (postId) => {
     setShowTextField((prev) => ({ ...prev, [postId]: !prev[postId] }));
@@ -81,6 +96,36 @@ function MyTickets() {
     setAdminNote((prev) => ({ ...prev, [postId]: value }));
   };
 
+  const handleStatusChange = (postId, value) => {
+    setLoader(true)
+    fetch(`${import.meta.env.VITE_URI}/complaint/updateStatus`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postId, status: value }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          toast.error(data.error);
+        } 
+        
+        else {
+          toast.success("Status updated successfully");
+          setPost((prevPosts) => prevPosts.map((post) =>
+            post._id === postId ? { ...post, status: value } : post
+          ));
+          setShowDropdown((prev) => ({ ...prev, [postId]: false }))
+          setLoader(false)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Could not update status");
+      });
+  };
+  
   useEffect(() => {
     setLoader(true)
     fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
@@ -117,7 +162,7 @@ function MyTickets() {
 
   useEffect(() => {
     segregateData()
-  }, [post, filterData, role, indvPost]);
+  }, [post, filterData, role, indvPost, handleStatusChange]);
 
   const getPostData = (id) => {
     setLoader(true)
@@ -195,7 +240,7 @@ function MyTickets() {
       toast.error("Please add a note before submitting");
     }
   };
-  
+
 
   return (
     <>
@@ -230,7 +275,9 @@ function MyTickets() {
                 </div>
 
                 {role == "admin" ? 
-                  <>
+                <>
+                <div className="flex items-start justify-between">
+                  <div>
                   <button onClick={() => toggleTextField(file._id)}>Add an admin note</button>
                   {showTextField[file._id] && (
                     <Box sx={{ display: 'flex', alignItems: 'flex-end', flexWrap: "wrap" }}>
@@ -240,6 +287,20 @@ function MyTickets() {
                       <span onClick={(e) => handleAdminNoteSubmit(e, file._id)} className="ml-3 submit-admin-note">Click if done</span>
                     </Box>
                   )}
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    {showDropdown[file._id] && (
+                      <Dropdown
+                        className="mt-5"
+                        options={options}
+                        value={file.status}
+                        onChange={(option) => handleStatusChange(file._id, option.value)}
+                        placeholder="Select an option"/>
+                    )}                    
+                  {!showDropdown[file._id] ? <button onClick={() => toggleDropdown(file._id)}>Update Status</button> : null}
+                  </div>
+                </div>
                 </>
                 : 
                 <Tooltip followCursor title="You don't have permission to do this">
@@ -262,7 +323,8 @@ function MyTickets() {
                       highlightSelectedOnly/>
                     {value !== null && (<Box sx={{ ml: 2 }}>{customIcons[hover !== -1 ? hover : value].label}</Box>)}
                   </Box>
-                </div> : null }
+                </div> 
+                : null }
               </div>
             )) : 
             <h3 className="mt-5 ml-1 font-bold admin-note text-2xl" style={{fontFamily: "Dosis", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.35)"}}>No data found</h3>

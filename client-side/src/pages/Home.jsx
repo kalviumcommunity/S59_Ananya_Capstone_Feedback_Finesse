@@ -19,7 +19,7 @@ export default function Home() {
         />
         </h1>
         <h4>Your Voice, Our Action</h4>
-        <Link to={'/signup'}>
+        <Link to={'/dashboard/home'}>
         <button>JOIN NOW</button>
         </Link>
       </section>
