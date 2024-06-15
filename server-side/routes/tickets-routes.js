@@ -110,4 +110,25 @@ router.post('/adminNote', async (req, res) => {
   }
 });
 
+router.post('/updateStatus', async (req, res) => {
+  try {
+    const { postId, status } = req.body;
+    const post = await Ticket.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    post.status = status;
+    await post.save();
+
+    res.status(200).json({ message: 'Status updated successfully', post });
+  } 
+  catch (error) {
+    console.error("Error updating status", error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 module.exports = router;

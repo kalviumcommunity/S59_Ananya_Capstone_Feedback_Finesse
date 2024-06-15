@@ -44,6 +44,7 @@ div.my-eachpost button{
   padding: 1.5vh;
   margin: 2vh 0vh 2vh 0vh;
   transition-duration: 0.5s;
+  border-radius: 1vh;
 }
 
 div.my-eachpost button.admindis:hover {

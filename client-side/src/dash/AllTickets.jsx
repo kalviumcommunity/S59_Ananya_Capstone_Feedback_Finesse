@@ -317,11 +317,11 @@ function AllTickets() {
                   <BootstrapTooltip title="Submitted" arrow TransitionComponent={Fade}>
                   <div className={`circle ${getStatusStep(file.status) >= 0 ? "active" : ""}`}>1</div>
                   </BootstrapTooltip>
-                  <div className={`line ${getStatusStep(file.status) >= 1 ? "active" : ""}`}></div>
+                  <div className="line" id={`${getStatusStep(file.status) >= 1 ? "lineactive" : ""}`}></div>
                   <BootstrapTooltip title="In Progress" arrow TransitionComponent={Fade}>
                   <div className={`circle ${getStatusStep(file.status) >= 1 ? "active" : ""}`}>2</div>
                   </BootstrapTooltip>
-                  <div className={`line ${getStatusStep(file.status) >= 2 ? "active" : ""}`}></div>
+                  <div className="line" id={`${getStatusStep(file.status) >= 2 ? "lineactive" : ""}`}></div>
                   <BootstrapTooltip title="Resolved" arrow TransitionComponent={Fade}>
                   <div className={`circle ${getStatusStep(file.status) >= 2 ? "active" : ""}`}>3</div>
                   </BootstrapTooltip>
