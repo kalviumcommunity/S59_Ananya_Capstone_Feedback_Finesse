@@ -14,7 +14,7 @@ const createUser = async (userData) => {
 }
 
 beforeAll(async () => {
-  await mongoose.connect(process.env.URI)
+  await mongoose.connect(process.env.URI_TEST)
 })
 
 afterAll(async () => {
@@ -92,7 +92,7 @@ describe("Testing the paths", () => {
       const response = await request(app).post('/register/signup').send(newUser)
       expect(response.statusCode).toBe(500)
       expect(response.body).toHaveProperty('message', 'Internal server error')
-      await mongoose.connect(process.env.URI)
+      await mongoose.connect(process.env.URI_TEST)
     })
   })
 
@@ -140,7 +140,7 @@ describe("Testing the paths", () => {
       const response = await request(app).post('/register/login').send({ username: 'testuser', password: 'testpassword'})
       expect(response.statusCode).toBe(500)
       expect(response.body).toHaveProperty('message', 'Internal server error')
-      await mongoose.connect(process.env.URI)
+      await mongoose.connect(process.env.URI_TEST)
     })
   })
 
