@@ -16,8 +16,8 @@ const cookieData = {
 
 router.get('/', async (req, res) => {
   try {
-      const user = await User.find()
-      res.json(user)
+    const user = await User.find()
+    res.json(user)
   }
   catch (error) {
     console.error("There was an error while fetching users:", error);
