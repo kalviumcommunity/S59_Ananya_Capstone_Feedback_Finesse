@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../CSS/CompleteRegister.css";
+import Cookies from "js-cookie"
 
 function CompleteRegister({ googleData, setLogin, login }) {
   const {
