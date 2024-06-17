@@ -170,7 +170,7 @@ function AllTickets() {
           hostel: "",
           date: new Date().toISOString()
         });
-        console.log(setComplaintData)
+        // console.log(setComplaintData)
         setImageUpload([]);
         setImageUrls([]);
         // setLoader(false)
