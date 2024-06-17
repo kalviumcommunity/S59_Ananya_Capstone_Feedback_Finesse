@@ -15,6 +15,13 @@ const schema = new mongoose.Schema({
     },
     role: {
         type: String
+    },
+    verify: {
+        type: Boolean,
+        default: false
+    },
+    otp: { 
+        type: String
     }
 })
 

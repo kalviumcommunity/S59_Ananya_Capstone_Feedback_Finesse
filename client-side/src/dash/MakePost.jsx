@@ -48,7 +48,7 @@ const HiddenFileInput = styled('input')({
 function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handleChange, complaintData, uploading, setShowMakePost}) {
 
   const validateForm = () => {
-    console.log(complaintData)
+    // console.log(complaintData)
     const { title, content, universityID, hostel, picture, username } = complaintData;
     if (!title || !content || !universityID || !hostel || !picture || !imageUpload.length || !username) {
       return false;
