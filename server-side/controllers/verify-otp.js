@@ -22,10 +22,11 @@ const sendOTPEmail = async (email, otp) => {
     // console.log(`Sent OTP: ${otp} to ${email}`);
     return otp;
   } 
-  
+
   catch (error) {
     console.error('Error sending OTP email:', error);
   }
-};
+}
 
 module.exports = { sendOTPEmail };
+

@@ -56,6 +56,8 @@ function MakePost({setImageUpload, imageUpload, uploadImage, handleSubmit, handl
     return true;
   }
 
+  // console.log(complaintData)
+
   const [hostelInputValue, setHostelInputValue] = useState('');
   const [progress, setProgress] = useState(0);
   const [dragActive, setDragActive] = useState(false);
