@@ -11,6 +11,11 @@ const google = require("./routes/google-routes");
 
 const app = express();
 
+const path = require('path');
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(express.json());
 app.use(cors({
     credentials: true,
@@ -24,8 +29,8 @@ app.use("/complaint", ticket);
 app.use("/google", google);
 
 app.get('/', (req, res) => {
-    const status = mongoose.connection.readyState == 1 ? 'Connected 😎😎' : 'Not Connected 😓😓';
-    res.send(`Your DataBase connection status is: ${status}`);
+  const status = mongoose.connection.readyState == 1 ? 'Connected 😎😎' : 'Not Connected 😓😓';
+  res.send(`Your DataBase connection status is: ${status}`);
 });
 
 module.exports = app;

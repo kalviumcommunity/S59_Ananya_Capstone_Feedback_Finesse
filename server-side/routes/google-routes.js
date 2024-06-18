@@ -67,11 +67,6 @@ router.post('/signin', async (req, res) => {
           console.error('Error generating token:', err);
           return res.status(500).json('Internal server error - login');
         }
-        // res.cookie('token', token, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        // res.cookie('username', username, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        // res.cookie("name", name, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        // res.cookie("email", email, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
-        // res.cookie("role", role, { httpOnly: false, expires: new Date(Date.now() + 12 * 3600000) })
         res.status(200).json({ message: 'Login successful', username, token, name, email, role });
       })
     } 
@@ -125,6 +120,24 @@ router.delete('/cleanup', async (req, res) => {
     }
   });
 });
+
+router.delete('/delete/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedUser = await GoogleUser.findByIdAndDelete(id);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } 
+  catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 
 module.exports = router;

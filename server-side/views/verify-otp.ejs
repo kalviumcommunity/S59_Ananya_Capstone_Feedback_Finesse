@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify OTP</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+</head>
+<body>
+    <h1>Verify OTP</h1>
+    <form action="/register/verify-otp-email" method="post" id="verify-otp-form">
+        <input type="hidden" name="email" value="<%= email %>">
+        <label for="otp">OTP:</label>
+        <input type="text" id="otp" name="otp" required>
+        <button type="submit">Verify OTP</button>
+    </form>
+    <form action="/register/resend-otp" method="post" id="resend-otp-form">
+        <input type="hidden" name="email" value="<%= email %>">
+        <button type="submit">Resend OTP</button>
+    </form>
+    <script>
+        document.getElementById('resend-otp-form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const email = document.querySelector('input[name="email"]').value;
+
+            fetch('/register/resend-otp', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('verify-otp-form').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        const email = document.querySelector('input[name="email"]').value;
+        const otp = document.getElementById('otp').value;
+
+        fetch('/register/verify-otp-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email, otp: otp })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Response from server:", data);
+            Cookies.set('token', data.token, { expires: 1 });
+            Cookies.set('name', data.name, { expires: 1 });
+            Cookies.set('username', data.username, { expires: 1 });
+            Cookies.set('email', email, { expires: 1 });
+            Cookies.set('role', data.role, { expires: 1 });
+            setTimeout(() => {
+              console.log('Redirecting to dashboard...');
+              window.location.href = `http://localhost:5173/dashboard/home`; 
+            }, 10000);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+    </script>
+</body>
+</html>

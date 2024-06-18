@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../CSS/CompleteRegister.css";
+import Cookies from "js-cookie"
 
 function CompleteRegister({ googleData, setLogin, login }) {
   const {
@@ -29,6 +30,7 @@ function CompleteRegister({ googleData, setLogin, login }) {
 
   const onSubmit = async (data) => {
     // e.preventDefault();
+    // console.log(googleData, data)
     if (googleData.name && googleData.emailID && googleData.role && data.username && data.password) {
       const tosend = {
         name: googleData.name,
@@ -36,6 +38,7 @@ function CompleteRegister({ googleData, setLogin, login }) {
         username: data.username,
         password: data.password,
         role: googleData.role,
+        verify: true
       };
 
       try {
@@ -59,15 +62,15 @@ function CompleteRegister({ googleData, setLogin, login }) {
           // toast.info("Almost done ! Complete the registration process now");
           sessionStorage.clear();
           sessionStorage.setItem("name", googleData.name);
-          sessionStorage.setItem("username", data.username);
           sessionStorage.setItem("email", googleData.emailID);
           sessionStorage.setItem("role", googleData.role);
+          sessionStorage.setItem("username", data.username);
           setToken(message.token)
 
-          Cookies.set('token', token, { expires: 1 })
+          Cookies.set('token', message.token, { expires: 1 })
           Cookies.set('name', googleData.name, { expires: 1 })
-          Cookies.set('username', googleData.username, { expires: 1 })
-          Cookies.set('email', googleData.email, { expires: 1 })
+          Cookies.set('username', data.username, { expires: 1 })
+          Cookies.set('email', googleData.emailID, { expires: 1 })
           Cookies.set('role', googleData.role, { expires: 1 })
 
           setShowPopup(true);

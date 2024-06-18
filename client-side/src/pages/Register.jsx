@@ -55,25 +55,34 @@ function Register() {
         );
         const message = await response.json();
         if (response.ok) {
-          setCompleteRegister(false)
-          toast.success("Congratulations for registering with us !");
-          sessionStorage.clear();
-          sessionStorage.setItem("name", data.name);
-          sessionStorage.setItem("username", data.username);
-          sessionStorage.setItem("email", data.email);
-          sessionStorage.setItem("role", data.role);
-          setToken(message.token)
           
-          Cookies.set('token', message.token, { expires: 1 })
-          Cookies.set('name', data.name, { expires: 1 })
-          Cookies.set('username', data.username, { expires: 1 })
-          Cookies.set('email', data.email, { expires: 1 })
-          Cookies.set('role', data.role, { expires: 1 })
+          if (!message.verify) {
+            setCompleteRegister(false)
+            // toast.success("Congratulations for registering with us !");
+            // sessionStorage.clear();
+            // sessionStorage.setItem("name", data.name);
+            // sessionStorage.setItem("username", data.username);
+            // sessionStorage.setItem("email", data.email);
+            // sessionStorage.setItem("role", data.role);
+            // setToken(message.token)
+            
+            // Cookies.set('token', message.token, { expires: 1 })
+            // Cookies.set('name', data.name, { expires: 1 })
+            // Cookies.set('username', data.username, { expires: 1 })
+            // Cookies.set('email', data.email, { expires: 1 })
+            // Cookies.set('role', data.role, { expires: 1 })
 
-          setShowPopup(true);
-          setInterval(() => {
-            setCountdown((prev) => prev - 1);
-          }, 1000);
+            window.location.href = `${import.meta.env.VITE_URI}/register/verify-otp?email=${message.email}`;
+
+          } 
+          
+          else {
+            toast.success("Congratulations for registering with us!");
+            setShowPopup(true);
+            setInterval(() => {
+              setCountdown((prev) => prev - 1);
+            }, 1000);
+          }
         } 
         
         else {
