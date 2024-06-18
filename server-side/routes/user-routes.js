@@ -6,7 +6,7 @@ const Guser = require("../models/google-schema.js")
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const salt = bcrypt.genSaltSync(8)
-const sendOTPEmail = require("../controllers/verify-otp.js")
+const {sendOTPEmail} = require("../controllers/verify-otp.js")
 
 connectToDataBase();
 
@@ -28,9 +28,9 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-  const { name, username, email, password, role } = req.body;
+  const { name, username, email, password, role, verify, _id } = req.body;
   try {
-    const existingEmail = await User.findOne({ email });
+    const existingEmail = await User.findOne({ email }) || await Guser.findOne({ email });
     const existingUsername = await User.findOne({ username });
 
     if (existingEmail) {
@@ -42,27 +42,35 @@ router.post('/signup', async (req, res) => {
     }
 
     const googleUser = await Guser.findOne({ email }); 
-    if (googleUser) {
+    if (googleUser || verify) {
+      // console.log(googleUser)
+      const token = jwt.sign({ id: _id }, process.env.SECRET_KEY, { expiresIn: '1h' });
       const newUser = new User({ name, username, email, password: bcrypt.hashSync(password, salt), role, verify: true });
+      // console.log(newUser)
       await newUser.save();
-      res.status(201).json({ message: 'User registered successfully' });
+      res.status(201).json({ message: 'User registered successfully', token, username });
     }
-
-    const newUser = new User({ name, username, email, password: bcrypt.hashSync(password, salt), role });
+    else {
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    const newUser = new User({ name, username, email, password: bcrypt.hashSync(password, salt), role, verify: false, otp: otp });
     await newUser.save();
+    await sendOTPEmail(email, otp);
+    res.status(201).json({ message: 'User registered successfully. Please verify your OTP to complete registration.', name, username, email, role, verify: false });
+    }
+  }
 
-    await sendOTPEmail(email);
-
-    res.status(201).json({ message: 'User registered successfully. Please verify your OTP to complete registration.' });
-  } 
   catch (error) {
     console.error('Error during user registration:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
 
+router.get('/verify-otp', (req, res) => {
+  const { email } = req.query;
+  res.render('verify-otp', { email });
+});
 
-router.post('/verify-otp', async (req, res) => {
+router.post('/verify-otp-email', async (req, res) => {
   const { email, otp } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -70,7 +78,7 @@ router.post('/verify-otp', async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: 'User not found' });
     }
-
+    console.log(otp, user.otp)
     if (user.otp !== otp) {
       return res.status(400).json({ message: 'Invalid OTP' });
     }
@@ -81,10 +89,30 @@ router.post('/verify-otp', async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
     const { name, username, role } = user;
-
-    res.status(200).json({ message: 'OTP verified successfully', token, username, name, role });
-  } catch (error) {
+    console.log(name, username, role, token)
+    res.status(200).json({ message: 'OTP verified successfully', token, username, name, role, email });
+  } 
+  catch (error) {
     console.error('Error verifying OTP:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+router.post('/resend-otp', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+    const otp = await sendOTPEmail(email)
+    user.otp = otp;
+    await user.save();
+    res.status(200).json({ message: 'OTP resent successfully' });
+  } 
+  
+  catch (error) {
+    console.error('Error resending OTP:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
@@ -98,7 +126,6 @@ router.post('/login', async (req, res) => {
     }
     const { name, email, role} = userExists
     const passwordCheck = bcrypt.compareSync(password, userExists.password);
-    // console.log(passwordCheck)
 
     if (passwordCheck) {
       const token = jwt.sign({ id: userExists._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
@@ -122,6 +149,23 @@ router.post('/login', async (req, res) => {
 router.get('/logout', (req, res) => {
   res.json({ message: 'Logout successful' });
 }); 
+
+router.delete('/delete/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedUser = await User.findByIdAndDelete(id);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } 
+  catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 module.exports = router;
