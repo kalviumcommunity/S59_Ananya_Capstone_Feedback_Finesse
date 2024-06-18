@@ -71,7 +71,6 @@ router.get('/verify-otp', (req, res) => {
 });
 
 router.post('/verify-otp-email', async (req, res) => {
-  // console.log(req.body)
   const { email, otp } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -80,7 +79,7 @@ router.post('/verify-otp-email', async (req, res) => {
       return res.status(400).json({ message: 'User not found' });
     }
     console.log(otp, user.otp)
-    if (user.otp != otp) {
+    if (user.otp !== otp) {
       return res.status(400).json({ message: 'Invalid OTP' });
     }
 
@@ -101,7 +100,6 @@ router.post('/verify-otp-email', async (req, res) => {
 
 router.post('/resend-otp', async (req, res) => {
   const { email } = req.body;
-  // console.log(email)
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -128,7 +126,6 @@ router.post('/login', async (req, res) => {
     }
     const { name, email, role} = userExists
     const passwordCheck = bcrypt.compareSync(password, userExists.password);
-    // console.log(passwordCheck)
 
     if (passwordCheck) {
       const token = jwt.sign({ id: userExists._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
