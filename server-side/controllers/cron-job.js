@@ -36,7 +36,7 @@ const sendEmailToAllUsers = async () => {
 };
 
 const scheduleEmails = () => {
-  sendEmailToAllUsers();
+  // sendEmailToAllUsers();
   schedule.scheduleJob('0 20 * * 0', () => { 
     sendEmailToAllUsers();
   });
