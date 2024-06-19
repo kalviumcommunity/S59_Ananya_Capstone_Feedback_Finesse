@@ -21,7 +21,6 @@ router.post("/create-order", async (req, res) => {
       currency: "INR",
     }
     const order = await instance.orders.create(options)
-    // console.log(order)
     if (!order) return res.status(500).send("Some error occured")
     res.json(order)
   } 

@@ -36,7 +36,7 @@ const sendEmailToAllUsers = async () => {
 };
 
 const scheduleEmails = () => {
-  // sendEmailToAllUsers();
+  // sendEmailToAllUsers(); removed this because it was sending a mail each time I restarted the server
   schedule.scheduleJob('0 20 * * 0', () => { 
     sendEmailToAllUsers();
   });
