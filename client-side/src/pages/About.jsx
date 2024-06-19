@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import "../CSS/About.css"
 import qa from "../assets/qa.png"
+import Coffee from "../dash/Coffee";
 
 export default function AccordionDemo() {
   return (
@@ -86,7 +87,7 @@ export default function AccordionDemo() {
   </AccordionItem>
 </Accordion>
     </section>
-
+  <Coffee/>
     </div>
   );
 }
