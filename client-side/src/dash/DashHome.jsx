@@ -2,6 +2,7 @@ import Dashboard from "@/components/Dashboard";
 import React, {useEffect, useState} from "react";
 import "./DashCSS/DashHome.css"
 import World from "@/components/World";
+import Coffee from "./Coffee"
 import { Link } from "react-router-dom";
 
 function DashHome() {
@@ -58,13 +59,8 @@ function DashHome() {
         <div className="dash-box">Total number of users registered with us: </div>
         <div className="dash-box">Number of posts made today</div>
       </div>
-      <div>
-        Add your review here and get featured !
-      </div>
-      <div>
-        Connect with our admins !
-        
-      </div>
+
+      <Coffee />
     </div>
     </section>
     }

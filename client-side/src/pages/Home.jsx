@@ -20,7 +20,7 @@ export default function Home() {
         </h1>
         <h4>Your Voice, Our Action</h4>
         <Link to={'/dashboard/home'}>
-        <button>JOIN NOW</button>
+        <button>START NOW</button>
         </Link>
       </section>
       <section id="pic">

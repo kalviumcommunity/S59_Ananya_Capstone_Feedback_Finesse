@@ -9,7 +9,7 @@ div#navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 3;
+    z-index: 30;
     height: 11.6vh;
     background-color: white;
 }

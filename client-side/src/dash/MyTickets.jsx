@@ -258,7 +258,7 @@ function MyTickets() {
             <button className={filterData == "Submitted" ? "option-active" : null} onClick={(e) => handleFilterData(e, "Submitted")}>Submitted</button>
             <button className={filterData == "In Progress" ? "option-active" : null} onClick={(e) => handleFilterData(e, "In Progress")}>In Progress</button>
           </div>
-          {viewIndvPost && (<Popup indvPost={indvPost} onClose={closePopup} /> )}
+
           <div>
             {filterPost.length > 0 ? filterPost.map((file) => (
               <div key={file._id} className="my-eachpost">
@@ -274,6 +274,8 @@ function MyTickets() {
                 <p className="dateofpost">{formatDate(file.date)}</p>
                 </div>
 
+                {viewIndvPost && (<Popup indvPost={indvPost} onClose={closePopup} /> )}
+                
                 {role == "admin" ? 
                 <>
                 <div className="flex items-start justify-between">
@@ -288,7 +290,7 @@ function MyTickets() {
                     </Box>
                   )}
                   </div>
-
+                 
                   <div className="flex items-center gap-4">
                     {showDropdown[file._id] && (
                       <Dropdown
