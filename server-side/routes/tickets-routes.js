@@ -3,13 +3,25 @@ const router = express.Router();
 const { connectToDataBase } = require('../db.js');
 const Ticket = require('../models/ticket.js');
 const User = require("../models/user-schema.js")
+const rateLimit = require('express-rate-limit')
 
 connectToDataBase();
 
+const makePostLimiter = rateLimit({
+  windowMs: 24 * 60 * 60 * 1000, 
+  max: 10, 
+  message: 'You can only generate a specified number of tickets in a week'
+})
+
+router.use((req, res, next) => {
+  req.userIdentifier = req.sessionID
+  next()
+})
+
 router.get('/viewpost', async (req, res) => {
   try {
-      const data = await Ticket.find()
-      res.json(data)
+    const data = await Ticket.find()
+    res.json(data)
   }
   catch (error) {
     console.error("There was an error while fetching data:", error);
@@ -34,7 +46,7 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.post('/makepost', async (req, res) => {
+router.post('/makepost', makePostLimiter, async (req, res) => {
   const { username, picture, ...postDetails } = req.body;
 
   try {  
