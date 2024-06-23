@@ -26,7 +26,7 @@ const World = () => {
 
   return (
     <>
-    <div className="globe-container">
+    <div className="globe-container" style={{cursor: "none", pointerEvents: "none"}}>
       <Globe
         ref={globeRef}
         polygonsData={land}

@@ -4,7 +4,7 @@ require('dotenv').config()
 
 const model = new ChatGoogleGenerativeAI({
   modelName: "gemini-pro",
-  apiKey: process.env.VITE_GENAI_API_KEY
+  apiKey: process.env.GENAI_API_KEY
 })
 
 async function getAIResponse(question) {

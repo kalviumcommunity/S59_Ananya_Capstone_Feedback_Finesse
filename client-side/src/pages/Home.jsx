@@ -4,12 +4,16 @@ import Typewriter from 'typewriter-effect';
 import { Link } from "react-router-dom";
 import World from "../components/World"
 import ai from "../assets/ai.jpg"
+import { Tooltip, Zoom } from "@mui/material";
 
 export default function Home() {
+
   return (
     <>
     <div id="interact-with-bot-notif">
+      <Tooltip title="Login in to interact with our AI bot" arrow placement="right" TransitionComponent={Zoom}>
       <img src={ai} alt="ai" />
+      </Tooltip>
     </div>
     <section id="home">
       <section id="text">
