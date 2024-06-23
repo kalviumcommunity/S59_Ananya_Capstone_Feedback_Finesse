@@ -101,6 +101,15 @@ section#text button:after {
 section#text button:hover:after {
     top: -45%;
 }
+
+div#interact-with-bot-notif {
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+    height: 10vh;
+    width: 10vh;
+}
   
 @media (max-width: 750px) {
     section#text h1 {
