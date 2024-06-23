@@ -9,6 +9,7 @@ const user = require("./routes/user-routes");
 const ticket = require("./routes/tickets-routes");
 const google = require("./routes/google-routes");
 const payment = require("./routes/payment-routes")
+const { getAIResponse } = require('./genai');
 
 const app = express();
 
@@ -29,6 +30,18 @@ app.use("/register", user);
 app.use("/complaint", ticket);
 app.use("/google", google);
 app.use("/payment", payment)
+
+
+app.post('/chatbot', async (req, res) => {
+  const { query } = req.body;
+  try {
+    const response = await getAIResponse(query);
+    res.json({ response });
+  } 
+  catch (error) {
+    res.status(500).json({ error: 'Failed to get response', error });
+  }
+});
 
 app.get('/', (req, res) => {
   const status = mongoose.connection.readyState == 1 ? 'Connected 😎😎' : 'Not Connected 😓😓';

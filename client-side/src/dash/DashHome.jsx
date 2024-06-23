@@ -4,6 +4,7 @@ import "./DashCSS/DashHome.css"
 import World from "@/components/World";
 import Coffee from "./Coffee"
 import { Link } from "react-router-dom";
+import ChatBot from "./ChatBot";
 
 function DashHome() {
   const [post, setPost] = useState([])
@@ -60,7 +61,8 @@ function DashHome() {
         <div className="dash-box">Number of posts made today</div>
       </div>
 
-      <Coffee />
+      <ChatBot />
+      {/* <Coffee /> */}
     </div>
     </section>
     }
