@@ -19,8 +19,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
 app.use(cors({
-    credentials: true,
-    origin: ['http://localhost:5173', process.env.FRONTEND]
+  credentials: true,
+  origin: ['http://localhost:5173', process.env.FRONTEND]
 }));
 app.use(cookieParser());
 

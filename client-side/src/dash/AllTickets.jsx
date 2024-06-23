@@ -180,6 +180,10 @@ function AllTickets() {
       else if (response.status === 400) {
         toast.error("Please upload relevant pictures to your problem");
       } 
+
+      else if (response.status == 429) {
+        toast.info("Too many requests ! Please try again later")
+      }
       
       else {
         toast.error("There was a server error");

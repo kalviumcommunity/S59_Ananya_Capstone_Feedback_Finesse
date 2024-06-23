@@ -3,14 +3,27 @@ const router = express.Router();
 const { connectToDataBase } = require('../db.js');
 const Ticket = require('../models/ticket.js');
 const User = require("../models/user-schema.js")
+const rateLimit = require('express-rate-limit')
 
 connectToDataBase();
 
+const makePostLimiter = rateLimit({
+  windowMs: 24 * 60 * 60 * 1000, 
+  max: 10, 
+  message: 'You can only generate a specified number of tickets in a week'
+})
+
+router.use((req, res, next) => {
+  req.userIdentifier = req.sessionID
+  next()
+})
+
 router.get('/viewpost', async (req, res) => {
   try {
-      const data = await Ticket.find()
-      res.json(data)
+    const data = await Ticket.find()
+    res.json(data)
   }
+  
   catch (error) {
     console.error("There was an error while fetching data:", error);
     res.status(500).json({ error: 'Internal server error' });
@@ -34,7 +47,7 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.post('/makepost', async (req, res) => {
+router.post('/makepost', makePostLimiter, async (req, res) => {
   const { username, picture, ...postDetails } = req.body;
 
   try {  
@@ -52,16 +65,16 @@ router.post('/makepost', async (req, res) => {
     res.status(201).json({ message: 'Complaint registered successfully' });
   } 
   
-    catch (error) {
-      if (error.name === "ValidationError") {
-        console.error("Validation error was detected", error);
-        res.status(400).json({ message: 'Validation error', error: error.message });
-      }  
-      else {
-        console.error("Server error was detected", error);
-        res.status(500).json({ message: 'Internal server error' });
-      }
+  catch (error) {
+    if (error.name === "ValidationError") {
+      console.error("Validation error was detected", error);
+      res.status(400).json({ message: 'Validation error', error: error.message });
+    }  
+    else {
+      console.error("Server error was detected", error);
+      res.status(500).json({ message: 'Internal server error' });
     }
+  }
 });
 
 router.patch('/update/:id', async (req, res) => {
@@ -72,6 +85,7 @@ router.patch('/update/:id', async (req, res) => {
     }
     res.json(blog)
   }
+
   catch (error) {
     res.status(500).json({error: "An error has been caught"})
   }
@@ -124,11 +138,11 @@ router.post('/updateStatus', async (req, res) => {
 
     res.status(200).json({ message: 'Status updated successfully', post });
   } 
+
   catch (error) {
     console.error("Error updating status", error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 module.exports = router;
