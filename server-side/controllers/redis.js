@@ -16,6 +16,11 @@ redisClient.connect()
   
 const manageRedis = async (req, res, next) => {
   try {
+    if (!redisClient.isOpen) {
+      console.error('Redis client is not connected')
+      return next()
+    }
+
     const { username } = req.params;
     if (!username) {
       return next()
