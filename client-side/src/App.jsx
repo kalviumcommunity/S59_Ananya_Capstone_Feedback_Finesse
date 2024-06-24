@@ -12,6 +12,8 @@ import AllTickets from "./dash/AllTickets";
 import MyTickets from "./dash/MyTickets";
 import Contact from "./dash/Contact";
 import DashHome from "./dash/DashHome";
+import Notifications from "./dash/Notifications"
+import { NotificationsProvider } from './NotificationsContext';
 
 export const loginContext = createContext(null);
 
@@ -21,6 +23,7 @@ export default function App() {
   return (
     <>
       <loginContext.Provider value={{ login, setLogin }}>
+        <NotificationsProvider>
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -30,6 +33,7 @@ export default function App() {
             <Route path="/dashboard/all" element={<AllTickets/>}/>
             <Route path="/dashboard/user" element={<MyTickets/>}/>
             <Route path="/dashboard/contact" element={<Contact/>}/>
+            <Route path="/dashboard/notifications" element={<Notifications/>}/>
 
           <Route path="/about" element={<About />} />
           <Route path="/signin" element={<SignIn />} />
@@ -46,6 +50,7 @@ export default function App() {
             ></i>
           }
         />
+        </NotificationsProvider>
       </loginContext.Provider>
     </>
   );

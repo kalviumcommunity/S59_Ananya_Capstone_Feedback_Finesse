@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import "../CSS/Dashboard.css"
 import { Tooltip, Button, Zoom, tooltipClasses, styled } from '@mui/material';
+import { useNotifications } from '../NotificationsContext';
 
 const CustomTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} sx={{
@@ -44,6 +45,8 @@ function Dashboard() {
     setUserData({ username, name, email, role });
   }, []);
 
+  const { notifications } = useNotifications();
+
   return (
     <>
     {userData.name ? 
@@ -71,6 +74,15 @@ function Dashboard() {
             </Button>
           </CustomTooltip>
             </Link>
+
+            <Link to={"/dashboard/notifications"}>
+          <CustomTooltip arrow TransitionComponent={Zoom} title="Notifications" placement="right-start">
+            <Button>
+            {notifications.length == 0 ? "" : <span id='notification-badge'>{notifications.length}</span>}
+            <i className='bx bxs-bell-ring'></i>
+            </Button>
+          </CustomTooltip>
+              </Link>
 
             <Link to={"/dashboard/profile"}>
           <CustomTooltip arrow TransitionComponent={Zoom} title="Profile" placement="right-start">
