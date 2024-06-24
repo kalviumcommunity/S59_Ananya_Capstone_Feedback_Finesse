@@ -4,7 +4,7 @@ const { connectToDataBase } = require('../db.js');
 const Ticket = require('../models/ticket.js');
 const User = require("../models/user-schema.js")
 const rateLimit = require('express-rate-limit')
-const { manageRedis } = require("../controllers/redis.js")
+const { manageRedis, redisClient } = require("../controllers/redis.js")
 
 connectToDataBase();
 

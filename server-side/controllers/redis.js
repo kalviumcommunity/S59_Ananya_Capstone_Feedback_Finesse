@@ -40,4 +40,4 @@ const manageRedis = async (req, res, next) => {
   // next()
 }
 
-module.exports = { manageRedis };
+module.exports = { manageRedis, redisClient };
