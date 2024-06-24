@@ -206,7 +206,7 @@ div#lineactive {
   /* background: linear-gradient(to right, #d4ffa3, #8ddc39); */
   /* background: linear-gradient(to right, #a3d4ff, #4739dc);  */
   background-color: #74c7bd7b;
-  background: linear-gradient(to right, #56d7c8be, #10403b);
+  background: linear-gradient(to right, #39a89bbe, #10403b);
 }
 
 .circle.active {
@@ -215,12 +215,12 @@ div#lineactive {
 }
 
 .circle:nth-of-type(1).active {
-  background-color: #74c7be;
+  background-color: #63c0b5;
 }
 
 /* .circle:nth-of-type(2).active {
 } */
 
 .circle:nth-of-type(3).active {
-  background-color: #127369;
+  background-color: #0e746a;
 }

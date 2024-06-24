@@ -4,6 +4,7 @@ const { connectToDataBase } = require('../db.js');
 const Ticket = require('../models/ticket.js');
 const User = require("../models/user-schema.js")
 const rateLimit = require('express-rate-limit')
+const { manageRedis } = require("../controllers/redis.js")
 
 connectToDataBase();
 
@@ -29,6 +30,28 @@ router.get('/viewpost', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 })
+
+router.get('/viewpost/:username?', manageRedis, async (req, res) => {
+  const { username } = req.params
+  try {
+    if (username) {
+      const user = await User.findOne({ username })
+
+      if (user) {
+        const data = user.role == 'admin' ? await Ticket.find() : await Ticket.find({ username })
+        await redisClient.setEx(`viewpost:${username}`, 3600, JSON.stringify(data))
+        return res.json(data)
+      } 
+      else return res.status(404).json({ error: 'User not found' })
+    }
+  } 
+  
+  catch (error) {
+    res.status(500).json({ error: 'Internal server error' })
+  }
+});
+
+
 
 router.get('/:id', async (req, res) => {
   const postId = req.params.id;
