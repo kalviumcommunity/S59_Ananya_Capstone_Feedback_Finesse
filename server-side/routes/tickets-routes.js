@@ -19,6 +19,13 @@ router.use((req, res, next) => {
   next()
 })
 
+async function invalidateCacheForAllPosts() {
+  const users = await User.find();
+  for (const user of users) {
+    await redisClient.del(`viewpost:${user.username}`);
+  }
+}
+
 router.get('/viewpost', async (req, res) => {
   try {
     const data = await Ticket.find()
@@ -84,7 +91,7 @@ router.post('/makepost', makePostLimiter, async (req, res) => {
       
     const newComplaint = new Ticket({ ...postDetails, picture, username, profile: user._id });
     await newComplaint.save();
-
+    await invalidateCacheForAllPosts()
     res.status(201).json({ message: 'Complaint registered successfully' });
   } 
   
@@ -106,6 +113,7 @@ router.patch('/update/:id', async (req, res) => {
     if (!blog) {
       return res.status(404).json("No result found"); 
     }
+    await redisClient.del(`viewpost:${blog.username}`);
     res.json(blog)
   }
 
@@ -120,6 +128,7 @@ router.delete('/delete/:id', async (req, res) => {
     if (!blog) {
       return res.status(404).json("No result found"); 
     }
+    await redisClient.del(`viewpost:${blog.username}`);
     res.send("Item deleted successfully")
   }
   catch (error) {
