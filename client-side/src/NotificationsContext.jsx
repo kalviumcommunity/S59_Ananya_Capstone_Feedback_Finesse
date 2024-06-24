@@ -20,6 +20,9 @@ export const NotificationsProvider = ({ children }) => {
       setNotifications((prev) => [...prev, e])
     })
 
+    return () => {
+      createNew.disconnect()
+    }
   }, [])
 
   return (
