@@ -130,6 +130,13 @@ div.secondrow {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.086);
 }
 
+p.dateofpost {
+  margin: 0vh 0vh 2vh 4.5vh;
+  color: gray;
+  font-family: 'Numans';
+  letter-spacing: -1.5px;
+}
+
 div.thirdrow {
   margin: 0vh 6vh 1vh 2.5vh;
   /* background-color: rgba(198, 198, 198, 0.321); */

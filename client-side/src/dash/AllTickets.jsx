@@ -16,8 +16,6 @@ import ConfirmUpdate from "./ConfirmUpdate";
 import Loader from "../components/Loader";
 import { Fade, Tooltip, styled, tooltipClasses } from "@mui/material";
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from "date-fns";
-import { Badge } from "flowbite-react";
-import { HiClock } from "react-icons/hi";
 
 const BootstrapTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} arrow classes={{ popper: className }} style={{position: "relative", zIndex: 0}} />
@@ -386,7 +384,7 @@ function AllTickets() {
                 </div>
               )}
             </div>
-            <Badge color="indigo" icon={HiClock} style={{width: "fit-content"}} className="ml-7 mb-3 text-sm">{formatDate(file.date)}</Badge>
+            <p className="dateofpost">{formatDate(file.date)}</p>
 
           {confirmDelete ? <ConfirmDelete deletePost={deletePost} setConfirmDelete={setConfirmDelete} setDeletePost={setDeletePost} /> : null}
           {updatePost ? <ConfirmUpdate updateID={updateID} setUpdateID={setUpdateID} setUpdatePost={setUpdatePost} toSend={toSend} complaintData={complaintData} setComplaintData={setComplaintData} setPost={setPost} /> : null}

@@ -8,12 +8,8 @@ import { loginContext } from "../App";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Cookies from 'js-cookie'
-import io from 'socket.io-client';
-import { useNotifications } from '../NotificationsContext';
 
 function SignIn() {
-  const { socket } = useNotifications();
-  
   const [isToggled, setIsToggled] = useState(false);
   const {
     register,
@@ -90,8 +86,6 @@ function SignIn() {
             setInterval(() => {
               setCountdown((prev) => prev - 1);
             }, 1000);
-
-            socket.emit('register', message.username)
           }
         } 
         
@@ -156,8 +150,6 @@ function SignIn() {
           setInterval(() => {
             setCountdown((prev) => prev - 1);
           }, 1000);
-
-          socket.emit('register', message.username)
         } 
         
         else {
