@@ -1,0 +1,23 @@
+h2.notif-head {
+    font-size: 1.8em;
+    text-align: center;
+    color: #580000;
+    font-weight: 600;
+    font-family: 'Dosis';
+    background-color: #90000025;
+    width: 80%;
+}
+
+span.notif-bar {
+    width: 80%;
+    /* background-color: aliceblue; */
+    border-bottom: 1px solid rgba(128, 128, 128, 0.258);
+}
+
+span.notif-each {
+    width: 70%;
+    background-color: rgb(217, 236, 253);
+    border-radius: 1.5vh;
+    font-size: 1.1rem;
+    font-family: "Numans";
+}

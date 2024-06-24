@@ -43,6 +43,26 @@ section.main div.contentmain {
     margin: 0vh 6vh 0vh 10vh;
 }
 
+span#notification-badge {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color:  orange;
+    color: white;
+    padding: 0.5vh 1vh;
+    border-radius: 50%;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2em;
+    height: 2em;
+    transform: translate(50%, -50%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    font-weight: bold;
+}
+
 @media (max-width: 750px) {
     .sidebar {
       top: 9vh;
