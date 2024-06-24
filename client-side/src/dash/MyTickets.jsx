@@ -128,7 +128,7 @@ function MyTickets() {
   
   useEffect(() => {
     setLoader(true)
-    fetch(`${import.meta.env.VITE_URI}/complaint/viewpost`)
+    fetch(`${import.meta.env.VITE_URI}/complaint/viewpost/${sessionStorage.getItem("username")}`)
       .then((res) => res.json())
       .then((res) => {
         setPost(res)
@@ -149,10 +149,6 @@ function MyTickets() {
 
   const segregateData = () => {
     let filtered = post;
-
-    if (role != "admin") {
-      filtered = filtered.filter(post => post.username === username);
-    }
 
     if (filterData != "All") {
       filtered = filtered.filter(post => post.status === filterData);
@@ -249,7 +245,7 @@ function MyTickets() {
           <Dashboard />
         </div>
         {/* <Loader/> */}
-        <div className="main-child ml-7"> 
+        <div className="main-child ml-7" style={{display: "block"}}> 
           { loader ? <Loader /> : null }
           <h1 className="one-myticket">TRACK THE PROGRESS OF YOUR COMPLAINTS</h1>
           <div className="flex gap-4 two-myticket">
