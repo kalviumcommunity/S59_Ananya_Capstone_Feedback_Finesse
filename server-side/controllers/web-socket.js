@@ -34,8 +34,13 @@ const makeWebSocket = (server) => {
 
 const notifyUser = (username, message) => {
   const socketId = userSockets[username]
-  if (socketId && io.sockets.sockets.has(socketId)) io.to(socketId).emit('notification', message)
-  else console.log(`Socket not found for user ${username}`)
+  try {
+    if (socketId && io.sockets.sockets.has(socketId)) io.to(socketId).emit('notification', message)
+    else console.log(`Socket not found for user ${username}`)
+  }
+  catch {
+    console.log("Error notifying to user")
+  }
 }
 
 module.exports = { makeWebSocket, notifyUser }
