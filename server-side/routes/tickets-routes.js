@@ -5,6 +5,7 @@ const Ticket = require('../models/ticket.js');
 const User = require("../models/user-schema.js")
 const rateLimit = require('express-rate-limit')
 const { manageRedis, redisClient } = require("../controllers/redis.js")
+const { notifyUser } = require("../controllers/web-socket.js")
 
 connectToDataBase();
 
@@ -147,7 +148,8 @@ router.post('/adminNote', async (req, res) => {
 
     post.adminNote = adminNote;
     await post.save();
-
+    await redisClient.del(`viewpost:${post.username}`)
+    notifyUser(post.username, `An admin posted a note to your ticket titled "${post.title}"`)
     res.status(200).json({ message: 'Admin note added successfully', post });
   } 
   
@@ -167,7 +169,8 @@ router.post('/updateStatus', async (req, res) => {
 
     post.status = status;
     await post.save();
-
+    await redisClient.del(`viewpost:${post.username}`)
+    notifyUser(post.username, `Your ticket titled "${post.title}" has been updated to ${status}`)
     res.status(200).json({ message: 'Status updated successfully', post });
   } 
 
