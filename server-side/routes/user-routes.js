@@ -78,7 +78,7 @@ router.post('/verify-otp-email', async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: 'User not found' });
     }
-    console.log(otp, user.otp)
+    // console.log(otp, user.otp)
     if (user.otp !== otp) {
       return res.status(400).json({ message: 'Invalid OTP' });
     }
@@ -89,7 +89,7 @@ router.post('/verify-otp-email', async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
     const { name, username, role } = user;
-    console.log(name, username, role, token)
+    // console.log(name, username, role, token)
     res.status(200).json({ message: 'OTP verified successfully', token, username, name, role, email });
   } 
   catch (error) {
@@ -124,7 +124,9 @@ router.post('/login', async (req, res) => {
     if (!userExists) {
       return res.status(400).json('User not found');
     }
-    const { name, email, role} = userExists
+
+    const { name, email, role, verify} = userExists
+    if (verify) {
     const passwordCheck = bcrypt.compareSync(password, userExists.password);
 
     if (passwordCheck) {
@@ -138,6 +140,17 @@ router.post('/login', async (req, res) => {
     else {
       res.status(400).json('Wrong credentials');
     }
+    }
+
+    else {
+      const otp = Math.floor(100000 + Math.random() * 900000);
+      userExists.otp = otp
+      await userExists.save()
+      // console.log("verify again", userExists.otp)
+      await sendOTPEmail(email, otp);
+      res.status(201).json({ message: 'Please verify your email to complete registration.', name, username, email, role, verify: false });
+    }
+
   } 
 
   catch (error) {

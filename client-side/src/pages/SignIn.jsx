@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { loginContext } from "../App";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import io from 'socket.io-client';
 import { useNotifications } from '../NotificationsContext';
 
@@ -41,10 +41,7 @@ function SignIn() {
     }
   }, [countdown, navigate, login, setLogin]);
 
-  // console.log(isToggled) 
-
   const handleLogin = async () => {
-    // e.preventDefault();
     if (data.username && data.password) {
       try {
         const response = await fetch(
@@ -59,53 +56,53 @@ function SignIn() {
             credentials: 'include'
           }
         );
-
-        const message = await response.json();
-
-        if (response.ok) {
-          const role = isToggled ? "admin" : "user";
-          if (message.role != role) {
-            toast.error(
-              "Please log in with valid credentials for the specified role !"
-            );
-          } 
-          
-          else {
-            toast.success("You have successfully logged in !");
-            sessionStorage.clear();
-            sessionStorage.setItem("username", message.username);
-            sessionStorage.setItem("name", message.name);
-            sessionStorage.setItem("email", message.email);
-            sessionStorage.setItem("role", message.role);
-            setToken(message.token)
-            // console.log(message.token)
-            
-            Cookies.set('token', message.token, { expires: 1 })
-            Cookies.set('name', message.name, { expires: 1 })
-            Cookies.set('username', message.username, { expires: 1 })
-            Cookies.set('email', message.email, { expires: 1 })
-            Cookies.set('role', message.role, { expires: 1 })
-            
-            setShowPopup(true);
-            setInterval(() => {
-              setCountdown((prev) => prev - 1);
-            }, 1000);
-
-            socket.emit('register', message.username)
-          }
-        } 
         
-        else {
+        const message = await response.json();
+        
+        if (response.ok) {
+          console.log("Called");
+          if (message.verify === true) {
+            const role = isToggled ? "admin" : "user";
+            if (message.role !== role) {
+              toast.error(
+                "Please log in with valid credentials for the specified role !"
+              );
+            } else {
+              toast.success("You have successfully logged in !");
+              sessionStorage.clear();
+              sessionStorage.setItem("username", message.username);
+              sessionStorage.setItem("name", message.name);
+              sessionStorage.setItem("email", message.email);
+              sessionStorage.setItem("role", message.role);
+              setToken(message.token);
+              
+              Cookies.set('token', message.token, { expires: 1 });
+              Cookies.set('name', message.name, { expires: 1 });
+              Cookies.set('username', message.username, { expires: 1 });
+              Cookies.set('email', message.email, { expires: 1 });
+              Cookies.set('role', message.role, { expires: 1 });
+              
+              setShowPopup(true);
+              setInterval(() => {
+                setCountdown((prev) => prev - 1);
+              }, 1000);
+
+            }
+            console.log("trueverify");
+          } else {
+            window.location.href = `${import.meta.env.VITE_URI}/register/verify-otp?email=${message.email}`;
+            console.log("falseverify");
+          }
+          console.log(`${import.meta.env.VITE_URI}/register/verify-otp?email=${message.email}`);
+          socket.emit('register', message.username);
+        } else {
           console.error("Login failed");
           toast.error("Please check the entered details !");
         }
-      } 
-      
-      catch (error) {
+      } catch (error) {
         console.error("Login failed:", error);
         toast.error("Any account with the given credential(s) does not exist!");
       }
-
     } 
   };
 
@@ -116,11 +113,10 @@ function SignIn() {
           headers: {
             Authorization: `Bearer ${tokenResponse.access_token}`
           }
-        })
-        // console.log(googleres.data.email)
+        });
         const tosend = {
           emailID: googleres.data.email
-        }
+        };
 
         const response = await fetch(
           `${import.meta.env.VITE_URI}/google/signin`,
@@ -145,29 +141,25 @@ function SignIn() {
           sessionStorage.setItem("email", message.email);
           sessionStorage.setItem("role", message.role);
           setShowPopup(true);
-          setToken(message.token)
-          // console.log(message.token)
-          Cookies.set('token', message.token, { expires: 1 })
-          Cookies.set('name', message.name, { expires: 1 })
-          Cookies.set('username', message.username, { expires: 1 })
-          Cookies.set('email', message.email, { expires: 1 })
-          Cookies.set('role', message.role, { expires: 1 })
+          setToken(message.token);
+          
+          Cookies.set('token', message.token, { expires: 1 });
+          Cookies.set('name', message.name, { expires: 1 });
+          Cookies.set('username', message.username, { expires: 1 });
+          Cookies.set('email', message.email, { expires: 1 });
+          Cookies.set('role', message.role, { expires: 1 });
             
           setInterval(() => {
             setCountdown((prev) => prev - 1);
           }, 1000);
 
-          socket.emit('register', message.username)
-        } 
-        
-        else {
-          console.log(message.message)
+          socket.emit('register', message.username);
+        } else {
+          console.log(message.message);
           console.error("Login failed");
           toast.error("Please check the entered details !");
         }
-      } 
-      
-      catch (error) {
+      } catch (error) {
         console.error("Login failed:", error);
         toast.error("Any account with the given credential(s) does not exist!");
       }
@@ -200,9 +192,8 @@ function SignIn() {
                 {...register("password", {
                   required: "Enter your password please!",
                   pattern: {
-                    value: /^(?=.*[!@#$%^&*()\-_=+{};:,<.>/?`~])\S+$/,
-                    message:
-                      "Your password must have at least one special character !",
+                    value: /^(?=.*[!@#$%^&()\-_=+{};:,<.>/?`~]).*$/,
+                    message: "Your password must have at least one special character !",
                   },
                 })}
               />
