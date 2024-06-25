@@ -62,8 +62,6 @@ function Register() {
           if (!message.verify) {
             setCompleteRegister(false)
             window.location.href = `${import.meta.env.VITE_URI}/register/verify-otp?email=${message.email}`;
-            socket.emit('register', message.username)
-
           } 
           
           else {
@@ -73,6 +71,7 @@ function Register() {
               setCountdown((prev) => prev - 1);
             }, 1000);
           }
+          socket.emit('register', message.username)
         } 
         
         else {
@@ -221,7 +220,7 @@ function Register() {
                   {...register("password", {
                     required: "Enter your password please!",
                     pattern: {
-                      value: /^(?=.*[!@#$%^&*()\-_=+{};:,<.>/?`~])\S+$/,
+                      value: /^(?=.[!@#$%^&()\-_=+{};:,<.>/?`~])\S+$/,
                       message:
                         "Your password must have at least one special character !",
                     },
