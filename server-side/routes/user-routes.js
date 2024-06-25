@@ -43,10 +43,8 @@ router.post('/signup', async (req, res) => {
 
     const googleUser = await Guser.findOne({ email }); 
     if (googleUser || verify) {
-      // console.log(googleUser)
       const token = jwt.sign({ id: _id }, process.env.SECRET_KEY, { expiresIn: '1h' });
       const newUser = new User({ name, username, email, password: bcrypt.hashSync(password, salt), role, verify: true });
-      // console.log(newUser)
       await newUser.save();
       res.status(201).json({ message: 'User registered successfully', token, username });
     }
@@ -78,7 +76,6 @@ router.post('/verify-otp-email', async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: 'User not found' });
     }
-    // console.log(otp, user.otp)
     if (user.otp !== otp) {
       return res.status(400).json({ message: 'Invalid OTP' });
     }
@@ -89,7 +86,6 @@ router.post('/verify-otp-email', async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
     const { name, username, role } = user;
-    // console.log(name, username, role, token)
     res.status(200).json({ message: 'OTP verified successfully', token, username, name, role, email });
   } 
   catch (error) {
@@ -146,7 +142,6 @@ router.post('/login', async (req, res) => {
       const otp = Math.floor(100000 + Math.random() * 900000);
       userExists.otp = otp
       await userExists.save()
-      // console.log("verify again", userExists.otp)
       await sendOTPEmail(email, otp);
       res.status(201).json({ message: 'Please verify your email to complete registration.', name, username, email, role, verify: false });
     }
