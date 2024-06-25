@@ -10,8 +10,11 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import CompleteRegister from "./CompleteRegister";
 import Cookies from "js-cookie"
+import { useNotifications } from '../NotificationsContext';
 
 function Register() {
+  const { socket } = useNotifications();
+
   const {
     register,
     handleSubmit,
@@ -58,21 +61,8 @@ function Register() {
           
           if (!message.verify) {
             setCompleteRegister(false)
-            // toast.success("Congratulations for registering with us !");
-            // sessionStorage.clear();
-            // sessionStorage.setItem("name", data.name);
-            // sessionStorage.setItem("username", data.username);
-            // sessionStorage.setItem("email", data.email);
-            // sessionStorage.setItem("role", data.role);
-            // setToken(message.token)
-            
-            // Cookies.set('token', message.token, { expires: 1 })
-            // Cookies.set('name', data.name, { expires: 1 })
-            // Cookies.set('username', data.username, { expires: 1 })
-            // Cookies.set('email', data.email, { expires: 1 })
-            // Cookies.set('role', data.role, { expires: 1 })
-
             window.location.href = `${import.meta.env.VITE_URI}/register/verify-otp?email=${message.email}`;
+            socket.emit('register', message.username)
 
           } 
           
@@ -136,6 +126,7 @@ function Register() {
           toast.info("Almost done ! Complete the registration process now");
           setLogin(!login)
           setCompleteRegister(true)
+          socket.emit('register', message.username)
         } 
         
         else {
