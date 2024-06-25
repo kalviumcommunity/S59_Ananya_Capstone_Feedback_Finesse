@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
-import { Box, Button, Typography, Avatar, Grid } from '@mui/material'
+import { Box, Button, Typography, Avatar } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const Coffee = () => {
   const checkoutHandler = async () => {
@@ -41,22 +42,25 @@ const Coffee = () => {
     }
   }
 
+  const mediumScreen = useMediaQuery('(max-width:700px)')
+  const smallScreen = useMediaQuery("(max-width: 500px)")
+
   return (
-    <Box display="flex" alignItems="center" justifyContent="center" height="50vh">
-    <Box display="flex" alignItems="center" justifyContent="space-between" mt={5} p={3} boxShadow={3} borderRadius={2} width={'50vw'}>
+    <Box display="flex" alignItems="center" justifyContent="center" height={mediumScreen ? "50vh" : "fit-content"} marginBottom={15}>
+    <Box width={smallScreen ? "80vw" : "50vw"} display="flex" flexDirection={mediumScreen ? 'column-reverse' : 'row'} alignItems="center" justifyContent="space-between" mt={5} p={3} boxShadow={3} borderRadius={2}>
       <Box>
-        <Typography variant="h5" gutterBottom fontSize={29}>
+        <Typography variant="h5" gutterBottom fontSize={mediumScreen ? 19 : 29}>
           Meet the creator of this app, <br></br> Ananya Tewari
         </Typography>
-        <Typography variant="body1" fontSize={20} gutterBottom>
+        <Typography variant="body1" fontSize={mediumScreen ? 15 : 20} gutterBottom>
           Buy her a coffee!🧋
         </Typography>
-        <Button variant="contained" color="primary" onClick={checkoutHandler} sx={{ mt: 2 }}>
+        <Button variant="contained" color="primary" onClick={checkoutHandler} sx={{ mt: mediumScreen ? 1 : 2 }}>
           Buy Now
         </Button>
       </Box>
       <Box>
-        <Avatar src="https://avatars.githubusercontent.com/u/144683235?v=4" alt="Ananya Tewari" sx={{ width: 160, height: 160, mb: 2 }}/>
+        <Avatar src="https://avatars.githubusercontent.com/u/144683235?v=4" alt="Ananya Tewari" sx={{ width: mediumScreen ? 100 : 160, height: mediumScreen ? 100 : 160, mb: 2 }}/>
       </Box>
     </Box>
     </Box>
